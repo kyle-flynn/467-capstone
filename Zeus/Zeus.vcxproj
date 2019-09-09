@@ -130,6 +130,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Message.cpp" />
+    <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="System.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
