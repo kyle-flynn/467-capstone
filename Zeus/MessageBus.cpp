@@ -75,7 +75,7 @@ void MessageBus::poll() {
 		}
 		
 		if (totalTime >= 1.0f) {	
-			std::cout << updates << " updates" << std::endl;
+			// std::cout << updates << " updates" << std::endl;
 			totalTime = 0.0f;
 			updates = 0;
 		}

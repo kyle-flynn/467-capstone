@@ -1,6 +1,9 @@
 #include <SFML/Window.hpp>
 
 #include "MessageBus.h"
+#include "TestSystem.h"
+
+#include "TestMessage.h"
 
 int main()
 {
@@ -12,6 +15,13 @@ int main()
 	// mBus.setUpdatesPerSecond(120); // We can also change the updates per second of the message bus.
 	mBus.start();
 
+	std::shared_ptr<TestSystem> testSystem = std::make_shared<TestSystem>();
+
+	mBus.addSystem(testSystem);
+
+	sf::Clock clock;
+	double timeElapsed = 0;
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -21,6 +31,13 @@ int main()
 			{
 				window.close();
 			}
+		}
+
+		timeElapsed = clock.getElapsedTime().asSeconds();
+		if (timeElapsed >= 1.0) {
+			std::shared_ptr<TestMessage> msg = std::make_shared<TestMessage>("Hello, World!");
+			mBus.sendMessage(msg);
+			clock.restart();
 		}
 
 		window.setActive();

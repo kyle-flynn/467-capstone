@@ -133,11 +133,15 @@
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="System.cpp" />
+    <ClCompile Include="TestMessage.cpp" />
+    <ClCompile Include="TestSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TestMessage.h" />
+    <ClInclude Include="TestSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
