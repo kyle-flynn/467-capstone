@@ -37,7 +37,7 @@ void MessageBus::addSystem(std::shared_ptr<System> system) {
 }
 
 void MessageBus::poll() {
-	std::cout << "MessageBus now polling." << std::endl;
+	//std::cout << "MessageBus now polling." << std::endl;
 	sf::Clock clock;
 
 	float accumulator = 0.0;

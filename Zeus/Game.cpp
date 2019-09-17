@@ -1,14 +1,17 @@
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "MessageBus.h"
 #include "TestSystem.h"
 
 #include "TestMessage.h"
 
+#include "World.h"
+
 int main()
 {
-	sf::Window window(sf::VideoMode(720, 600), "ZEUS");
+	sf::RenderWindow window(sf::VideoMode(720, 600), "ZEUS");
 	window.setFramerateLimit(60);
+	window.setActive();
 
 	// Getting an instance of the message bus and starting its own thread.
 	MessageBus mBus = MessageBus::getInstance();
@@ -19,8 +22,15 @@ int main()
 
 	mBus.addSystem(testSystem);
 
-	sf::Clock clock;
-	double timeElapsed = 0;
+	std::string test;
+	int tiles[4][4] = {
+		{6,6,6,6},
+		{0,0,0,0},
+		{0,0,0,0},
+		{0,0,0,0}
+	};
+
+	World world(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 
 	while (window.isOpen())
 	{
@@ -33,14 +43,8 @@ int main()
 			}
 		}
 
-		timeElapsed = clock.getElapsedTime().asSeconds();
-		if (timeElapsed >= 1.0) {
-			std::shared_ptr<TestMessage> msg = std::make_shared<TestMessage>("Hello, World!");
-			mBus.sendMessage(msg);
-			clock.restart();
-		}
-
-		window.setActive();
+		window.clear(sf::Color::Black);
+		world.draw(window);
 		window.display();
 	}
 
