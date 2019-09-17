@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{9784a173-d8aa-463a-88b5-df50e5e5bdd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{fce9e0b4-5100-44c5-9e1d-0511106fc3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Systems">
+      <UniqueIdentifier>{8f266785-9059-40b4-b665-91273135fe5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Messages">
+      <UniqueIdentifier>{1811132f-bcdb-460f-a542-b7ccb03a0df2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Systems">
+      <UniqueIdentifier>{d18f526f-1704-4ca3-b6ec-3b4e880731d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Messages">
+      <UniqueIdentifier>{5a4d0790-01f4-47a2-b127-f6a9f164de71}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="Message.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBus.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="TestMessage.cpp">
+      <Filter>Source Files\Logic\Messages</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MessageBus.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="TestMessage.h">
+      <Filter>Header Files\Logic\Messages</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
