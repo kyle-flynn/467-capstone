@@ -6,9 +6,11 @@
 #include "TestMessage.h"
 
 #include "World.h"
+#include "Entity.h"
+#include "Component.h"
+#include "HealthComponent.h"
 
-int main()
-{
+int main() {
 	sf::RenderWindow window(sf::VideoMode(720, 600), "ZEUS");
 	window.setFramerateLimit(60);
 	window.setActive();
@@ -32,13 +34,16 @@ int main()
 
 	World world(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 
-	while (window.isOpen())
-	{
+	Entity player;
+	HealthComponent health(4, 4);
+	player.addComponent(health);
+	
+	HealthComponent* c = (HealthComponent*) player.getComponent(1);
+
+	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-			{
+		while (window.pollEvent(event)) {
+			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
 		}
