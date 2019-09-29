@@ -33,18 +33,6 @@
     <Filter Include="Source Files\World">
       <UniqueIdentifier>{21efba99-16c7-4fe1-9226-8f45b65f9751}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Entity">
-      <UniqueIdentifier>{6556e287-c76a-45b3-80da-5bbf2147aca1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Entity\Components">
-      <UniqueIdentifier>{8dd84690-6f81-4e3a-949d-4af34c90511a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entity">
-      <UniqueIdentifier>{f34254a7-ad35-4c7e-bd8a-cb49abf849a9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Entity\Components">
-      <UniqueIdentifier>{c4ef56c5-4313-41bc-8177-ad5bec6c6d6e}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -68,14 +56,11 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files\World</Filter>
     </ClCompile>
-    <ClCompile Include="Entity.cpp">
-      <Filter>Source Files\Entity</Filter>
+    <ClCompile Include="EntitySystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="Component.cpp">
-      <Filter>Source Files\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthComponent.cpp">
-      <Filter>Source Files\Entity\Components</Filter>
+    <ClCompile Include="EntitySystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,14 +82,11 @@
     <ClInclude Include="World.h">
       <Filter>Header Files\World</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entity</Filter>
+    <ClInclude Include="EntityComponentSystem.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthComponent.h">
-      <Filter>Header Files\Entity\Components</Filter>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
