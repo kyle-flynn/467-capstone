@@ -1,6 +1,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "ScreenManager.h"
+#include "GameplayScreen.h"
+#include "MainMenuScreen.h"
 
 #include "MessageBus.h"
 #include "TestSystem.h"
@@ -27,14 +29,6 @@ int main() {
 	mBus.addSystem(testSystem);
 
 	std::string test;
-	int tiles[4][4] = {
-		{6,6,6,6},
-		{10,0,0,0},
-		{10,0,0,0},
-		{10,0,0,0}
-	};
-
-	World world(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 
 	sf::Texture playerTexture;
 	sf::Sprite playerSprite;
@@ -48,6 +42,9 @@ int main() {
 	registry.assign<DrawComponent>(entity, playerTexture, playerSprite);
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 
+	ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	// ScreenManager::getInstance().setScreen(new GameplayScreen());
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -58,7 +55,6 @@ int main() {
 
 		window.clear(sf::Color::Black);
 		ScreenManager::getInstance().draw(window);
-		world.draw(window);
 
 		auto view = registry.view<DrawComponent, PositionComponent>();
 		for (auto entity : view) {

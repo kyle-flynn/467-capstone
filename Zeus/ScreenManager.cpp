@@ -9,8 +9,8 @@ ScreenManager& ScreenManager::getInstance() {
 	return instance;
 }
 
-void ScreenManager::draw(sf::Window& window) {
-	if (this->screen != nullptr) {
+void ScreenManager::draw(sf::RenderWindow& window) {
+	if (this->screen) {
 		this->screen->draw(window);
 	}
 }

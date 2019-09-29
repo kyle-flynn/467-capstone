@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include "Screen.h"
 
@@ -10,7 +10,7 @@
 class ScreenManager {
 public:
 	static ScreenManager& getInstance();
-	void draw(sf::Window& window);
+	void draw(sf::RenderWindow& window);
 	void setScreen(Screen* screen);
 	Screen& getScreen();
 private:

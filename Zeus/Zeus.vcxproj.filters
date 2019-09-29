@@ -42,6 +42,9 @@
     <Filter Include="Source Files\Logic\Managers">
       <UniqueIdentifier>{00d4590b-a913-427f-ae30-fff93af81e38}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Logic\Screens">
+      <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -75,7 +78,13 @@
       <Filter>Source Files\Logic\Managers</Filter>
     </ClCompile>
     <ClCompile Include="Screen.cpp">
-      <Filter>Source Files\Logic</Filter>
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +116,12 @@
       <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
     <ClInclude Include="Screen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
       <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
   </ItemGroup>

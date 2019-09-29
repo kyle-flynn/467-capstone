@@ -4,6 +4,6 @@ Screen::Screen() {
 
 }
 
-void Screen::draw(sf::Window& window) {
+void Screen::draw(sf::RenderWindow& window) {
 	// TODO
 }

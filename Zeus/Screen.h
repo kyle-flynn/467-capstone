@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #ifndef GAME_SCREEN_H
 #define GAME_SCREEN_H
@@ -8,7 +8,7 @@
 class Screen {
 public:
 	Screen();
-	void draw(sf::Window& window);
+	virtual void draw(sf::RenderWindow& window);
 };
 
 #endif
