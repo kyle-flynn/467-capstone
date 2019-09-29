@@ -9,10 +9,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
     </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Header Files\Logic">
       <UniqueIdentifier>{9784a173-d8aa-463a-88b5-df50e5e5bdd9}</UniqueIdentifier>
     </Filter>
@@ -30,6 +26,24 @@
     </Filter>
     <Filter Include="Source Files\Logic\Messages">
       <UniqueIdentifier>{5a4d0790-01f4-47a2-b127-f6a9f164de71}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World">
+      <UniqueIdentifier>{a9f79839-590e-41f8-840b-a3080d1769b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{21efba99-16c7-4fe1-9226-8f45b65f9751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Managers">
+      <UniqueIdentifier>{09059b11-ab91-4fac-a539-ba4ed145c455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Screens">
+      <UniqueIdentifier>{86fefabf-ec4e-4496-ba20-42d8aa640c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Managers">
+      <UniqueIdentifier>{00d4590b-a913-427f-ae30-fff93af81e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Screens">
+      <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -51,6 +65,27 @@
     <ClCompile Include="TestMessage.cpp">
       <Filter>Source Files\Logic\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="EntitySystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="EntitySystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -67,6 +102,27 @@
     </ClInclude>
     <ClInclude Include="TestMessage.h">
       <Filter>Header Files\Logic\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityComponentSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
