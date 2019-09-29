@@ -138,6 +138,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TestMessage.cpp" />
     <ClCompile Include="TestSystem.cpp" />
@@ -148,6 +150,8 @@
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TestMessage.h" />
     <ClInclude Include="TestSystem.h" />

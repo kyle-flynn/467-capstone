@@ -33,6 +33,15 @@
     <Filter Include="Source Files\World">
       <UniqueIdentifier>{21efba99-16c7-4fe1-9226-8f45b65f9751}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Logic\Managers">
+      <UniqueIdentifier>{09059b11-ab91-4fac-a539-ba4ed145c455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Screens">
+      <UniqueIdentifier>{86fefabf-ec4e-4496-ba20-42d8aa640c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Managers">
+      <UniqueIdentifier>{00d4590b-a913-427f-ae30-fff93af81e38}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -62,6 +71,12 @@
     <ClCompile Include="EntitySystem.cpp">
       <Filter>Source Files\Logic\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -87,6 +102,12 @@
     </ClInclude>
     <ClInclude Include="Components.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

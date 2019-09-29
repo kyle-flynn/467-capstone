@@ -1,5 +1,7 @@
 #include <SFML/Graphics.hpp>
 
+#include "ScreenManager.h"
+
 #include "MessageBus.h"
 #include "TestSystem.h"
 
@@ -55,6 +57,7 @@ int main() {
 		}
 
 		window.clear(sf::Color::Black);
+		ScreenManager::getInstance().draw(window);
 		world.draw(window);
 
 		auto view = registry.view<DrawComponent, PositionComponent>();
