@@ -5,9 +5,14 @@
 #ifndef GAME_TEST_MESSAGE_H
 #define GAME_TEST_MESSAGE_H
 
+struct Test : MessageData {
+	std::string data;
+};
+
 class TestMessage : public Message {
 public:
-	TestMessage(std::string data);
+	TestMessage(Test* data) : Message(std::string("TEST_MSG"), data) {}
+	TestMessage& getData() { return this->getData(); };
 };
 
 #endif

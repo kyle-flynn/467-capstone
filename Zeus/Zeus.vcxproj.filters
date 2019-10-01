@@ -56,20 +56,11 @@
     <ClCompile Include="Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="System.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
-    <ClCompile Include="Message.cpp">
-      <Filter>Source Files\Logic</Filter>
-    </ClCompile>
     <ClCompile Include="MessageBus.cpp">
       <Filter>Source Files\Logic</Filter>
     </ClCompile>
     <ClCompile Include="TestSystem.cpp">
       <Filter>Source Files\Logic\Systems</Filter>
-    </ClCompile>
-    <ClCompile Include="TestMessage.cpp">
-      <Filter>Source Files\Logic\Messages</Filter>
     </ClCompile>
     <ClCompile Include="World.cpp">
       <Filter>Source Files\World</Filter>
@@ -97,6 +88,9 @@
     </ClCompile>
     <ClCompile Include="SnowParticleSystem.cpp">
       <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggingSystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -136,9 +130,6 @@
     <ClInclude Include="MainMenuScreen.h">
       <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RainParticleSystem.h">
       <Filter>Header Files\Effects</Filter>
     </ClInclude>
@@ -147,6 +138,9 @@
     </ClInclude>
     <ClInclude Include="SnowParticleSystem.h">
       <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggingSystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

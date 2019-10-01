@@ -5,16 +5,14 @@
 #include "MainMenuScreen.h"
 
 #include "MessageBus.h"
-#include "TestSystem.h"
-
-#include "TestMessage.h"
+#include "LoggingSystem.h"
 
 #include "World.h"
 
 #include "EntityComponentSystem.h"
 #include "Components.h"
 
-#include "SnowParticleSystem.h"
+#include "RainParticleSystem.h"
 
 int main() {
 	sf::RenderWindow window(sf::VideoMode(720, 600), "ZEUS");
@@ -26,9 +24,9 @@ int main() {
 	// mBus.setUpdatesPerSecond(120); // We can also change the updates per second of the message bus.
 	mBus.start();
 
-	std::shared_ptr<TestSystem> testSystem = std::make_shared<TestSystem>();
+	LoggingSystem* logger = new LoggingSystem();
 
-	mBus.addSystem(testSystem);
+	mBus.addSystem(logger);
 
 	std::string test;
 
@@ -47,8 +45,14 @@ int main() {
 	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	// ScreenManager::getInstance().setScreen(new GameplayScreen());
 
-	SnowParticleSystem particles(0, 720.0f, 0, 600.0f);
+	RainParticleSystem particles(0, 720.0f, 0, 600.0f);
 	sf::Clock clock;
+
+	LogData* logData = new LogData();
+	logData->level = LogLevel::INFO;
+	logData->msg = std::string("Hello World!");
+	LogMessage* log = new LogMessage(logData);
+	mBus.sendMessage(log);
 
 	while (window.isOpen()) {
 		sf::Event event;

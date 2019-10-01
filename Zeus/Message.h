@@ -1,21 +1,21 @@
 #pragma once
 
 #include <string>
-#include <memory>
 
 #ifndef GAME_MESSAGE_H
 #define GAME_MESSAGE_H
 
+struct MessageData {};
+
 class Message {
 public:
-	Message(std::string name, std::shared_ptr<void> data);
+	Message(std::string name, MessageData* data) : name(name), data(data) {};
 
-	std::string getName();
-	std::shared_ptr<void> getData();
-
+	std::string getName() { return name; };
+	MessageData* getData() { return data; };
 private:
 	std::string name;
-	std::shared_ptr<void> data;
+	MessageData* data;
 };
 
 #endif // !GAME_MESSAGE_H

@@ -16,8 +16,6 @@
 #define GAME_MESSAGE_BUS_H
 
 /* Forward declarations */
-class Message;
-class System;
 
 class MessageBus {
 public:
@@ -26,15 +24,15 @@ public:
 	void start();
 	void terminate();
 	void setUpdatesPerSecond(double updates);
-	void sendMessage(std::shared_ptr<Message> message);
-	void addSystem(std::shared_ptr<System> system);
+	void sendMessage(Message* message);
+	void addSystem(System* system);
 private:
 	MessageBus();
 
 	double ups;
 	bool running;
-	std::queue<std::shared_ptr<Message>> messages;
-	std::vector<std::shared_ptr<System>> systems;
+	std::queue<Message*> messages;
+	std::vector<System*> systems;
 	void poll();
 };
 
