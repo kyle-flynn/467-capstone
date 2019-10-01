@@ -140,8 +140,10 @@
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="Message.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="SnowParticleSystem.cpp" />
     <ClCompile Include="System.cpp" />
     <ClCompile Include="TestMessage.cpp" />
     <ClCompile Include="TestSystem.cpp" />
@@ -154,8 +156,12 @@
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleSystem.h" />
+    <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="SnowParticleSystem.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TestMessage.h" />
     <ClInclude Include="TestSystem.h" />

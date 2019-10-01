@@ -14,6 +14,8 @@
 #include "EntityComponentSystem.h"
 #include "Components.h"
 
+#include "SnowParticleSystem.h"
+
 int main() {
 	sf::RenderWindow window(sf::VideoMode(720, 600), "ZEUS");
 	window.setFramerateLimit(60);
@@ -45,6 +47,9 @@ int main() {
 	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	// ScreenManager::getInstance().setScreen(new GameplayScreen());
 
+	SnowParticleSystem particles(0, 720.0f, 0, 600.0f);
+	sf::Clock clock;
+
 	while (window.isOpen()) {
 		sf::Event event;
 		while (window.pollEvent(event)) {
@@ -52,6 +57,9 @@ int main() {
 				window.close();
 			}
 		}
+
+		sf::Time elapsed = clock.restart();
+		particles.update(elapsed);
 
 		window.clear(sf::Color::Black);
 		ScreenManager::getInstance().draw(window);
@@ -63,7 +71,7 @@ int main() {
 			drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
 			window.draw(drawComponent.sprite);
 		}
-
+		window.draw(particles);
 		window.display();
 	}
 

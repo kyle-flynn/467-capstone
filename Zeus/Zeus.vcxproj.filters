@@ -45,6 +45,12 @@
     <Filter Include="Source Files\Logic\Screens">
       <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Effects">
+      <UniqueIdentifier>{661f8d5d-bb00-446a-8e2d-aa2622ae0043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects">
+      <UniqueIdentifier>{5f483d68-b6b6-4a48-99cf-e29daf4cab52}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -86,6 +92,12 @@
     <ClCompile Include="MainMenuScreen.cpp">
       <Filter>Source Files\Logic\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="RainParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -123,6 +135,18 @@
     </ClInclude>
     <ClInclude Include="MainMenuScreen.h">
       <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RainParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
