@@ -10,6 +10,11 @@ GameplayScreen::GameplayScreen() : Screen() {
 	this->world = new World(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 }
 
+
+void GameplayScreen::update(float deltaTime) {
+	
+}
+
 void GameplayScreen::draw(sf::RenderWindow& window) {
 	this->world->draw(window);
 }

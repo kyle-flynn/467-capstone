@@ -32,8 +32,7 @@ private:
 
 class LogMessage : public Message {
 public:
-	LogMessage(LogData* data) : Message(std::string("LOG_MSG"), data) {}
-	//LogData* getData() { return this->getData(); };
+	LogMessage(LogData* data) : Message(std::string("LOG_MSG"), data) {};
 };
 
 #endif

@@ -137,6 +137,8 @@
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="Lightning.cpp" />
+    <ClCompile Include="LightningSystem.cpp" />
     <ClCompile Include="LoggingSystem.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MessageBus.cpp" />
@@ -150,9 +152,13 @@
   <ItemGroup>
     <ClInclude Include="Components.h" />
     <ClInclude Include="EntityComponentSystem.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="Lightning.h" />
+    <ClInclude Include="LightningSystem.h" />
     <ClInclude Include="LoggingSystem.h" />
     <ClInclude Include="MainMenuScreen.h" />
+    <ClInclude Include="MathUtils.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="Particle.h" />

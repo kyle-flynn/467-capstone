@@ -9,6 +9,12 @@ ScreenManager& ScreenManager::getInstance() {
 	return instance;
 }
 
+void ScreenManager::update(float deltaTime) {
+	if (this->screen) {
+		this->screen->update(deltaTime);
+	}
+}
+
 void ScreenManager::draw(sf::RenderWindow& window) {
 	if (this->screen) {
 		this->screen->draw(window);

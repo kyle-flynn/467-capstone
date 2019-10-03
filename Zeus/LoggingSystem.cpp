@@ -10,7 +10,6 @@ void LoggingSystem::sendMessage(Message* message) {
 
 void LoggingSystem::receiveMessage(Message* message) {
 	// Get the message from the shared pointer
-	std::cout << message->getName() << std::endl;
 	if (message->getName() == "LOG_MSG") {
 		LogMessage* log = (LogMessage*)message;
 		// Needs to be a static cast.

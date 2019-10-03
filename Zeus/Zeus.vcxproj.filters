@@ -92,6 +92,12 @@
     <ClCompile Include="LoggingSystem.cpp">
       <Filter>Source Files\Logic\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Lightning.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="LightningSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -141,6 +147,18 @@
     </ClInclude>
     <ClInclude Include="LoggingSystem.h">
       <Filter>Header Files\Logic\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Lightning.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

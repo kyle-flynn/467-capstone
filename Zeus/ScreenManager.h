@@ -10,6 +10,7 @@
 class ScreenManager {
 public:
 	static ScreenManager& getInstance();
+	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 	void setScreen(Screen* screen);
 	Screen& getScreen();
