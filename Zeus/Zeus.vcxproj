@@ -147,11 +147,13 @@
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="SnowParticleSystem.cpp" />
     <ClCompile Include="TestSystem.cpp" />
+    <ClCompile Include="TextParticleSystem.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components.h" />
     <ClInclude Include="EntityComponentSystem.h" />
+    <ClInclude Include="FontUtils.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameplayScreen.h" />
     <ClInclude Include="Lightning.h" />
@@ -169,6 +171,7 @@
     <ClInclude Include="System.h" />
     <ClInclude Include="TestMessage.h" />
     <ClInclude Include="TestSystem.h" />
+    <ClInclude Include="TextParticleSystem.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

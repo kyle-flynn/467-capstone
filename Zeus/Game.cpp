@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "Game.h"
+#include "FontUtils.h"
 
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
@@ -13,6 +14,8 @@ const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
 
 int main() {
+	//FontUtils::loadFonts();
+
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
 	window.setActive();

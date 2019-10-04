@@ -98,6 +98,9 @@
     <ClCompile Include="LightningSystem.cpp">
       <Filter>Source Files\Effects</Filter>
     </ClCompile>
+    <ClCompile Include="TextParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -158,6 +161,12 @@
       <Filter>Header Files\Effects</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="FontUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
