@@ -1,0 +1,10 @@
+{
+  "source": "Trader",
+  "message": "This is just a message saying hello",
+  "options": [
+    "exit",
+    "buy",
+    "sell",
+    "gossip"
+  ]
+}

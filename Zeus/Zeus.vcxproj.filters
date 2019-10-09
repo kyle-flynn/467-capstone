@@ -51,6 +51,9 @@
     <ClCompile Include="TestMessage.cpp">
       <Filter>Source Files\Logic\Messages</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -67,6 +70,9 @@
     </ClInclude>
     <ClInclude Include="TestMessage.h">
       <Filter>Header Files\Logic\Messages</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Header Files\Logic</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
