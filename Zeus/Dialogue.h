@@ -24,18 +24,20 @@ public:
 	std::vector<std::string> getOptions(Dialogue::msgNode* node);
 	std::pair<int, int> getDialoguePos(Dialogue::msgNode* node);
 	std::pair<int, int> getOptionPos(Dialogue::optionNode* node);
+	void deleteDialogueNode(Dialogue::msgNode* node);
+	void deleteOptionNode(Dialogue::optionNode* node);
 
 	struct msgNode {
 		std::string message;
 		std::vector<Dialogue::optionNode *> options;
-		int x, y;
+		std::vector<int> optionIDs;
+		int x = 0, y = 0, nodeID, previousID = NULL;
 	};
 
 	struct optionNode {
 		std::string optionMsg;
 		Dialogue::msgNode* next;
-		int returnCode;
-		int x, y;
+		int returnCode, x = 0, y = 0, nodeID, nextID, previousID;
 	};
 
 private:
