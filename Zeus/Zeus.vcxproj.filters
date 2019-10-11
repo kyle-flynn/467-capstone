@@ -51,6 +51,12 @@
     <Filter Include="Source Files\Effects">
       <UniqueIdentifier>{5f483d68-b6b6-4a48-99cf-e29daf4cab52}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{f680bd4a-2641-4395-b25f-2318acc1caa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{ccac21b6-9db7-4a05-9f7d-76988f610131}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -100,6 +106,12 @@
     </ClCompile>
     <ClCompile Include="TextParticleSystem.cpp">
       <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuOption.cpp">
+      <Filter>Source Files\Graphics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,8 +178,11 @@
     <ClInclude Include="TextParticleSystem.h">
       <Filter>Header Files\Effects</Filter>
     </ClInclude>
-    <ClInclude Include="FontUtils.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="FontManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuOption.h">
+      <Filter>Header Files\Graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

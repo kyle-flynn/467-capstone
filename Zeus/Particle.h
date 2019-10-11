@@ -8,6 +8,8 @@
 struct Particle {
 	sf::Vector2f velocity;
 	sf::Time lifetime;
+	sf::Vector2f source;
+	sf::Vector2f destination;
 };
 
 #endif

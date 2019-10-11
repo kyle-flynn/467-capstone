@@ -4,6 +4,9 @@
 #include "Screen.h"
 
 #include "LightningSystem.h"
+#include "TextParticleSystem.h"
+
+#include "MenuOption.h"
 
 #ifndef GAME_MAIN_MENU_SCREEN_H
 #define GAME_MAIN_MENU_SCREEN_H
@@ -15,8 +18,14 @@ public:
 	void draw(sf::RenderWindow& window);
 private:
 	LightningSystem lightningSystem;
+	TextParticleSystem titleTextSystem;
 	sf::Texture zeusTexture;
 	sf::Sprite zeusSprite;
+
+	MenuOption optionCampaignEditor;
+	MenuOption optionCreateSession;
+	MenuOption optionJoinSession;
+	MenuOption optionOptions;
 };
 
 #endif;

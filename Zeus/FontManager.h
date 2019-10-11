@@ -11,6 +11,8 @@ public:
 	void loadFonts();
 
 	sf::Font oldStandard;
+private:
+	FontManager();
 };
 
 #endif

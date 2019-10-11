@@ -2,6 +2,8 @@
 
 #include "Game.h"
 
+#include "FontManager.h"
+
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
 #include "MainMenuScreen.h"
@@ -13,7 +15,7 @@ const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
 
 int main() {
-	//FontUtils::loadFonts();
+	FontManager::getInstance().loadFonts();
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
@@ -42,8 +44,8 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
-	ScreenManager::getInstance().setScreen(new GameplayScreen());
+	ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 
 	LogData* logData = new LogData();
 	logData->level = LogLevel::INFO;
