@@ -21,6 +21,7 @@ private:
 	TextParticleSystem titleTextSystem;
 	sf::Texture zeusTexture;
 	sf::Sprite zeusSprite;
+	sf::Vector2i mousePosition;
 
 	MenuOption optionCampaignEditor;
 	MenuOption optionCreateSession;

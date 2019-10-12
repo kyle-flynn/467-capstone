@@ -16,8 +16,13 @@ void MenuOption::setSelected(bool isSelected) {
 }
 
 void MenuOption::update(float deltaTime, sf::Vector2i mousePosition) {
-	sf::Rect<float> bounds(this->getPosition(), sf::Vector2f(this->text.getGlobalBounds().width, this->text.getGlobalBounds().height));
-	if (bounds.contains(sf::Vector2f(mousePosition.x, mousePosition.y))) {
+	sf::Rect<float> bounds(
+		this->getPosition().x,
+		this->getPosition().y,
+		this->text.getGlobalBounds().width,
+		this->text.getGlobalBounds().height
+	);
+	if (bounds.contains(mousePosition.x, mousePosition.y)) {
 		this->setSelected(true);
 	} else {
 		this->setSelected(false);

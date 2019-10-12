@@ -31,13 +31,15 @@ void MainMenuScreen::update(float deltaTime) {
 	this->lightningSystem.update(deltaTime);
 	this->titleTextSystem.update(deltaTime);
 
-	this->optionCampaignEditor.update(deltaTime, sf::Mouse::getPosition());
-	//this->optionCreateSession.update(deltaTime, sf::Mouse::getPosition());
-	//this->optionJoinSession.update(deltaTime, sf::Mouse::getPosition());
-	//this->optionOptions.update(deltaTime, sf::Mouse::getPosition());
+	this->optionCampaignEditor.update(deltaTime, this->mousePosition);
+	this->optionCreateSession.update(deltaTime, this->mousePosition);
+	this->optionJoinSession.update(deltaTime, this->mousePosition);
+	this->optionOptions.update(deltaTime, this->mousePosition);
 }
 
 void MainMenuScreen::draw(sf::RenderWindow& window) {
+	this->mousePosition = sf::Mouse::getPosition(window);
+
 	window.draw(this->lightningSystem);
 	window.draw(this->zeusSprite);
 	window.draw(this->titleTextSystem);
