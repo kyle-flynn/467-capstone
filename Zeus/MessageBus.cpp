@@ -28,16 +28,16 @@ void MessageBus::setUpdatesPerSecond(double updates) {
 	MessageBus::getInstance().ups = updates;
 }
 
-void MessageBus::sendMessage(std::shared_ptr<Message> message) {
+void MessageBus::sendMessage(Message* message) {
 	MessageBus::getInstance().messages.push(message);
 }
 
-void MessageBus::addSystem(std::shared_ptr<System> system) {
+void MessageBus::addSystem(System* system) {
 	MessageBus::getInstance().systems.push_back(system);
 }
 
 void MessageBus::poll() {
-	std::cout << "MessageBus now polling." << std::endl;
+	//std::cout << "MessageBus now polling." << std::endl;
 	sf::Clock clock;
 
 	float accumulator = 0.0;
@@ -63,9 +63,8 @@ void MessageBus::poll() {
 		while (accumulator >= (1 / MessageBus::getInstance().ups)) {
 			while (!MessageBus::getInstance().messages.empty()) {
 				int count = 0;
-				for (auto iter = MessageBus::getInstance().systems.begin(); iter != MessageBus::getInstance().systems.end(); iter++) {
-					(*iter)->receiveMessage(MessageBus::getInstance().messages.front());
-					++count;
+				for (System* system : MessageBus::getInstance().systems) {
+					system->receiveMessage(MessageBus::getInstance().messages.front());
 				}
 				MessageBus::getInstance().messages.pop();
 			}

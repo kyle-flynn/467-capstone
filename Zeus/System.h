@@ -2,17 +2,17 @@
 
 #include <string>
 
-#include "MessageBus.h"
+#include "Message.h"
 
 #ifndef GAME_SYSTEM_H
 #define GAME_SYSTEM_H
 
 class System {
 public:
-	System(std::string name);
+	System(std::string name) : name(name) {};
 
-	void sendMessage(std::shared_ptr<Message> message);
-	virtual void receiveMessage(std::shared_ptr<Message> message) const = 0;
+	virtual void sendMessage(Message* message) = 0;
+	virtual void receiveMessage(Message* message) = 0;
 private:
 	std::string name;
 };
