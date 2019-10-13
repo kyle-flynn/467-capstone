@@ -6,7 +6,11 @@
 #include "LightningSystem.h"
 #include "TextParticleSystem.h"
 
+#include "MainMenuScene.h"
 #include "MenuOption.h"
+
+#include "ScreenManager.h"
+#include "GameplayScreen.h"
 
 #ifndef GAME_MAIN_MENU_SCREEN_H
 #define GAME_MAIN_MENU_SCREEN_H
@@ -21,12 +25,8 @@ private:
 	TextParticleSystem titleTextSystem;
 	sf::Texture zeusTexture;
 	sf::Sprite zeusSprite;
-	sf::Vector2i mousePosition;
 
-	MenuOption optionCampaignEditor;
-	MenuOption optionCreateSession;
-	MenuOption optionJoinSession;
-	MenuOption optionOptions;
+	MainMenuScene mainScene;
 };
 
 #endif;

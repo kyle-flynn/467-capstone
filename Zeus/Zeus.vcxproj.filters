@@ -57,6 +57,12 @@
     <Filter Include="Source Files\Graphics">
       <UniqueIdentifier>{ccac21b6-9db7-4a05-9f7d-76988f610131}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Logic\Screens\Scenes">
+      <UniqueIdentifier>{33cea967-6538-46b1-8143-40fb2bff4be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Screens\Scenes">
+      <UniqueIdentifier>{caaa83db-2581-427d-8661-177ac69f5bef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -112,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="MenuOption.cpp">
       <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Logic\Screens\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Source Files\Logic\Screens\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +195,12 @@
     </ClInclude>
     <ClInclude Include="MenuOption.h">
       <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Logic\Screens\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Header Files\Logic\Screens\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
