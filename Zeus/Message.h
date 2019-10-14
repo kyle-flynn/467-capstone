@@ -1,21 +1,28 @@
 #pragma once
 
+#include <SFML/Network.hpp>
 #include <string>
-#include <memory>
 
 #ifndef GAME_MESSAGE_H
 #define GAME_MESSAGE_H
 
-class Message {
-public:
-	Message(std::string name, std::shared_ptr<void> data);
+/*
+	This header file is responsible for outlining basic structs for message relaying.
+	Messages are data-holders that contain no methods, much like a component in our ECS.
+*/
 
-	std::string getName();
-	std::shared_ptr<void> getData();
+struct Message {
+	Message() {};
+	Message(std::string type) : type(type) {};
+	std::string type;
 
-private:
-	std::string name;
-	std::shared_ptr<void> data;
+	friend sf::Packet& operator <<(sf::Packet& packet, const Message& message) {
+		return packet << message.type;
+	}
+
+	friend sf::Packet& operator >>(sf::Packet& packet, Message& message) {
+		return packet >> message.type;
+	}
 };
 
 #endif // !GAME_MESSAGE_H

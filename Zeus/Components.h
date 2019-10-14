@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
 
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
@@ -18,6 +18,11 @@ struct HealthComponent {
 struct PositionComponent {
 	float x;
 	float y;
+};
+
+struct ParallaxComponent {
+	float offset;
+	float velocity;
 };
 
 #endif

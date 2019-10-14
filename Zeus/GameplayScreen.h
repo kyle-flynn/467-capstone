@@ -9,6 +9,7 @@
 class GameplayScreen : public Screen {
 public:
 	GameplayScreen();
+	//void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 
 	World* world;

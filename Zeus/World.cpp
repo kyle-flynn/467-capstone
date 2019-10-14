@@ -15,11 +15,15 @@ World::World(const std::string& filename, int tiles[4][4], int tileWidth, int ti
 		for (int j = 0; j < 4; j++) {
 			sf::Sprite sprite;
 			// This divides the texture sheet into tiles.
-			float sheetTilesX = this->tilesheet.getSize().x / tileWidth + 0.0f;
-			float sheetTilesY = this->tilesheet.getSize().y / tileHeight + 0.0f;
+			float sheetTilesX = this->tilesheet.getSize().x / tileWidth + 0.0f; // =12
+			float sheetTilesY = this->tilesheet.getSize().y / tileHeight + 0.0f; // =21
 
-			float tileX = std::floor(tiles[j][i] / sheetTilesX) + tiles[j][i];
-			float tileY = std::floor(tiles[j][i] / sheetTilesY);
+			//OLD: float tileX = std::floor(tiles[j][i] / sheetTilesX) + tiles[j][i];
+			// x-coordinate of tile is a value 0-11
+			float tileX = (tiles[j][i] % 12);
+			//OLD: float tileY = std::floor(tiles[j][i] / sheetTilesY);
+			// x-coordinate of tile is a value 0-20
+			float tileY = std::floor(tiles[j][i] / sheetTilesX);
 
 			sprite.setTexture(this->tilesheet);
 			sprite.setTextureRect(sf::IntRect(tileX * tileWidth + 0.0f, tileY * tileHeight + 0.0f, tileWidth + 0.0f, tileHeight + 0.0f));

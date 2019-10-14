@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "System.h"
-#include "TestMessage.h"
+#include "MessageBus.h"
 
 #ifndef GAME_TEST_SYSTEM_H
 #define GAME_TEST_SYSTEM_H
@@ -11,8 +11,8 @@
 class TestSystem : public System {
 public:
 	TestSystem();
-
-	void receiveMessage(std::shared_ptr<Message> message) const;
+	void sendMessage(Message* message);
+	void receiveMessage(Message* message);
 };
 
 #endif

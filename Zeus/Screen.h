@@ -8,6 +8,7 @@
 class Screen {
 public:
 	Screen();
+	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
 };
 
