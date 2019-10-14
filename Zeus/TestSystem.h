@@ -4,7 +4,6 @@
 
 #include "System.h"
 #include "MessageBus.h"
-#include "TestMessage.h"
 
 #ifndef GAME_TEST_SYSTEM_H
 #define GAME_TEST_SYSTEM_H

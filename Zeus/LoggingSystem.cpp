@@ -10,10 +10,9 @@ void LoggingSystem::sendMessage(Message* message) {
 
 void LoggingSystem::receiveMessage(Message* message) {
 	// Get the message from the shared pointer
-	if (message->getName() == "LOG_MSG") {
+	if (message->type == "LOG_MSG") {
 		LogMessage* log = (LogMessage*)message;
-		// Needs to be a static cast.
-		LogData* logData = static_cast<LogData*>(log->getData());
-		logs.push(logData);
+		LogData logData = log->data;
+		logs.push(&logData);
 	}
 }

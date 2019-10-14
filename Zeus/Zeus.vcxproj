@@ -145,6 +145,7 @@
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Scene.h" />
@@ -176,7 +178,6 @@
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="SnowParticleSystem.h" />
     <ClInclude Include="System.h" />
-    <ClInclude Include="TestMessage.h" />
     <ClInclude Include="TestSystem.h" />
     <ClInclude Include="TextParticleSystem.h" />
     <ClInclude Include="World.h" />

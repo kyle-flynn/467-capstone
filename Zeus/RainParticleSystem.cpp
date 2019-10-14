@@ -23,18 +23,18 @@ RainParticleSystem::RainParticleSystem(float minX, float maxX, float minY, float
 	}
 }
 
-void RainParticleSystem::update(sf::Time elapsed) {
+void RainParticleSystem::update(float deltaTime) {
 	for (std::size_t i = 0; i < this->particles.size(); ++i) {
 		Particle& p = this->particles[i];
-		p.lifetime -= elapsed;
+		p.lifetime -= sf::seconds(deltaTime);
 
 		if (p.lifetime <= sf::Time::Zero) {
 			this->resetParticle(i);
 		}
 
-		this->vertices[i * 2].position += p.velocity * elapsed.asSeconds();
+		this->vertices[i * 2].position += p.velocity * deltaTime;
 		this->vertices[i * 2].color = sf::Color(218, 228, 255, 127);
-		this->vertices[(i * 2) + 1].position += p.velocity * elapsed.asSeconds();
+		this->vertices[(i * 2) + 1].position += p.velocity * deltaTime;
 		this->vertices[(i * 2) + 1].color = sf::Color(218, 228, 255, 127);
 	}
 }

@@ -47,11 +47,11 @@ int main() {
 	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 
-	LogData* logData = new LogData();
-	logData->level = LogLevel::INFO;
-	logData->msg = std::string("Hello World!");
-	LogMessage* log = new LogMessage(logData);
-	mBus.sendMessage(log);
+	//LogData* logData = new LogData();
+	//logData->level = LogLevel::INFO;
+	//logData->msg = std::string("Hello World!");
+	//LogMessage* log = new LogMessage(logData);
+	//mBus.sendMessage(log);
 
 	sf::Clock clock;
 
@@ -65,7 +65,6 @@ int main() {
 
 		float deltaTime = clock.restart().asSeconds();
 		ScreenManager::getInstance().update(deltaTime);
-
 		window.clear(sf::Color::Black);
 		ScreenManager::getInstance().draw(window);
 		/*

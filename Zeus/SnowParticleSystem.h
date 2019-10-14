@@ -9,7 +9,7 @@
 class SnowParticleSystem : public sf::Drawable, public sf::Transformable {
 public:
 	SnowParticleSystem(float minX, float maxX, float minY, float maxY);
-	void update(sf::Time elapsed);
+	void update(float deltaTime);
 private:
 	std::vector<Particle> particles;
 	sf::VertexArray vertices;
