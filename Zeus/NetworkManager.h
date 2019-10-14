@@ -19,7 +19,7 @@ public:
 	static const int TYPE_SERVER = 1;
 	static const int TYPE_CLIENT = 2;
 
-	NetworkManager& getInstance();
+	static NetworkManager& getInstance();
 	void startServer(int port);
 	void startClient(const char* address, int port);
 	int getNetworkType();

@@ -1,5 +1,7 @@
 #include "NetworkManager.h"
 
+#include <iostream>
+
 NetworkManager::NetworkManager() {
 	this->networkType = 0;
 	this->running = false;
@@ -11,7 +13,16 @@ NetworkManager& NetworkManager::getInstance() {
 }
 
 void NetworkManager::startServer(int port) {
+	std::thread serverThread([=]() {
+		sf::Socket::Status status = this->server.listen(port);
 
+		if (status != sf::Socket::Done) {
+			// ERROR
+		} else {
+			std::cout << "Server has started." << std::endl;
+		}
+	});
+	serverThread.detach();
 }
 
 void NetworkManager::startClient(const char* address, int port) {
