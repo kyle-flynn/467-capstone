@@ -2,7 +2,6 @@
 #ifndef ENTT_CORE_ALGORITHM_HPP
 #define ENTT_CORE_ALGORITHM_HPP
 
-
 #include <utility>
 #include <iterator>
 #include <algorithm>

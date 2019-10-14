@@ -19,7 +19,27 @@ void NetworkManager::startServer(int port) {
 		if (status != sf::Socket::Done) {
 			// ERROR
 		} else {
-			std::cout << "Server has started." << std::endl;
+			this->running = true;
+			selector.add(this->server);
+			std::cout << "Server is running" << std::endl;
+			while (this->running) {
+				if (selector.wait()) {
+					// Incoming connection
+					if (selector.isReady(this->server)) {
+						std::cout << "New connection" << std::endl;
+						auto client = std::make_unique<sf::TcpSocket>();
+						if (this->server.accept(*client) != sf::Socket::Done) {
+							std::cout << "Error accepting new connection" << std::endl;
+						} else {
+							selector.add(*client);
+							this->clients.push_back(std::move(client));
+						}
+					// Incoming packet
+					} else {
+						
+					}
+				}
+			}
 		}
 	});
 	serverThread.detach();
@@ -32,6 +52,7 @@ void NetworkManager::startClient(const char* address, int port) {
 		if (status != sf::Socket::Done) {
 			// ERROR
 		} else {
+			std::cout << "Connected to host" << std::endl;
 			this->running = true;
 			while (running) {
 				sf::Packet packet;
