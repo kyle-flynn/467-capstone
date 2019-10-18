@@ -11,8 +11,7 @@ public:
 	void loadFonts();
 
 	sf::Font oldStandard;
-	sf::Font minecraft;
-	sf::Font blocked;
+	sf::Font joystick;
 private:
 	FontManager();
 };

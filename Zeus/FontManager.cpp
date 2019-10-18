@@ -9,6 +9,5 @@ FontManager& FontManager::getInstance() {
 
 void FontManager::loadFonts() {
 	this->oldStandard.loadFromFile("Resources/Fonts/OldStandard/OldStandardTT-Regular.ttf");
-	this->minecraft.loadFromFile("Resources/Fonts/Minecraftia/Minecraftia.ttf");
-	this->blocked.loadFromFile("Resources/Fonts/blocked/Minecrafter_3.ttf");
+	this->joystick.loadFromFile("Resources/Fonts/blocked/joystix.ttf");
 }
