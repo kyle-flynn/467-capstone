@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PlayerCombatDisplay.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -156,6 +158,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
@@ -172,6 +175,7 @@
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="PlayerCombatDisplay.h" />
     <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />

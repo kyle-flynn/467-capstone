@@ -7,6 +7,7 @@
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
 #include "MainMenuScreen.h"
+#include "CombatScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
@@ -44,8 +45,9 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
+	ScreenManager::getInstance().setScreen(new CombatScreen());
 
 	//LogData* logData = new LogData();
 	//logData->level = LogLevel::INFO;
