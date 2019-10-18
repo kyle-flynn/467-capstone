@@ -7,9 +7,12 @@
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
 #include "MainMenuScreen.h"
+#include "DIalogueEditorScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
+
+#include <TGUI/TGUI.hpp>
 
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
@@ -20,6 +23,10 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
 	window.setActive();
+
+	tgui::Gui gui(window);
+	gui.loadWidgetsFromFile("Resources/messageNode.txt");
+	gui.setFont(FontManager::getInstance().oldStandard);
 
 	// Getting an instance of the message bus and starting its own thread.
 	MessageBus mBus = MessageBus::getInstance();
@@ -44,8 +51,9 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	/*ScreenManager::getInstance().setScreen(new MainMenuScreen());*/
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
+	ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 
 	LogData* logData = new LogData();
 	logData->level = LogLevel::INFO;
@@ -61,6 +69,7 @@ int main() {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
+			gui.handleEvent(event);
 		}
 
 		float deltaTime = clock.restart().asSeconds();
@@ -77,6 +86,7 @@ int main() {
 			window.draw(drawComponent.sprite);
 		}
 		*/
+		gui.draw();
 		window.display();
 	}
 

@@ -91,13 +91,13 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\vcpkg\downloads\nlohmann-json-v3.7.0\single_include\nlohmann;C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\ICGSo\OneDrive\Desktop\TGUI-0.8\include;C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\vcpkg\downloads\nlohmann-json-v3.7.0\single_include\nlohmann;C:\CLib\SFML\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\ICGSo\OneDrive\Desktop\TGUI-0.8\lib;C:\vcpkg\downloads\nlohmann-json-v3.7.0\single_include\nlohmann;C:\CLib\SFML\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>xcopy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
@@ -137,6 +137,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="DialogueEditorMessageNode.cpp" />
+    <ClCompile Include="DialogueEditorOptionNode.cpp" />
+    <ClCompile Include="DialogueEditorScreen.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
@@ -159,6 +162,9 @@
   <ItemGroup>
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="DialogueEditorMessageNode.h" />
+    <ClInclude Include="DialogueEditorOptionNode.h" />
+    <ClInclude Include="DialogueEditorScreen.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />

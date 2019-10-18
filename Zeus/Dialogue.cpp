@@ -24,12 +24,12 @@ xPos = the x position in the dialogue editor window (set to 0 by default)
 yPos = the y position in the dialogue editor window (set to 0 by default)
 returns newly created message node.
 */
-Dialogue::msgNode* Dialogue::addDialogueNode(int xPos, int yPos) {
+Dialogue::msgNode* Dialogue::addDialogueNode(sf::Vector2f loc) {
 	Dialogue::msgNode* newNode = new Dialogue::msgNode;
-	newNode->x = xPos;
-	newNode->y = yPos;
+	newNode->loc = loc;
 	newNode->nodeID = nodes.size() + 1;
 	nodes.push_back(newNode);
+	return newNode;
 }
 
 /*
@@ -39,15 +39,12 @@ message = new message to display when reached
 xPos = new x position in editor window
 yPos = new y position in editor window
 */
-void Dialogue::editDialoguenode(Dialogue::msgNode* node, std::string message = NULL, int xPos = NULL, int yPos = NULL) {
+void Dialogue::editDialoguenode(Dialogue::msgNode* node, std::string message, sf::Vector2f loc) {
 	if (!message.empty()) {
 		node->message = message;
 	}
-	if (xPos != NULL) {
-		node->x = xPos;
-	}
-	if (yPos != NULL) {
-		node->y = yPos;
+	if (loc.x != -1) {
+		node->loc = loc;
 	}
 }
 
@@ -57,12 +54,12 @@ xPos = the x position in dialogue editor window (set to 0 by default)
 yPos = the y position in dialogue editor window (set to 0 by default)
 returns newly created option node
 */
-Dialogue::optionNode* Dialogue::addOptionNode(int xPos, int yPos) {
+Dialogue::optionNode* Dialogue::addOptionNode(sf::Vector2f loc) {
 	Dialogue::optionNode* newNode = new Dialogue::optionNode;
-	newNode->x = xPos;
-	newNode->y = yPos;
+	newNode->loc = loc;
 	newNode->nodeID = optionNodes.size() + 1;
 	optionNodes.push_back(newNode);
+	return newNode;
 }
 
 /*
@@ -74,18 +71,15 @@ xPos = new x position in editor window
 yPos = new y position in editor window
 next = message node to point to if option continues down tree
 */
-void Dialogue::editOptionNode(Dialogue::optionNode* node, std::string message = NULL, int returnCode = NULL, int xPos = NULL, int yPos = NULL, Dialogue::msgNode* next = nullptr) {
+void Dialogue::editOptionNode(Dialogue::optionNode* node, std::string message, int returnCode, sf::Vector2f loc, Dialogue::msgNode* next) {
 	if (!message.empty()) {
 		node->optionMsg = message;
 	}
 	if (returnCode != NULL) {
 		node->returnCode = returnCode;
 	}
-	if (xPos != NULL) {
-		node->x = xPos;
-	}
-	if (yPos != NULL) {
-		node->y = yPos;
+	if (loc.x != -1) {
+		node->loc = loc;
 	}
 	if (next != nullptr) {
 		node->next = next;
@@ -100,9 +94,9 @@ node1 = originating message node
 node2 = destination message node
 */
 void Dialogue::linkDialogue(Dialogue::msgNode* node1, Dialogue::msgNode* node2) {
-	int newXPos = (node1->x + node2->x) / 2;
-	int newYPos = (node1->y + node2->y) / 2;
-	Dialogue::optionNode* newNode = addOptionNode(newXPos, newYPos);
+	float newXPos = (node1->loc.x + node2->loc.x) / 2;
+	float newYPos = (node1->loc.y + node2->loc.y) / 2;
+	Dialogue::optionNode* newNode = addOptionNode(sf::Vector2f(newXPos, newYPos));
 	node1->options.push_back(newNode);
 	node1->optionIDs.push_back(newNode->nodeID);
 	newNode->next = node2;
@@ -158,16 +152,16 @@ Getter for message node position.
 node = requested message node
 returns a pair of ints for editor window
 */
-std::pair<int, int> Dialogue::getDialoguePos(Dialogue::msgNode* node) {
-	return std::make_pair(node->x, node->y);
+sf::Vector2f Dialogue::getDialoguePos(Dialogue::msgNode* node) {
+	return node->loc;
 }
 
 /*
 Getter for option node position.
 node = requested option node
 returns a pair of ints for editor window*/
-std::pair<int, int> Dialogue::getOptionPos(Dialogue::optionNode* node) {
-	return std::make_pair(node->x, node->y);
+sf::Vector2f Dialogue::getOptionPos(Dialogue::optionNode* node) {
+	return node->loc;
 }
 
 /*
@@ -187,4 +181,16 @@ void Dialogue::deleteDialogueNode(Dialogue::msgNode* node) {
 
 // TODO
 void Dialogue::deleteOptionNode(Dialogue::optionNode* node) {
+}
+
+std::vector<Dialogue::msgNode*> Dialogue::getMessageNodes() {
+	return nodes;
+}
+
+std::vector<Dialogue::optionNode*> Dialogue::getOptionNodes() {
+	return optionNodes;
+}
+
+std::string Dialogue::getTreeName() {
+	return entityName;
 }
