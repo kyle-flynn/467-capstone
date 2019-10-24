@@ -1,4 +1,5 @@
 #include "DialogueEditorScreen.h"
+#include <iostream>
 
 DialogueEditorScreen::DialogueEditorScreen() {
 	Screen();
@@ -6,6 +7,7 @@ DialogueEditorScreen::DialogueEditorScreen() {
 	this->BGSprite.setTexture(BGTexture);
 	this->BGSprite.setScale((float)(Game::WIDTH / BGTexture.getSize().x), (float)(Game::HEIGHT / BGTexture.getSize().y));
 	this->links = sf::VertexArray();
+	this->activeTree = new Dialogue;
 }
 
 void DialogueEditorScreen::update(float deltaTime) {
@@ -24,16 +26,16 @@ void DialogueEditorScreen::clearScreen() {
 }
 
 void DialogueEditorScreen::loadNodes() {
-	for (Dialogue::msgNode* n : this->activeTree.getMessageNodes()) {
+	for (Dialogue::msgNode* n : this->activeTree->getMessageNodes()) {
 		this->messages.push_back(n);
 	}
-	for (Dialogue::optionNode* n : this->activeTree.getOptionNodes()) {
+	for (Dialogue::optionNode* n : this->activeTree->getOptionNodes()) {
 		this->options.push_back(n);
 	}
 	this->linkNodes();
 }
 
-void DialogueEditorScreen::changeTrees(Dialogue tree) {
+void DialogueEditorScreen::changeTrees(Dialogue* tree) {
 	this->clearScreen();
 	this->activeTree = tree;
 }
@@ -54,6 +56,10 @@ void DialogueEditorScreen::linkNodes() {
 	}
 }
 
+void DialogueEditorScreen::loadTrees() {
+	//TODO
+}
+
 DialogueEditorMessageNode DialogueEditorScreen::getMsgNode(Dialogue::msgNode* node) {
 	for (DialogueEditorMessageNode n : this->messages) {
 		int nodeID = n.getNode()->nodeID;
@@ -71,4 +77,9 @@ DialogueEditorOptionNode DialogueEditorScreen::getOptionNode(Dialogue::optionNod
 		}
 	}
 	return NULL;
+}
+
+void DialogueEditorScreen::changeActive(Dialogue::msgNode* mNode, Dialogue::optionNode* oNode) {
+	this->activeMNode = mNode;
+	this->activeONode = oNode;
 }

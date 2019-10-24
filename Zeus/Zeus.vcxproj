@@ -100,7 +100,7 @@
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
+      <Command>copy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -139,6 +139,7 @@
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="DialogueEditorMessageNode.cpp" />
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
+    <ClCompile Include="DialogueEditorPanel.cpp" />
     <ClCompile Include="DialogueEditorScreen.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="DialogueEditorMessageNode.h" />
     <ClInclude Include="DialogueEditorOptionNode.h" />
+    <ClInclude Include="DialogueEditorPanel.h" />
     <ClInclude Include="DialogueEditorScreen.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />

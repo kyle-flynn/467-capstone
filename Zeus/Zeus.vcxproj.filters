@@ -23,6 +23,7 @@
     <ClCompile Include="DialogueEditorMessageNode.cpp" />
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
     <ClCompile Include="DialogueEditorScreen.cpp" />
+    <ClCompile Include="DialogueEditorPanel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dialogue.h" />
@@ -52,5 +53,6 @@
     <ClInclude Include="DialogueEditorMessageNode.h" />
     <ClInclude Include="DialogueEditorOptionNode.h" />
     <ClInclude Include="DialogueEditorScreen.h" />
+    <ClInclude Include="DialogueEditorPanel.h" />
   </ItemGroup>
 </Project>
