@@ -177,6 +177,7 @@ void Dialogue::deleteDialogueNode(Dialogue::msgNode* node) {
 		optionNodes.at(node->previousID)->next = nullptr;
 	}
 	delete nodes.at(node->nodeID);
+	nodes.push_back(nullptr);
 }
 
 // TODO

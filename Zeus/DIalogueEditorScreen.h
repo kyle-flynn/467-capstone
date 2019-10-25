@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "DialogueEditorMessageNode.h"
 #include "DialogueEditorOptionNode.h"
+#include "DialogueEditorPanel.h"
 #include <TGUI/TGUI.hpp>
 
 class DialogueEditorScreen : public Screen {
@@ -11,19 +12,26 @@ class DialogueEditorScreen : public Screen {
 public:
 
 	Dialogue* activeTree;
+	Dialogue::msgNode* activeMNode;
+	Dialogue::optionNode* activeONode;
 
 	DialogueEditorScreen();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+	void addMessage(sf::Vector2f loc = sf::Vector2f(0, 0));
+	void addOption(sf::Vector2f loc = sf::Vector2f(0, 0));
+	void deleteNode();
+	void editNode(std::string message, int returnCode);
 	void clearScreen();
 	void loadNodes();
 	void changeTrees(Dialogue* tree);
+	void newTree();
 	void changeActive(Dialogue::msgNode* mNode = nullptr, Dialogue::optionNode * oNode = nullptr);
+	tgui::Panel::Ptr getPanel();
+
 
 private:
 
-	Dialogue::msgNode* activeMNode;
-	Dialogue::optionNode* activeONode;
 	sf::Texture BGTexture;
 	sf::Sprite BGSprite;
 	sf::Vector2i mousePosition;

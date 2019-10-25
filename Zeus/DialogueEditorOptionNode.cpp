@@ -2,23 +2,29 @@
 #include "FontManager.h"
 
 DialogueEditorOptionNode::DialogueEditorOptionNode(Dialogue::optionNode* node) {
-	sf::Font font = FontManager::getInstance().oldStandard;
-	this->rectangle.setSize(sf::Vector2f(120.0f, 50.0f));
-	this->rectangle.setFillColor(sf::Color::White);
-	this->text.setString(node->optionMsg);
-	this->text.setFont(font);
+	this->node = node;
+	this->rectangle.setSize(RECT_SIZE);
+	//this->rectangle.setFillColor(sf::Color::Transparent);
+	this->text.setFont(FontManager::getInstance().oldStandard);
 	this->text.setCharacterSize(FONT_SIZE);
-	this->returnCode.setString(std::to_string(node->returnCode));
-	this->returnCode.setFont(font);
+	this->text.setFillColor(sf::Color::Black);
+	this->text.setString("Message: " + sf::String(node->optionMsg));
+	this->text.setPosition(sf::Vector2f(5.0f, 0.0f));
+	this->returnCode.setFont(FontManager::getInstance().oldStandard);
 	this->returnCode.setCharacterSize(FONT_SIZE);
-	this->nodeID.setString(std::to_string(node->nodeID));
-	this->nodeID.setFont(font);
+	this->returnCode.setFillColor(sf::Color::Black);
+	this->returnCode.setString("Return Code: " + std::to_string(node->returnCode));
+	this->returnCode.setPosition(sf::Vector2f(5.0f, 95.0f));
+	this->nodeID.setFont(FontManager::getInstance().oldStandard);
 	this->nodeID.setCharacterSize(FONT_SIZE);
+	this->nodeID.setFillColor(sf::Color::Black);
+	this->nodeID.setString("NodeID: " + sf::String(std::to_string(node->nodeID)));
 	this->isSelected = false;
 }
 
 void DialogueEditorOptionNode::setSelected(bool select) {
 	this->isSelected = select;
+	this->rectangle.setFillColor(select ? sf::Color::Blue : sf::Color::White);
 }
 
 void DialogueEditorOptionNode::update(float deltaTime, sf::Vector2i mousePosition) {
@@ -40,6 +46,7 @@ void DialogueEditorOptionNode::draw(sf::RenderTarget& target, sf::RenderStates s
 	states.texture = NULL;
 	target.draw(this->rectangle, states);
 	target.draw(this->text, states);
+	target.draw(this->returnCode, states);
 }
 
 Dialogue::optionNode* DialogueEditorOptionNode::getNode() {

@@ -1,8 +1,8 @@
 #include "DialogueEditorPanel.h"
 
-DialogueEditorPanel::DialogueEditorPanel(DialogueEditorScreen* screen) {
+DialogueEditorPanel::DialogueEditorPanel() {
 
-	this->screen = screen;
+	//this->screen = dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen());
 
 	this->panel = tgui::Panel::create();
 	this->panel->setSize(200, 300);
@@ -17,7 +17,7 @@ DialogueEditorPanel::DialogueEditorPanel(DialogueEditorScreen* screen) {
 	this->messageBox = tgui::TextBox::create();
 	this->messageBox->setSize(200, 160);
 	this->messageBox->setPosition(0, 20);
-	this->messageBox->setText("Insert message/option text here...");
+	this->messageBox->setText("");
 	this->messageBox->connect("textchanged", &DialogueEditorPanel::editHandler, this);
 
 	this->returnBox = tgui::EditBox::create();
@@ -61,43 +61,38 @@ DialogueEditorPanel::DialogueEditorPanel(DialogueEditorScreen* screen) {
 	this->panel->add(deleteButton);
 }
 
-DialogueEditorPanel& DialogueEditorPanel::getInstance(DialogueEditorScreen* screen) {
-	static DialogueEditorPanel instance(screen);
+DialogueEditorPanel& DialogueEditorPanel::getInstance() {
+	static DialogueEditorPanel instance;
 	return instance;
 }
 
 tgui::Panel::Ptr DialogueEditorPanel::getPanel() {
-	return DialogueEditorPanel::getInstance().panel;
+	return this->panel;
 }
 
 void DialogueEditorPanel::messageHandler() {
-	this->screen->activeTree->addDialogueNode();
+	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).addMessage();
 }
 
 void DialogueEditorPanel::optionHandler() {
-	this->screen->activeTree->addOptionNode();
+	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).addOption();
 }
 
 void DialogueEditorPanel::deleteHandler() {
-	if (this->activeMNode != nullptr) {
-		this->screen->activeTree->deleteDialogueNode(this->activeMNode);
-	}
-	else if (this->activeONode != nullptr) {
-		this->screen->activeTree->deleteOptionNode(this->activeONode);
-	}
+	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).deleteNode();
 }
 
 void DialogueEditorPanel::editHandler() {
-	if (this->activeMNode != nullptr) {
-		this->activeMNode->message = this->messageBox->getText().toAnsiString();
-	}
-	else if (this->activeONode != nullptr) {
-		this->activeONode->optionMsg = this->messageBox->getText().toAnsiString();
-		this->activeONode->returnCode = std::stoi(this->returnCodeBox->getText().toAnsiString());
-	}
+	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).editNode(this->messageBox->getText().toAnsiString(), std::stoi(this->returnCodeBox->getText().toAnsiString()));
 }
 
-void DialogueEditorPanel::updateNode(Dialogue::msgNode* mNode, Dialogue::optionNode* oNode) {
-	this->activeMNode = mNode;
-	this->activeONode = oNode;
+void DialogueEditorPanel::updatePanel(Dialogue::msgNode* mNode, Dialogue::optionNode* oNode) {
+	if (mNode != nullptr) {
+		messageBox->setText(mNode->message);
+		returnCodeBox->setText("0");
+	}
+	else {
+		messageBox->setText(oNode->optionMsg);
+		returnCodeBox->setText(std::to_string(oNode->returnCode));
+	}
 }
