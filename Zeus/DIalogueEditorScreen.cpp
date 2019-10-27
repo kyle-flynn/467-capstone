@@ -15,17 +15,19 @@ DialogueEditorScreen::DialogueEditorScreen() {
 }
 
 void DialogueEditorScreen::update(float deltaTime) {
-	for (DialogueEditorMessageNode n : this->messages) {
+	for (DialogueEditorMessageNode& n : this->messages) {
 		n.update(deltaTime, this->mousePosition);
-		if (n.isSelected) {
+		if (n.isSelected && n.getNode() != this->activeMNode) {
 			this->changeActive(n.getNode(), nullptr);
 		}
+		n.setPosition(n.getNode()->loc);
 	}
-	for (DialogueEditorOptionNode n : this->options) {
+	for (DialogueEditorOptionNode& n : this->options) {
 		n.update(deltaTime, this->mousePosition);
-		if (n.isSelected) {
+		if (n.isSelected && n.getNode() != this->activeONode) {
 			this->changeActive(nullptr, n.getNode());
 		}
+		n.setPosition(n.getNode()->loc);
 	}
 }
 
@@ -47,49 +49,42 @@ void DialogueEditorScreen::addMessage(sf::Vector2f loc) {
 
 void DialogueEditorScreen::addOption(sf::Vector2f loc) {
 	this->options.push_back(this->activeTree->addOptionNode(loc));
-	this->options.push_back(this->activeTree->addOptionNode(loc));
 }
 
 void DialogueEditorScreen::deleteNode() {
-	/*if (this->activeMNode != nullptr) {
-		for (int i = 0; i < this->messages.size(); i++) {
-			if (this->messages.at(i).getNode()->nodeID == this->activeMNode->nodeID) {
-				this->messages.erase(this->messages.begin() + i);
-				this->messages.push_back(nullptr);
-				this->activeTree->deleteDialogueNode(this->activeMNode);
-				break;
+	if (this->activeMNode != nullptr) {
+		for (DialogueEditorMessageNode& n : this->messages) {
+			if (n.getNode()->nodeID == this->activeMNode->nodeID) {
+				this->activeTree->deleteDialogueNode(n.getNode());
+				//TODO DELETE NODE FROM SCREEN
 			}
 		}
 	}
 	else if (this->activeONode != nullptr) {
-		for (int i = 0; i < this->options.size(); i++) {
-			if (options.at(i).getNode()->nodeID == this->activeONode->nodeID) {
-				options.erase(options.begin() + i);
-				options.push_back(nullptr);
-				this->activeTree->deleteOptionNode(this->activeONode);
-				break;
+		for (DialogueEditorOptionNode& n : this->options) {
+			if (n.getNode()->nodeID == this->activeONode->nodeID) {
+				this->activeTree->deleteOptionNode(n.getNode());
 			}
 		}
-	}*/
+	}
 	this->changeActive(nullptr, nullptr);
 }
 
 void DialogueEditorScreen::editNode(std::string message, int returnCode) {
 	if (this->activeMNode != nullptr) {
 		this->activeTree->editDialoguenode(this->activeMNode, message);
-		for (DialogueEditorMessageNode n : this->messages) {
+		for (DialogueEditorMessageNode& n : this->messages) {
 			if (n.getNode()->nodeID == this->activeMNode->nodeID) {
-				n.getNode()->message = message;
+				n.edit(message);
 				break;
 			}
 		}
 	}
 	else if (this->activeONode != nullptr) {
 		this->activeTree->editOptionNode(this->activeONode, message, returnCode);
-		for (DialogueEditorOptionNode n : this->options) {
+		for (DialogueEditorOptionNode& n : this->options) {
 			if (n.getNode()->nodeID == this->activeONode->nodeID) {
-				n.getNode()->optionMsg = message;
-				n.getNode()->returnCode = returnCode;
+				n.edit(message, returnCode);
 				break;
 			}
 		}

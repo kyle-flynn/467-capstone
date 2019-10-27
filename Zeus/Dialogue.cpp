@@ -58,6 +58,7 @@ Dialogue::optionNode* Dialogue::addOptionNode(sf::Vector2f loc) {
 	Dialogue::optionNode* newNode = new Dialogue::optionNode;
 	newNode->loc = loc;
 	newNode->nodeID = optionNodes.size() + 1;
+	newNode->returnCode = 0;
 	optionNodes.push_back(newNode);
 	return newNode;
 }
@@ -173,15 +174,23 @@ void Dialogue::deleteDialogueNode(Dialogue::msgNode* node) {
 		o->previousID = NULL;
 	}
 	if (node->previousID != NULL) {
-		optionNodes.at(node->previousID)->nextID = NULL;
-		optionNodes.at(node->previousID)->next = nullptr;
+		optionNodes.at(node->previousID - 1)->nextID = NULL;
+		optionNodes.at(node->previousID - 1)->next = nullptr;
 	}
-	delete nodes.at(node->nodeID);
+	delete nodes.at(node->nodeID - 1);
 	nodes.push_back(nullptr);
 }
 
 // TODO
 void Dialogue::deleteOptionNode(Dialogue::optionNode* node) {
+	if (node->previousID != NULL) {
+		Dialogue::msgNode* previous = nodes.at(node->nodeID - 1);
+		for (Dialogue::optionNode* n : previous->options) {
+			if (n->nodeID == node->nodeID) {
+				
+			}
+		}
+	}
 }
 
 std::vector<Dialogue::msgNode*> Dialogue::getMessageNodes() {

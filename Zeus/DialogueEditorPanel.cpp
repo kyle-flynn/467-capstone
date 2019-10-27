@@ -83,16 +83,23 @@ void DialogueEditorPanel::deleteHandler() {
 }
 
 void DialogueEditorPanel::editHandler() {
-	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).editNode(this->messageBox->getText().toAnsiString(), std::stoi(this->returnCodeBox->getText().toAnsiString()));
+	int returnCode;
+	try {
+		returnCode = std::stoi(returnCodeBox->getText().toAnsiString());
+	}
+	catch (...) {
+		returnCode = 0;
+	}
+	dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).editNode(this->messageBox->getText().toAnsiString(), returnCode);
 }
 
 void DialogueEditorPanel::updatePanel(Dialogue::msgNode* mNode, Dialogue::optionNode* oNode) {
 	if (mNode != nullptr) {
-		messageBox->setText(mNode->message);
-		returnCodeBox->setText("0");
+		messageBox->setText(sf::String(mNode->message));
+		returnCodeBox->setText(sf::String("0"));
 	}
 	else {
-		messageBox->setText(oNode->optionMsg);
-		returnCodeBox->setText(std::to_string(oNode->returnCode));
+		messageBox->setText(sf::String(oNode->optionMsg));
+		returnCodeBox->setText(sf::String(std::to_string(oNode->returnCode)));
 	}
 }
