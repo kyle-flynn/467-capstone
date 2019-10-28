@@ -5,6 +5,7 @@
 #include "Screen.h"
 
 #include "PlayerCombatDisplay.h"
+#include "BattleTextbox.h"
 
 #ifndef GAME_COMBAT_SCREEN_H
 #define GAME_COMBAT_SCREEN_H
@@ -16,6 +17,7 @@ public:
 	void draw(sf::RenderWindow& window);
 private:
 	PlayerCombatDisplay combatDisplay;
+	BattleTextbox textbox;
 };
 
 #endif

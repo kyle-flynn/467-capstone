@@ -134,6 +134,9 @@
     <ClCompile Include="CombatScreen.cpp">
       <Filter>Source Files\Logic\Screens</Filter>
     </ClCompile>
+    <ClCompile Include="BattleTextbox.cpp">
+      <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -216,6 +219,9 @@
     </ClInclude>
     <ClInclude Include="CombatScreen.h">
       <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleTextbox.h">
+      <Filter>Header Files\Graphics\Combat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

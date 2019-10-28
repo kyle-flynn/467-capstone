@@ -31,14 +31,17 @@ PlayerCombatDisplay::PlayerCombatDisplay(std::string name) {
 	this->name.setPosition(sf::Vector2f(this->combatSprite.getGlobalBounds().width / 2.0f, this->getPosition().y + 27.0f));
 
 	this->hitpoints.setPosition(sf::Vector2f(20.0f, 50.0f));
-	this->mana.setPosition(sf::Vector2f(20.0f, 90.0f));
+	this->mana.setPosition(sf::Vector2f(20.0f, 93.0f));
 }
 
 void PlayerCombatDisplay::update(float deltaTime) {}
 
 void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states) const {
+	states.transform *= getTransform();
+	states.texture = NULL;
+
 	target.draw(this->combatSprite, states);
 	target.draw(this->name, states);
-	target.draw(this->hitpoints);
-	target.draw(this->mana);
+	target.draw(this->hitpoints, states);
+	target.draw(this->mana, states);
 }

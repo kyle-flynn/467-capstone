@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BattleTextbox.cpp" />
     <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
@@ -158,6 +159,7 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BattleTextbox.h" />
     <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="EntityComponentSystem.h" />
