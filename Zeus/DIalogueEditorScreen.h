@@ -17,7 +17,9 @@ public:
 
 	DialogueEditorScreen();
 	void update(float deltaTime);
+	void update(sf::Event event);
 	void draw(sf::RenderWindow& window);
+	void handleEvent(sf::Event event);
 	void addMessage(sf::Vector2f loc = sf::Vector2f(0, 0));
 	void addOption(sf::Vector2f loc = sf::Vector2f(0, 0));
 	void deleteNode();
@@ -32,6 +34,7 @@ public:
 
 private:
 
+	sf::Text header;
 	sf::Texture BGTexture;
 	sf::Sprite BGSprite;
 	sf::Vector2i mousePosition;

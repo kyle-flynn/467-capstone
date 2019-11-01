@@ -1,5 +1,4 @@
 #include "DialogueEditorScreen.h"
-#include <iostream>
 
 DialogueEditorScreen::DialogueEditorScreen() {
 	Screen();
@@ -7,6 +6,11 @@ DialogueEditorScreen::DialogueEditorScreen() {
 	this->BGSprite.setTexture(BGTexture);
 	this->BGSprite.setScale((float)(Game::WIDTH / BGTexture.getSize().x), (float)(Game::HEIGHT / BGTexture.getSize().y));
 	this->links = sf::VertexArray();
+	this->header.setFont(FontManager::getInstance().oldStandard);
+	this->header.setCharacterSize(32);
+	this->header.setFillColor(sf::Color::Black);
+	this->header.setString("Entity Name");
+	this->header.setPosition(sf::Vector2f(400.0f, 20.0f));
 	if (this->dialogueTrees.empty()) {
 		Dialogue* newTree = new Dialogue();
 		this->activeTree = newTree;
@@ -17,17 +21,33 @@ DialogueEditorScreen::DialogueEditorScreen() {
 void DialogueEditorScreen::update(float deltaTime) {
 	for (DialogueEditorMessageNode& n : this->messages) {
 		n.update(deltaTime, this->mousePosition);
-		if (n.isSelected && n.getNode() != this->activeMNode) {
-			this->changeActive(n.getNode(), nullptr);
-		}
 		n.setPosition(n.getNode()->loc);
 	}
 	for (DialogueEditorOptionNode& n : this->options) {
 		n.update(deltaTime, this->mousePosition);
-		if (n.isSelected && n.getNode() != this->activeONode) {
+		n.setPosition(n.getNode()->loc);
+	}
+}
+
+void DialogueEditorScreen::update(sf::Event event) {
+	for (DialogueEditorMessageNode& n : this->messages) {
+		n.update(event, this->mousePosition);
+		if (n.isSelected) {
+			this->changeActive(n.getNode(), nullptr);
+		}
+	}
+	for (DialogueEditorOptionNode& n : this->options) {
+		n.update(event, this->mousePosition);
+		if (n.isSelected) {
 			this->changeActive(nullptr, n.getNode());
 		}
-		n.setPosition(n.getNode()->loc);
+	}
+	sf::Rect<float> bounds(
+		sf::Vector2f(700, 500),
+		sf::Vector2f(800, 600)
+	);
+	if (bounds.contains(mousePosition.x, mousePosition.y)) {
+		this->activeTree->printTree();
 	}
 }
 
@@ -41,6 +61,13 @@ void DialogueEditorScreen::draw(sf::RenderWindow& window) {
 	for (DialogueEditorOptionNode n : this->options) {
 		window.draw(n);
 	}
+	window.draw(this->header);
+}
+
+void DialogueEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
+		this->update(event);
+	}
 }
 
 void DialogueEditorScreen::addMessage(sf::Vector2f loc) {
@@ -53,21 +80,28 @@ void DialogueEditorScreen::addOption(sf::Vector2f loc) {
 
 void DialogueEditorScreen::deleteNode() {
 	if (this->activeMNode != nullptr) {
+		std::cout << "Deleting message node" << std::endl;
 		for (DialogueEditorMessageNode& n : this->messages) {
 			if (n.getNode()->nodeID == this->activeMNode->nodeID) {
 				this->activeTree->deleteDialogueNode(n.getNode());
-				//TODO DELETE NODE FROM SCREEN
+				//this->messages.erase(this->messages.begin() + n.getNode()->nodeID - 1);
+				break;
 			}
 		}
 	}
 	else if (this->activeONode != nullptr) {
+		std::cout << "Deleting option node" << std::endl;
 		for (DialogueEditorOptionNode& n : this->options) {
 			if (n.getNode()->nodeID == this->activeONode->nodeID) {
 				this->activeTree->deleteOptionNode(n.getNode());
+				//this->options.erase(this->options.begin() + n.getNode()->nodeID - 1);
+				break;
 			}
 		}
 	}
 	this->changeActive(nullptr, nullptr);
+	this->clearScreen();
+	this->loadNodes();
 }
 
 void DialogueEditorScreen::editNode(std::string message, int returnCode) {
@@ -99,10 +133,14 @@ void DialogueEditorScreen::clearScreen() {
 
 void DialogueEditorScreen::loadNodes() {
 	for (Dialogue::msgNode* n : this->activeTree->getMessageNodes()) {
-		this->messages.push_back(DialogueEditorMessageNode(n));
+		if (n != nullptr) {
+			this->messages.push_back(DialogueEditorMessageNode(n));
+		}
 	}
 	for (Dialogue::optionNode* n : this->activeTree->getOptionNodes()) {
-		this->options.push_back(DialogueEditorOptionNode(n));
+		if (n != nullptr) {
+			this->options.push_back(DialogueEditorOptionNode(n));
+		}
 	}
 	this->linkNodes();
 }
@@ -110,6 +148,7 @@ void DialogueEditorScreen::loadNodes() {
 void DialogueEditorScreen::changeTrees(Dialogue* tree) {
 	this->clearScreen();
 	this->activeTree = tree;
+	this->header.setString(sf::String(tree->getTreeName()));
 }
 
 void DialogueEditorScreen::newTree() {

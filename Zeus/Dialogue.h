@@ -29,6 +29,7 @@ public:
 	std::vector<Dialogue::msgNode*> getMessageNodes();
 	std::vector<Dialogue::optionNode*> getOptionNodes();
 	std::string getTreeName();
+	void printTree();
 
 	struct msgNode {
 		std::string message;

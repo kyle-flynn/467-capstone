@@ -70,6 +70,7 @@ int main() {
 				window.close();
 			}
 			gui.handleEvent(event);
+			ScreenManager::getInstance().handleEvent(event);
 		}
 
 		float deltaTime = clock.restart().asSeconds();

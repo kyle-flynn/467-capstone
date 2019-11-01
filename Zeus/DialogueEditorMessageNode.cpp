@@ -1,6 +1,4 @@
 #include "DialogueEditorMessageNode.h"
-#include "FontManager.h"
-#include <iostream>
 
 DialogueEditorMessageNode::DialogueEditorMessageNode(Dialogue::msgNode* node) {
 	this->node = node;
@@ -33,14 +31,30 @@ void DialogueEditorMessageNode::update(float deltaTime, sf::Vector2i mousePositi
 		this->getPosition().y,
 		this->rectangle.getGlobalBounds().width,
 		this->rectangle.getGlobalBounds().height);
-	if (this->isPressed && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
+	if (this->isPressed) {
 		this->getNode()->loc = sf::Vector2f(mousePosition.x, mousePosition.y);
 	}
-	else if (bounds.contains(mousePosition.x, mousePosition.y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {
-		this->setSelected(true);
+}
+
+void DialogueEditorMessageNode::update(sf::Event event, sf::Vector2i mousePosition) {
+	sf::Rect<float> bounds(
+		this->getPosition().x,
+		this->getPosition().y,
+		this->rectangle.getGlobalBounds().width,
+		this->rectangle.getGlobalBounds().height);
+	if (event.type == sf::Event::MouseButtonPressed &&
+		event.mouseButton.button == sf::Mouse::Button::Left &&
+		bounds.contains(mousePosition.x, mousePosition.y)) {
 		this->setPressed(true);
+		this->setSelected(true);
 	}
-	else {
+	else if (this->isPressed && event.type == sf::Event::MouseButtonReleased &&
+		event.mouseButton.button == sf::Mouse::Button::Left) {
+		this->setPressed(false);
+	}
+	else if (event.type == sf::Event::MouseButtonReleased &&
+		event.mouseButton.button == sf::Mouse::Button::Left &&
+		!bounds.contains(mousePosition.x, mousePosition.y)) {
 		this->setSelected(false);
 		this->setPressed(false);
 	}

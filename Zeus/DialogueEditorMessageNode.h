@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Dialogue.h"
+#include "FontManager.h"
 
 class DialogueEditorMessageNode : public sf::Drawable, public sf::Transformable {
 
@@ -13,6 +14,7 @@ public:
 	void setSelected(bool select);
 	void setPressed(bool press);
 	void update(float delaTime, sf::Vector2i mousePosition);
+	void update(sf::Event event, sf::Vector2i mousePosition);
 	void edit(std::string message);
 	Dialogue::msgNode* getNode();
 

@@ -1,4 +1,5 @@
 #include "Dialogue.h"
+#include <iostream>
 
 /*
 Default constructor.
@@ -177,20 +178,23 @@ void Dialogue::deleteDialogueNode(Dialogue::msgNode* node) {
 		optionNodes.at(node->previousID - 1)->nextID = NULL;
 		optionNodes.at(node->previousID - 1)->next = nullptr;
 	}
-	delete nodes.at(node->nodeID - 1);
+	nodes.erase(nodes.begin() + node->nodeID - 1);
 	nodes.push_back(nullptr);
 }
 
-// TODO
 void Dialogue::deleteOptionNode(Dialogue::optionNode* node) {
 	if (node->previousID != NULL) {
 		Dialogue::msgNode* previous = nodes.at(node->nodeID - 1);
-		for (Dialogue::optionNode* n : previous->options) {
-			if (n->nodeID == node->nodeID) {
-				
+		for (int i = 0; i < previous->options.size(); i++) {
+			if (previous->options.at(i)->nodeID = node->nodeID) {
+				previous->options.erase(previous->options.begin() + i);
+				previous->optionIDs.erase(previous->optionIDs.begin() + i);
+				break;
 			}
 		}
 	}
+	optionNodes.erase(optionNodes.begin() + node->nodeID - 1);
+	optionNodes.push_back(nullptr);
 }
 
 std::vector<Dialogue::msgNode*> Dialogue::getMessageNodes() {
@@ -203,4 +207,13 @@ std::vector<Dialogue::optionNode*> Dialogue::getOptionNodes() {
 
 std::string Dialogue::getTreeName() {
 	return entityName;
+}
+
+void Dialogue::printTree() {
+	for (Dialogue::msgNode* n : nodes) {
+		std::cout << n << std::endl;
+	}
+	for (Dialogue::optionNode* n : optionNodes) {
+		std::cout << n << std::endl;
+	}
 }

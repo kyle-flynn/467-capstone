@@ -98,7 +98,7 @@ void DialogueEditorPanel::updatePanel(Dialogue::msgNode* mNode, Dialogue::option
 		messageBox->setText(sf::String(mNode->message));
 		returnCodeBox->setText(sf::String("0"));
 	}
-	else {
+	else if (oNode != nullptr) {
 		messageBox->setText(sf::String(oNode->optionMsg));
 		returnCodeBox->setText(sf::String(std::to_string(oNode->returnCode)));
 	}

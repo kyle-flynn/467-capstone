@@ -10,6 +10,7 @@ public:
 	Screen();
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderWindow& window);
+	virtual void handleEvent(sf::Event event);
 };
 
 #endif
