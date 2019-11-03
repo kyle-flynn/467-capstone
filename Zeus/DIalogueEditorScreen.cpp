@@ -54,7 +54,17 @@ void DialogueEditorScreen::update(sf::Event event) {
 void DialogueEditorScreen::draw(sf::RenderWindow& window) {
 	this->mousePosition = sf::Mouse::getPosition(window);
 	window.draw(this->BGSprite);
-	//TODO DRAW CONNECTING LINES
+	this->linkNodes();
+	for (int i = 0; i < this->links.getVertexCount(); i+=2) {
+		sf::Vertex line[2] = {
+			sf::Vertex(this->links[i].position),
+			sf::Vertex(this->links[i + 1].position)
+		};
+		line[0].color = sf::Color::Black;
+		line[0].color = sf::Color::Black;
+		window.draw(line, 2, sf::Lines);
+	}
+	//window.draw(this->links);
 	for (DialogueEditorMessageNode n : this->messages) {
 		window.draw(n);
 	}
@@ -158,6 +168,7 @@ void DialogueEditorScreen::newTree() {
 }
 
 void DialogueEditorScreen::linkNodes() {
+	this->links.clear();
 	for (DialogueEditorMessageNode m : this->messages) {
 		for (Dialogue::optionNode* o : m.getNode()->options) {
 			links.append(m.getPosition());
@@ -170,6 +181,9 @@ void DialogueEditorScreen::linkNodes() {
 			links.append(o.getPosition());
 			links.append(this->getMsgNode(o.getNode()->next).getPosition());
 		}
+	}
+	for (int i = 0; i < this->links.getVertexCount(); i++) {
+		this->links[i].color = sf::Color::Black;
 	}
 }
 
@@ -205,4 +219,42 @@ void DialogueEditorScreen::changeActive(Dialogue::msgNode* mNode, Dialogue::opti
 tgui::Panel::Ptr DialogueEditorScreen::getPanel() {
 	//return panel->getPanel();
 	return NULL;
+}
+
+bool DialogueEditorScreen::messageOverlap(DialogueEditorOptionNode node) {
+	for (DialogueEditorMessageNode& n : this->messages) {
+		sf::Rect<float> bounds(
+			sf::Vector2f(n.getPosition().x,
+				n.getPosition().y),
+			n.RECT_SIZE);
+		if (bounds.contains(node.getNode()->loc)) {
+			this->addOptionLink(node, n);
+			return true;
+		}
+	}
+	return false;
+}
+
+bool DialogueEditorScreen::optionOverlap(DialogueEditorMessageNode node) {
+	for (DialogueEditorOptionNode& n : this->options) {
+		sf::Rect <float> bounds(
+			sf::Vector2f(n.getPosition().x,
+				n.getPosition().y),
+			n.RECT_SIZE);
+		if (bounds.contains(node.getNode()->loc)) {
+			this->addDialogueLink(node, n);
+			return true;
+		}
+	}
+	return false;
+}
+
+void DialogueEditorScreen::addOptionLink(DialogueEditorOptionNode oNode, DialogueEditorMessageNode mNode) {
+	this->activeTree->editOptionNode(oNode.getNode(), oNode.getNode()->optionMsg, oNode.getNode()->returnCode, sf::Vector2f(-1, -1), mNode.getNode());
+	this->linkNodes();
+}
+
+void DialogueEditorScreen::addDialogueLink(DialogueEditorMessageNode mNode, DialogueEditorOptionNode oNode) {
+	this->activeTree->linkDialogueToOption(mNode.getNode(), oNode.getNode());
+	this->linkNodes();
 }

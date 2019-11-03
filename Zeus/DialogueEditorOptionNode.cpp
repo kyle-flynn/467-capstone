@@ -28,6 +28,12 @@ void DialogueEditorOptionNode::setSelected(bool select) {
 
 void DialogueEditorOptionNode::setPressed(bool press) {
 	this->isPressed = press;
+	if (press) {
+		this->previousLoc = this->getNode()->loc;
+	}
+	else if (dynamic_cast<DialogueEditorScreen&>(ScreenManager::getInstance().getScreen()).messageOverlap(this->getNode())) {
+		this->getNode()->loc = this->previousLoc;
+	}
 }
 
 void DialogueEditorOptionNode::update(float deltaTime, sf::Vector2i mousePosition) {

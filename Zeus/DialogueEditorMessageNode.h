@@ -1,13 +1,14 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "DialogueEditorScreen.h"
 #include "Dialogue.h"
-#include "FontManager.h"
 
 class DialogueEditorMessageNode : public sf::Drawable, public sf::Transformable {
 
 public:
 
+	const sf::Vector2f RECT_SIZE = sf::Vector2f(200.0f, 120.0f);
 	bool isSelected;
 
 	DialogueEditorMessageNode(Dialogue::msgNode* node);
@@ -22,7 +23,7 @@ private:
 
 	bool isPressed;
 	const int FONT_SIZE = 20;
-	const sf::Vector2f RECT_SIZE = sf::Vector2f(200.0f, 120.0f);
+	sf::Vector2f previousLoc;
 	Dialogue::msgNode* node;
 	sf::Text text, nodeID;
 	sf::RectangleShape rectangle;

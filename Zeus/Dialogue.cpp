@@ -29,6 +29,8 @@ Dialogue::msgNode* Dialogue::addDialogueNode(sf::Vector2f loc) {
 	Dialogue::msgNode* newNode = new Dialogue::msgNode;
 	newNode->loc = loc;
 	newNode->nodeID = nodes.size() + 1;
+	newNode->previousID = NULL;
+	newNode->message = "";
 	nodes.push_back(newNode);
 	return newNode;
 }
@@ -60,6 +62,9 @@ Dialogue::optionNode* Dialogue::addOptionNode(sf::Vector2f loc) {
 	newNode->loc = loc;
 	newNode->nodeID = optionNodes.size() + 1;
 	newNode->returnCode = 0;
+	newNode->previousID = NULL;
+	newNode->nextID = NULL;
+	newNode->next = nullptr;
 	optionNodes.push_back(newNode);
 	return newNode;
 }
@@ -83,7 +88,7 @@ void Dialogue::editOptionNode(Dialogue::optionNode* node, std::string message, i
 	if (loc.x != -1) {
 		node->loc = loc;
 	}
-	if (next != nullptr) {
+	if (next != nullptr && next->nodeID != node->previousID) {
 		node->next = next;
 		node->nextID = next->nodeID;
 		next->previousID = node->nodeID;
@@ -113,9 +118,11 @@ dNode = originating message node
 optNode = option node to link to
 */
 void Dialogue::linkDialogueToOption(Dialogue::msgNode* dNode, Dialogue::optionNode* optNode) {
-	dNode->options.push_back(optNode);
-	dNode->optionIDs.push_back(optNode->nodeID);
-	optNode->previousID = dNode->nodeID;
+	if (dNode->previousID != optNode->nodeID) {
+		dNode->options.push_back(optNode);
+		dNode->optionIDs.push_back(optNode->nodeID);
+		optNode->previousID = dNode->nodeID;
+	}
 }
 
 /*
@@ -179,12 +186,19 @@ void Dialogue::deleteDialogueNode(Dialogue::msgNode* node) {
 		optionNodes.at(node->previousID - 1)->next = nullptr;
 	}
 	nodes.erase(nodes.begin() + node->nodeID - 1);
-	nodes.push_back(nullptr);
+	if ((node->nodeID - 1) == nodes.size()) {
+		nodes.push_back(nullptr);
+	}
+	else {
+		nodes.insert(nodes.begin() + node->nodeID - 1, nullptr);
+	}
+	//nodes.push_back(nullptr);
 }
 
 void Dialogue::deleteOptionNode(Dialogue::optionNode* node) {
 	if (node->previousID != NULL) {
 		Dialogue::msgNode* previous = nodes.at(node->nodeID - 1);
+		std::cout << previous->options.size() << std::endl;
 		for (int i = 0; i < previous->options.size(); i++) {
 			if (previous->options.at(i)->nodeID = node->nodeID) {
 				previous->options.erase(previous->options.begin() + i);
@@ -194,7 +208,13 @@ void Dialogue::deleteOptionNode(Dialogue::optionNode* node) {
 		}
 	}
 	optionNodes.erase(optionNodes.begin() + node->nodeID - 1);
-	optionNodes.push_back(nullptr);
+	if ((node->nodeID - 1) == node->nodeID - 1) {
+		nodes.push_back(nullptr);
+	}
+	else {
+		optionNodes.insert(optionNodes.begin() + node->nodeID - 1, nullptr);
+	}
+	//optionNodes.push_back(nullptr);
 }
 
 std::vector<Dialogue::msgNode*> Dialogue::getMessageNodes() {

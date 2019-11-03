@@ -6,6 +6,11 @@
 #include "DialogueEditorOptionNode.h"
 #include "DialogueEditorPanel.h"
 #include <TGUI/TGUI.hpp>
+#include "Dialogue.h"
+#include "FontManager.h"
+
+class DialogueEditorOptionNode;
+class DialogueEditorMessageNode;
 
 class DialogueEditorScreen : public Screen {
 
@@ -30,6 +35,10 @@ public:
 	void newTree();
 	void changeActive(Dialogue::msgNode* mNode = nullptr, Dialogue::optionNode * oNode = nullptr);
 	tgui::Panel::Ptr getPanel();
+	bool messageOverlap(DialogueEditorOptionNode node);
+	bool optionOverlap(DialogueEditorMessageNode node);
+	void addOptionLink(DialogueEditorOptionNode oNode, DialogueEditorMessageNode mNode);
+	void addDialogueLink(DialogueEditorMessageNode mNode, DialogueEditorOptionNode oNode);
 
 
 private:
