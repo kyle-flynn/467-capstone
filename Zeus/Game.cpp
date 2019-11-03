@@ -26,8 +26,8 @@ int main() {
 
 	tgui::Gui gui(window);
 
-	ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
-	gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
+	//gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
 	// Getting an instance of the message bus and starting its own thread.
 	MessageBus mBus = MessageBus::getInstance();
 	// mBus.setUpdatesPerSecond(120); // We can also change the updates per second of the message bus.
@@ -51,7 +51,7 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	/*ScreenManager::getInstance().setScreen(new MainMenuScreen());*/
+	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 
