@@ -156,11 +156,13 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Components.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="Pic.h" />
     <ClInclude Include="Lightning.h" />
     <ClInclude Include="LightningSystem.h" />
     <ClInclude Include="LoggingSystem.h" />
@@ -180,6 +182,8 @@
     <ClInclude Include="System.h" />
     <ClInclude Include="TestSystem.h" />
     <ClInclude Include="TextParticleSystem.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="UserInputField.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
