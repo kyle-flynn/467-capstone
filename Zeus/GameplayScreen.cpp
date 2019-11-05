@@ -41,6 +41,8 @@ GameplayScreen::GameplayScreen(int &shptr) : Screen() {
 		{50,50}
 	};
 	*/
+
+
 	const int userInput = shptr;
 	std::cout << "GameplayScreen Value: " << userInput << "\n";
 	

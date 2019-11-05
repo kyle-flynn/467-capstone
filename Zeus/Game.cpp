@@ -7,7 +7,7 @@
 #include "UserInputField.h"
 #include "Button.h"
 #include "Title.h"
-#include "Pic.h"
+#include "DynamicText.h"
 #include "Game.h"
 
 const float Game::WIDTH = 1280.0f;
@@ -105,61 +105,33 @@ int main() {
 		t1.drawTo(window);
 		text1.drawTo(window);
 		btn1.drawTo(window);
-		//window.clear();
-		//std::cout << "Test1 \n";
-		/*
-		if (enteredNum < 1) {
-			t1.drawTo(window);
-			text1.drawTo(window);
-			btn1.drawTo(window);
-			std::cout << "Test2 \n";
-		}
-		else {
-			//window.setActive(false);
-			//ScreenManager::getInstance().setScreen(new GameplayScreen());
-			std::cout << "Test \n";
-		}
-		*/
 		window.display();
 	}
 
 	window.clear();
-	//sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
-	//window.setFramerateLimit(60);
-	//window.setActive();
+	//ScreenManager::getInstance().setScreen(new GameplayScreen(*shptr));
 
-	ScreenManager::getInstance().setScreen(new GameplayScreen(*shptr));
-
-	/*
+	
 	
 	sf::Texture image1;
 	if (!image1.loadFromFile("Resources/images/userTutorial/numberedTileset.jpg"))
 		std::cout << "Font not found!\n";
 
-	sf::Sprite sprite1;
-	sprite1.setTexture(image1, true);
-	window.draw(sprite1);
-	*/
-	window.create(sf::VideoMode(900, 900), "Zeus", sf::Style::Titlebar | sf::Style::Close);
+	sf::Sprite sprite1(image1);
+	sprite1.setPosition(700, 100);
 
+	window.create(sf::VideoMode(1200, 1000), "Zeus", sf::Style::Titlebar | sf::Style::Close);
 
-	//sf::Texture texture;
-	//texture.loadFromImage(player->image);
-	//sf::Sprite sprite;
-	//sprite.setTexture(texture, true);
+	Title t2("Fill in Tile Values", { 500, 100 }, 30, sf::Color::Yellow, sf::Color::Red);
+	t2.setFont(font);
+	t2.setPosition({ 100, 50 });
+	t2.setBorderSize(2);
+	t2.setBackColor(sf::Color::Black);
 
-	//Then, in PlayState::render()
-	//game->window.draw(sprite);
-
-
-
-
-
-	
-
-	//Pic pic1(image1);
-
-	//pic1.setImage(image1);
+	DynText t3(*shptr, 25, { 100, 50 }, sf::Color::White, sf::Color::Black);
+	t3.setFont(font);
+	t3.setPosition({ 330, 200 });
+	t3.setBackColor(sf::Color::Black);
 
 	std::cout << "value is now " << *shptr << "\n";
 
@@ -171,7 +143,10 @@ int main() {
 			}
 		}
 		window.clear();
-		ScreenManager::getInstance().draw(window);
+		t2.drawTo(window);
+		t3.drawTo(window);
+		window.draw(sprite1);
+		//ScreenManager::getInstance().draw(window);
 		window.display();
 		
 	}

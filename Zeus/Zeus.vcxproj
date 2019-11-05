@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="Button.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="DynamicText.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />

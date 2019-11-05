@@ -211,5 +211,8 @@
     <ClInclude Include="Pic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
