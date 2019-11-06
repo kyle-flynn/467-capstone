@@ -1,0 +1,32 @@
+Renderer.1 {
+    backgroundcolor = white;
+    bordercolor = black;
+    borders = (1, 1, 1, 1);
+    caretcolor = black;
+    caretwidth = 1;
+    padding = (0, 0, 0, 0);
+    selectedtextbackgroundcolor = #006EFF;
+    selectedtextcolor = white;
+    textcolor = #3C3C3C;
+    texturebackground = None;
+}
+
+TextBox.MessageBox {
+    HorizontalScrollbarPolicy = Never;
+    MaximumCharacters = 0;
+    Position = (0, 60);
+    Size = (800, 540);
+    Text = "This is the starting message";
+    TextSize = 20;
+    renderer = &1;
+}
+
+TextBox.MessageTitle {
+    HorizontalScrollbarPolicy = Never;
+    MaximumCharacters = 0;
+    ReadOnly = true;
+    Size = (800, 60);
+    Text = "Message:";
+    TextSize = 40;
+    renderer = &1;
+}
