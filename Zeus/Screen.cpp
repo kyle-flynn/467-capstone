@@ -11,3 +11,7 @@ void Screen::update(float deltaTime) {
 void Screen::draw(sf::RenderWindow& window) {
 	// TODO
 }
+
+void Screen::handleEvent(sf::Event event) {
+	//TODO
+}

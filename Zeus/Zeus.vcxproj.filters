@@ -57,6 +57,12 @@
     <Filter Include="Source Files\Logic\Screens\Scenes">
       <UniqueIdentifier>{caaa83db-2581-427d-8661-177ac69f5bef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Dialogue">
+      <UniqueIdentifier>{10bdcca6-503f-4d19-a910-fd6a94721ee9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialogue">
+      <UniqueIdentifier>{65ddbb8f-5ce7-4e2f-ab36-feaaaa51dfc6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -121,6 +127,21 @@
     </ClCompile>
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorMessageNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorOptionNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorPanel.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorScreen.cpp">
+      <Filter>Source Files\Dialogue</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -199,5 +220,59 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
+    <ClCompile Include="EntitySystem.cpp" />
+    <ClCompile Include="EntitySystem.h" />
+    <ClCompile Include="FontManager.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="Lightning.cpp" />
+    <ClCompile Include="LightningSystem.cpp" />
+    <ClCompile Include="LoggingSystem.cpp" />
+    <ClCompile Include="MainMenuScreen.cpp" />
+    <ClCompile Include="MenuOption.cpp" />
+    <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="RainParticleSystem.cpp" />
+    <ClCompile Include="Screen.cpp" />
+    <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="SnowParticleSystem.cpp" />
+    <ClCompile Include="TestSystem.cpp" />
+    <ClCompile Include="TextParticleSystem.cpp" />
+    <ClCompile Include="World.cpp" />
+    <ClInclude Include="DialogueEditorMessageNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorOptionNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorPanel.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorScreen.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Components.h" />
+    <ClInclude Include="EntityComponentSystem.h" />
+    <ClInclude Include="FontManager.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="Lightning.h" />
+    <ClInclude Include="LightningSystem.h" />
+    <ClInclude Include="LoggingSystem.h" />
+    <ClInclude Include="MainMenuScreen.h" />
+    <ClInclude Include="MathUtils.h" />
+    <ClInclude Include="MenuOption.h" />
+    <ClInclude Include="Message.h" />
+    <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="Particle.h" />
+    <ClInclude Include="RainParticleSystem.h" />
+    <ClInclude Include="Screen.h" />
+    <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="SnowParticleSystem.h" />
+    <ClInclude Include="System.h" />
+    <ClInclude Include="TestSystem.h" />
+    <ClInclude Include="TextParticleSystem.h" />
+    <ClInclude Include="World.h" />
   </ItemGroup>
 </Project>
