@@ -25,4 +25,8 @@ struct ParallaxComponent {
 	float velocity;
 };
 
+struct CombatComponent {
+	int speed;
+};
+
 #endif
