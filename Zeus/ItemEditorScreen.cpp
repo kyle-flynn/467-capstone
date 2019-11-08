@@ -111,14 +111,17 @@ void ItemEditorScreen::update(sf::Event event) {
 			removeItem();
 		}
 		else if (upBounds.contains(mousePosition.x, mousePosition.y)) {
-			it--;
+			if (it == 0) {
+				it = items.size() - 1;
+			}
+			else {
+				it--;
+			}
 			std::cout << "List up" << std::endl;
-			//updateList(false);
 		}
 		else if (downBounds.contains(mousePosition.x, mousePosition.y)) {
-			//updateList(true);
 			std::cout << "List down" << std::endl;
-			it++;
+			it = (it + 1) % items.size();
 		}
 		else {
 			for (ItemOption i : items) {
@@ -162,13 +165,23 @@ void ItemEditorScreen::addItem() {
 	ItemOption newItem = ItemOption();
 	newItem.item.icon = defaultIcon;
 	items.push_back(newItem);
-	if (activeItems.size() < 7) {
-		activeItems.push_back(&newItem);
-	}
+	std::cout << items.size() << std::endl;
 }
 
 void ItemEditorScreen::removeItem() {
-
+	if (active == nullptr) {
+		return;
+	}
+	else {
+		/*for (int i = 0; i < items.size(); i++) {
+			if (items.at(i).item == active->item) {
+				active = nullptr;
+				items.erase(items.begin());
+			}
+		}*/
+		/*auto position = std::find(items.begin(), items.end(), *active);
+		items.erase(position);*/
+	}
 }
 
 void ItemEditorScreen::changeActive() {
@@ -189,7 +202,7 @@ void ItemEditorScreen::changeActive() {
 			else {
 				activeStat.setString(sf::String(""));
 			}
-			//activeIcon.setTexture(i->getIcon().getTexture());
+			activeIcon.setTexture(i.item.icon);
 			break;
 		}
 	}
@@ -209,41 +222,52 @@ void ItemEditorScreen::loadItems() {
 }
 
 void ItemEditorScreen::sortItems() {
-
-}
-
-void ItemEditorScreen::updateList(bool down) {
-	activeItems.clear();
-	if (items.size() <= 7) {
-		it = 0;
-		for (ItemOption i : items) {
-			activeItems.push_back(&i);
+	std::vector<ItemOption> tempItems;
+	for (ItemOption i : items) {
+		if (i.item.itemType == Item::Weapon) {
+			tempItems.push_back(i);
 		}
 	}
-	else if (down) {
-		//TODO UDDATE DOWN
+	for (ItemOption i : items) {
+		if (i.item.itemType == Item::Equippable) {
+			tempItems.push_back(i);
+		}
 	}
-	else {
-		//TODO UPDATE UP
+	for (ItemOption i : items) {
+		if (i.item.itemType == Item::Consumable) {
+			tempItems.push_back(i);
+		}
+	}
+	for (ItemOption i : items) {
+		if (i.item.itemType == Item::Other) {
+			tempItems.push_back(i);
+		}
+	}
+	items.clear();
+	for (ItemOption i : tempItems) {
+		items.push_back(i);
 	}
 }
 
 void ItemEditorScreen::drawActive(sf::RenderWindow& window) {
+	for (ItemOption& i : items) {
+		i.setPosition(0, 0);
+	}
 	int current = 0;
+	int currentIt = it;
 	if (items.size() <= 7) {
 		for (ItemOption& i : items) {
 			i.setPosition(715.0f, 225.0f + current * 35.0f);
 			window.draw(i);
 			current++;
 		}
-		it = 0;
 	}
 	else {
 		while (current < 7) {
-			items.at(it).setPosition(715.0f, 225.0f + current * 35.0f);
-			window.draw(items.at(it));
+			items.at(currentIt).setPosition(715.0f, 225.0f + current * 35.0f);
+			window.draw(items.at(currentIt));
 			current++;
-			it = (it + 1) % items.size();
+			currentIt = (currentIt + 1) % items.size();
 		}
 	}
 }

@@ -16,6 +16,7 @@ public:
 	Item();
 	Item(sf::String name);
 	Item(sf::String name, type itemType);
+	friend bool operator==(Item item1, Item item2);
 
 };
 

@@ -30,7 +30,6 @@ private:
 	sf::Sprite BGSprite, activeIcon;
 	sf::Vector2i mousePosition;
 	std::vector<ItemOption> items;
-	std::vector<ItemOption*> activeItems;
 	std::vector<sf::Texture> icons;
 	sf::Rect<float> newBounds, deleteBounds, upBounds, downBounds;
 	sf::CircleShape listUp, listDown;
@@ -39,7 +38,6 @@ private:
 	void loadIcons();
 	void loadItems();
 	void sortItems();
-	void updateList(bool down);
 	void drawActive(sf::RenderWindow& window);
 
 };
