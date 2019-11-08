@@ -63,6 +63,12 @@
     <Filter Include="Source Files\Logic\Screens\Scenes">
       <UniqueIdentifier>{caaa83db-2581-427d-8661-177ac69f5bef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Dialogue">
+      <UniqueIdentifier>{9db43130-78d6-45d2-aa83-91630a194fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogue">
+      <UniqueIdentifier>{96e6a57b-8751-4c5b-aa10-ce8061c832db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -136,6 +142,27 @@
     </ClCompile>
     <ClCompile Include="BattleTextbox.cpp">
       <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorMessageNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorOptionNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorPanel.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorScreen.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +249,27 @@
     </ClInclude>
     <ClInclude Include="BattleTextbox.h">
       <Filter>Header Files\Graphics\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorMessageNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorOptionNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorPanel.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorScreen.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDataManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

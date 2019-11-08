@@ -1,0 +1,30 @@
+{
+  "characters": [
+	  {
+		"name": "Starman",
+		"combat": {
+			"speed": 10
+		},
+		"render": {
+			"sprite_sheet": "Resources/Sprites/earthbound_enemies.png",
+			"tile_size_x": 46,
+			"tile_size_y": 69,
+			"tile_start_x": 629,
+			"tile_start_y": 640
+		}
+	  },
+	  {
+		"name": "Kyle",
+		"combat": {
+			"speed": 5
+		},
+		"render": {
+			"sprite_sheet": "Resources/Sprites/spritesheet_link.png",
+			"tile_size_x": 24,
+			"tile_size_y": 27,
+			"tile_start_x": 0,
+			"tile_start_y": 70
+		}
+	  }
+  ]
+}
