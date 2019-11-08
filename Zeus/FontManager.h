@@ -11,6 +11,7 @@ public:
 	void loadFonts();
 
 	sf::Font oldStandard;
+	sf::Font joystick;
 private:
 	FontManager();
 };

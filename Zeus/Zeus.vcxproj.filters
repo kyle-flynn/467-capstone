@@ -36,9 +36,6 @@
     <Filter Include="Source Files\Logic\Managers">
       <UniqueIdentifier>{00d4590b-a913-427f-ae30-fff93af81e38}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Logic\Screens">
-      <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Effects">
       <UniqueIdentifier>{661f8d5d-bb00-446a-8e2d-aa2622ae0043}</UniqueIdentifier>
     </Filter>
@@ -54,14 +51,23 @@
     <Filter Include="Header Files\Logic\Screens\Scenes">
       <UniqueIdentifier>{33cea967-6538-46b1-8143-40fb2bff4be7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\Combat">
+      <UniqueIdentifier>{566d53f7-7359-4207-8e9c-b9dbe82926d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Combat">
+      <UniqueIdentifier>{a42bb827-1094-4816-a1c1-c71221b171bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Screens">
+      <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Source Files\Logic\Screens\Scenes">
       <UniqueIdentifier>{caaa83db-2581-427d-8661-177ac69f5bef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Dialogue">
-      <UniqueIdentifier>{10bdcca6-503f-4d19-a910-fd6a94721ee9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Dialogue">
-      <UniqueIdentifier>{65ddbb8f-5ce7-4e2f-ab36-feaaaa51dfc6}</UniqueIdentifier>
+      <UniqueIdentifier>{9db43130-78d6-45d2-aa83-91630a194fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogue">
+      <UniqueIdentifier>{96e6a57b-8751-4c5b-aa10-ce8061c832db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,6 +134,15 @@
     <ClCompile Include="NetworkManager.cpp">
       <Filter>Source Files\Logic\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCombatDisplay.cpp">
+      <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleTextbox.cpp">
+      <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
     <ClCompile Include="Dialogue.cpp">
       <Filter>Source Files\Dialogue</Filter>
     </ClCompile>
@@ -142,6 +157,12 @@
     </ClCompile>
     <ClCompile Include="DialogueEditorScreen.cpp">
       <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -220,24 +241,18 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
-    <ClCompile Include="EntitySystem.cpp" />
-    <ClCompile Include="EntitySystem.h" />
-    <ClCompile Include="FontManager.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameplayScreen.cpp" />
-    <ClCompile Include="Lightning.cpp" />
-    <ClCompile Include="LightningSystem.cpp" />
-    <ClCompile Include="LoggingSystem.cpp" />
-    <ClCompile Include="MainMenuScreen.cpp" />
-    <ClCompile Include="MenuOption.cpp" />
-    <ClCompile Include="MessageBus.cpp" />
-    <ClCompile Include="RainParticleSystem.cpp" />
-    <ClCompile Include="Screen.cpp" />
-    <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="SnowParticleSystem.cpp" />
-    <ClCompile Include="TestSystem.cpp" />
-    <ClCompile Include="TextParticleSystem.cpp" />
-    <ClCompile Include="World.cpp" />
+    <ClInclude Include="PlayerCombatDisplay.h">
+      <Filter>Header Files\Graphics\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleTextbox.h">
+      <Filter>Header Files\Graphics\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
     <ClInclude Include="DialogueEditorMessageNode.h">
       <Filter>Header Files\Dialogue</Filter>
     </ClInclude>
@@ -250,29 +265,11 @@
     <ClInclude Include="DialogueEditorScreen.h">
       <Filter>Header Files\Dialogue</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Components.h" />
-    <ClInclude Include="EntityComponentSystem.h" />
-    <ClInclude Include="FontManager.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameplayScreen.h" />
-    <ClInclude Include="Lightning.h" />
-    <ClInclude Include="LightningSystem.h" />
-    <ClInclude Include="LoggingSystem.h" />
-    <ClInclude Include="MainMenuScreen.h" />
-    <ClInclude Include="MathUtils.h" />
-    <ClInclude Include="MenuOption.h" />
-    <ClInclude Include="Message.h" />
-    <ClInclude Include="MessageBus.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="RainParticleSystem.h" />
-    <ClInclude Include="Screen.h" />
-    <ClInclude Include="ScreenManager.h" />
-    <ClInclude Include="SnowParticleSystem.h" />
-    <ClInclude Include="System.h" />
-    <ClInclude Include="TestSystem.h" />
-    <ClInclude Include="TextParticleSystem.h" />
-    <ClInclude Include="World.h" />
+    <ClInclude Include="CombatManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDataManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

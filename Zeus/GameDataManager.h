@@ -7,7 +7,7 @@
 
 class GameDataManager {
 public:
-	GameDataManager& getInstance();
+	static GameDataManager& getInstance();
 	entt::registry& getRegistry();
 private:
 	GameDataManager();
