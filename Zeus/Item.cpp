@@ -1,5 +1,7 @@
 #include "Item.h"
 
+#include <iostream>
+
 Item::Item() {
 	this->name = "New item";
 	this->description = "Item description";
@@ -22,10 +24,10 @@ Item::Item(sf::String name, type itemType) {
 }
 
 bool operator== (Item item1, Item item2) {
-	if (item1.name == item2.name &&
+	if (item1.name.toAnsiString().compare(item2.name.toAnsiString()) == 0 &&
 		item1.itemType == item2.itemType &&
 		item1.stat == item2.stat &&
-		item1.description == item2.description) {
+		item1.description.toAnsiString().compare(item2.description.toAnsiString()) == 0) {
 		return true;
 	}
 	else {

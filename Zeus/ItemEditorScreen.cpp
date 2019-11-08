@@ -78,8 +78,8 @@ ItemEditorScreen::ItemEditorScreen() {
 }
 
 void ItemEditorScreen::update(float deltaTime) {
-	for (ItemOption& i : items) {
-		i.update(deltaTime, mousePosition);
+	for (ItemOption* i : items) {
+		i->update(deltaTime, mousePosition);
 	}
 	if (newBounds.contains(mousePosition.x, mousePosition.y)) {
 		newItem.setFillColor(sf::Color::Blue);
@@ -124,8 +124,8 @@ void ItemEditorScreen::update(sf::Event event) {
 			it = (it + 1) % items.size();
 		}
 		else {
-			for (ItemOption i : items) {
-				if (i.isSelected) {
+			for (ItemOption* i : items) {
+				if (i->isSelected) {
 					changeActive();
 				}
 			}
@@ -162,8 +162,8 @@ void ItemEditorScreen::handleEvent(sf::Event event) {
 }
 
 void ItemEditorScreen::addItem() {
-	ItemOption newItem = ItemOption();
-	newItem.item.icon = defaultIcon;
+	ItemOption* newItem = new ItemOption();
+	newItem->item.icon = defaultIcon;
 	items.push_back(newItem);
 	std::cout << items.size() << std::endl;
 }
@@ -173,23 +173,22 @@ void ItemEditorScreen::removeItem() {
 		return;
 	}
 	else {
-		/*for (int i = 0; i < items.size(); i++) {
-			if (items.at(i).item == active->item) {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.at(i) == active) {
 				active = nullptr;
-				items.erase(items.begin());
+				items.erase(items.begin() + i);
 			}
-		}*/
-		/*auto position = std::find(items.begin(), items.end(), *active);
-		items.erase(position);*/
+		}
 	}
+	changeActive();
 }
 
 void ItemEditorScreen::changeActive() {
-	for (ItemOption& i : items) {
-		if (i.isSelected) {
-			active = &i;
-			activeName.setString(sf::String("Item Name: " + i.getName()));
-			activeType.setString(sf::String("Item Type: " + i.getType()));
+	for (ItemOption* i : items) {
+		if (i->isSelected) {
+			active = i;
+			activeName.setString(sf::String("Item Name: " + i->getName()));
+			activeType.setString(sf::String("Item Type: " + i->getType()));
 			if (active->item.itemType == Item::Weapon) {
 				activeStat.setString(sf::String("Damage: " + std::to_string(active->item.stat)));
 			}
@@ -202,10 +201,14 @@ void ItemEditorScreen::changeActive() {
 			else {
 				activeStat.setString(sf::String(""));
 			}
-			activeIcon.setTexture(i.item.icon);
-			break;
+			activeIcon.setTexture(i->item.icon);
+			return;
 		}
 	}
+	activeName.setString(sf::String("Item Name:"));
+	activeType.setString(sf::String("Item Type:"));
+	activeStat.setString(sf::String("Damage:"));
+	activeIcon.setTexture(defaultIcon);
 }
 
 void ItemEditorScreen::loadIcons() {
@@ -222,50 +225,51 @@ void ItemEditorScreen::loadItems() {
 }
 
 void ItemEditorScreen::sortItems() {
-	std::vector<ItemOption> tempItems;
-	for (ItemOption i : items) {
-		if (i.item.itemType == Item::Weapon) {
+	std::vector<ItemOption*> tempItems;
+	for (ItemOption* i : items) {
+		if (i->item.itemType == Item::Weapon) {
 			tempItems.push_back(i);
 		}
 	}
-	for (ItemOption i : items) {
-		if (i.item.itemType == Item::Equippable) {
+	for (ItemOption* i : items) {
+		if (i->item.itemType == Item::Equippable) {
 			tempItems.push_back(i);
 		}
 	}
-	for (ItemOption i : items) {
-		if (i.item.itemType == Item::Consumable) {
+	for (ItemOption* i : items) {
+		if (i->item.itemType == Item::Consumable) {
 			tempItems.push_back(i);
 		}
 	}
-	for (ItemOption i : items) {
-		if (i.item.itemType == Item::Other) {
+	for (ItemOption* i : items) {
+		if (i->item.itemType == Item::Other) {
 			tempItems.push_back(i);
 		}
 	}
 	items.clear();
-	for (ItemOption i : tempItems) {
+	for (ItemOption* i : tempItems) {
 		items.push_back(i);
 	}
 }
 
 void ItemEditorScreen::drawActive(sf::RenderWindow& window) {
-	for (ItemOption& i : items) {
-		i.setPosition(0, 0);
+	for (ItemOption* i : items) {
+		i->setPosition(0, 0);
 	}
 	int current = 0;
 	int currentIt = it;
 	if (items.size() <= 7) {
-		for (ItemOption& i : items) {
-			i.setPosition(715.0f, 225.0f + current * 35.0f);
-			window.draw(i);
+		for (ItemOption* i : items) {
+			i->setPosition(715.0f, 225.0f + current * 35.0f);
+			window.draw(*i);
 			current++;
 		}
+		it = 0;
 	}
 	else {
 		while (current < 7) {
-			items.at(currentIt).setPosition(715.0f, 225.0f + current * 35.0f);
-			window.draw(items.at(currentIt));
+			items.at(currentIt)->setPosition(715.0f, 225.0f + current * 35.0f);
+			window.draw(*items.at(currentIt));
 			current++;
 			currentIt = (currentIt + 1) % items.size();
 		}

@@ -29,7 +29,7 @@ private:
 	sf::Texture BGTexture, defaultIcon;
 	sf::Sprite BGSprite, activeIcon;
 	sf::Vector2i mousePosition;
-	std::vector<ItemOption> items;
+	std::vector<ItemOption*> items;
 	std::vector<sf::Texture> icons;
 	sf::Rect<float> newBounds, deleteBounds, upBounds, downBounds;
 	sf::CircleShape listUp, listDown;
