@@ -10,11 +10,13 @@
 
 class PlayerCombatDisplay : public sf::Transformable, public sf::Drawable {
 public:
-	PlayerCombatDisplay(std::string name);
+	PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite);
+	float getWidth();
 	void update(float deltaTime);
 private:
 	sf::Texture combatDisplay;
 	sf::Sprite combatSprite;
+	sf::Sprite& playerSprite;
 	sf::Text name;
 	sf::Text hitpoints;
 	sf::Text mana;

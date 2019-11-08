@@ -1,6 +1,8 @@
 #include "PlayerCombatDisplay.h"
 
-PlayerCombatDisplay::PlayerCombatDisplay(std::string name) {
+PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite) :
+playerSprite(playerSprite)
+{
 	this->combatDisplay.loadFromFile("Resources/Sprites/player_combat_display.png");
 	this->combatSprite.setTexture(this->combatDisplay);
 	this->combatSprite.setScale(2.0f, 2.0f);
@@ -25,6 +27,7 @@ PlayerCombatDisplay::PlayerCombatDisplay(std::string name) {
 	this->mana.setFillColor(sf::Color::White);
 	this->mana.setOutlineColor(sf::Color::Black);
 
+	float width = this->combatSprite.getGlobalBounds().width;
 	sf::FloatRect textRect = this->name.getLocalBounds();
 	this->name.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
@@ -32,6 +35,11 @@ PlayerCombatDisplay::PlayerCombatDisplay(std::string name) {
 
 	this->hitpoints.setPosition(sf::Vector2f(20.0f, 50.0f));
 	this->mana.setPosition(sf::Vector2f(20.0f, 93.0f));
+
+	// Scale by height.
+	float scale = 40.0f / this->playerSprite.getGlobalBounds().height;
+	this->playerSprite.setScale(scale, scale);
+	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), -(this->playerSprite.getGlobalBounds().height / 2));
 }
 
 void PlayerCombatDisplay::update(float deltaTime) {}
@@ -44,4 +52,9 @@ void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 	target.draw(this->name, states);
 	target.draw(this->hitpoints, states);
 	target.draw(this->mana, states);
+	target.draw(this->playerSprite, states);
+}
+
+float PlayerCombatDisplay::getWidth() {
+	return this->combatSprite.getGlobalBounds().width;
 }

@@ -2,12 +2,25 @@
 
 #include "CombatManager.h"
 
+#include <iostream>
+
 CombatScreen::CombatScreen() :
-	combatDisplay(std::string("Kyle")),
 	textbox()
 {
-	this->combatDisplay.setPosition(0.0f, 592.0f);
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent>();
+	int count = 0;
+	for (auto entity : view) {
+		auto& baseC = view.get<BaseComponent>(entity);
+		if (baseC.entityType > -1) {
+			auto& renderC = view.get<RenderComponent>(entity);
+			PlayerCombatDisplay* display = new PlayerCombatDisplay(std::string(baseC.name), *renderC.sprite);
+			display->setPosition((((float)count) * display->getWidth()) + (count > 0 ? 50.0f : 0.0f), 592.0f);
+			this->combatDisplays.push_back(display);
+			count++;
+		}
+	}
 }
 
 void CombatScreen::update(float deltaTime) {
@@ -15,6 +28,22 @@ void CombatScreen::update(float deltaTime) {
 }
 
 void CombatScreen::draw(sf::RenderWindow& window) {
-	window.draw(this->combatDisplay);
+	for (auto display : this->combatDisplays) {
+		window.draw(*display);
+	}
+	
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent>();
+	for (auto entity : view) {
+		auto& baseC = view.get<BaseComponent>(entity);
+		if (baseC.entityType == -1) {
+			auto& renderC = view.get<RenderComponent>(entity);
+			float spriteW = renderC.sprite->getLocalBounds().width;
+			float spriteH = renderC.sprite->getLocalBounds().height;
+			renderC.sprite->setPosition((Game::WIDTH / 2) - (spriteW), (Game::HEIGHT / 2) - (spriteH));
+			window.draw(*renderC.sprite);
+		}
+	}
+
 	window.draw(this->textbox);
 }

@@ -7,15 +7,15 @@
 
 struct BaseComponent {
 	std::string name;
+	int entityType;
 };
 
 struct RenderComponent {
-	sf::Texture texture;
-	sf::Sprite sprite;
-	int tileSizeX;
-	int tileSizeY;
-	int tileStartX;
-	int tileStartY;
+	sf::Texture* texture;
+	sf::Sprite* sprite;
+	sf::Vector2i tileSize;
+	sf::Vector2i tileStart;
+	float scale;
 };
 
 struct HealthComponent {

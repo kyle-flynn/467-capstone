@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 
+#include "Game.h"
 #include "Screen.h"
-
+#include "GameDataManager.h"
 #include "PlayerCombatDisplay.h"
 #include "BattleTextbox.h"
 
@@ -16,7 +18,8 @@ public:
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 private:
-	PlayerCombatDisplay combatDisplay;
+	std::vector<PlayerCombatDisplay*> combatDisplays;
+	std::vector<entt::entity*> enemies;
 	BattleTextbox textbox;
 };
 
