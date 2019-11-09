@@ -1,11 +1,11 @@
 #include "PlayerCombatDisplay.h"
 
 PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite) :
-playerSprite(playerSprite)
+	playerSprite(playerSprite)
 {
 	this->combatDisplay.loadFromFile("Resources/Sprites/player_combat_display.png");
-	this->combatSprite.setTexture(this->combatDisplay);
-	this->combatSprite.setScale(2.0f, 2.0f);
+	this->battleTextbox.setTexture(this->combatDisplay);
+	this->battleTextbox.setScale(2.0f, 2.0f);
 	this->name.setString(name);
 	this->name.setFont(FontManager::getInstance().joystick);
 	this->name.setFillColor(sf::Color::Black);
@@ -27,11 +27,11 @@ playerSprite(playerSprite)
 	this->mana.setFillColor(sf::Color::White);
 	this->mana.setOutlineColor(sf::Color::Black);
 
-	float width = this->combatSprite.getGlobalBounds().width;
+	float width = this->battleTextbox.getGlobalBounds().width;
 	sf::FloatRect textRect = this->name.getLocalBounds();
 	this->name.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	this->name.setPosition(sf::Vector2f(this->combatSprite.getGlobalBounds().width / 2.0f, this->getPosition().y + 27.0f));
+	this->name.setPosition(sf::Vector2f(this->battleTextbox.getGlobalBounds().width / 2.0f, this->getPosition().y + 27.0f));
 
 	this->hitpoints.setPosition(sf::Vector2f(20.0f, 50.0f));
 	this->mana.setPosition(sf::Vector2f(20.0f, 93.0f));
@@ -48,7 +48,7 @@ void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 	states.transform *= getTransform();
 	states.texture = NULL;
 
-	target.draw(this->combatSprite, states);
+	target.draw(this->battleTextbox, states);
 	target.draw(this->name, states);
 	target.draw(this->hitpoints, states);
 	target.draw(this->mana, states);
@@ -56,5 +56,5 @@ void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 }
 
 float PlayerCombatDisplay::getWidth() {
-	return this->combatSprite.getGlobalBounds().width;
+	return this->battleTextbox.getGlobalBounds().width;
 }

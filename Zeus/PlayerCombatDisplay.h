@@ -15,7 +15,7 @@ public:
 	void update(float deltaTime);
 private:
 	sf::Texture combatDisplay;
-	sf::Sprite combatSprite;
+	sf::Sprite battleTextbox;
 	sf::Sprite& playerSprite;
 	sf::Text name;
 	sf::Text hitpoints;
