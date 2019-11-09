@@ -10,8 +10,8 @@ void TestSystem::sendMessage(Message* message) {
 
 void TestSystem::receiveMessage(Message* message) {
 	// Get the message from the shared pointer
-	if (message->getName() == "TEST_MSG") {
-		TestMessage testMesssage = (TestMessage&) message;
+	if (message->type == "TEST_MSG") {
+		//TestMessage testMesssage = (TestMessage&) message;
 		//std::cout << testMesssage.getData() << std::endl;
 	}
 }

@@ -20,16 +20,16 @@ SnowParticleSystem::SnowParticleSystem(float minX, float maxX, float minY, float
 	}
 }
 
-void SnowParticleSystem::update(sf::Time elapsed) {
+void SnowParticleSystem::update(float deltaTime) {
 	for (std::size_t i = 0; i < this->particles.size(); ++i) {
 		Particle& p = this->particles[i];
-		p.lifetime -= elapsed;
+		p.lifetime -= sf::seconds(deltaTime);
 
 		if (p.lifetime <= sf::Time::Zero) {
 			this->resetParticle(i);
 		}
 
-		this->vertices[i].position += p.velocity * elapsed.asSeconds();
+		this->vertices[i].position += p.velocity * deltaTime;
 		this->vertices[i].color = sf::Color(218, 228, 255, 127);
 	}
 }

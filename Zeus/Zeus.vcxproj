@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{31A21E2E-DF84-4D10-B049-804DB42D696E}</ProjectGuid>
     <RootNamespace>Zeus</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,8 +41,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -90,14 +90,14 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\vcpkg\downloads\nlohmann-json-v3.7.0\single_include\nlohmann;C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories>C:\CLib\tgui\include;C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\CLib\json-3.7.1\include;C:\CLib\tgui\include;C:\CLib\SFML\source\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\CLib\tgui\lib;C:\CLib\SFML\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;tgui-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\CLib\SFML\build\lib\Debug;C:\CLib\tgui\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;tgui-d.lib;tgui-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>copy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
@@ -126,16 +126,17 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>C:\CLib\SFML\build\lib\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BattleTextbox.cpp" />
+    <ClCompile Include="CombatManager.cpp" />
+    <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="DialogueEditorMessageNode.cpp" />
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
@@ -146,6 +147,7 @@
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameDataManager.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemEditorScreen.cpp" />
@@ -153,10 +155,14 @@
     <ClCompile Include="Lightning.cpp" />
     <ClCompile Include="LightningSystem.cpp" />
     <ClCompile Include="LoggingSystem.cpp" />
+    <ClCompile Include="MainMenuScene.cpp" />
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PlayerCombatDisplay.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
     <ClCompile Include="SnowParticleSystem.cpp" />
@@ -165,8 +171,11 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Dialogue.h" />
+    <ClInclude Include="BattleTextbox.h" />
+    <ClInclude Include="CombatManager.h" />
+    <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="Dialogue.h" />
     <ClInclude Include="DialogueEditorMessageNode.h" />
     <ClInclude Include="DialogueEditorOptionNode.h" />
     <ClInclude Include="DialogueEditorPanel.h" />
@@ -175,6 +184,7 @@
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameDataManager.h" />
     <ClInclude Include="GameplayScreen.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemEditorScreen.h" />
@@ -182,18 +192,21 @@
     <ClInclude Include="Lightning.h" />
     <ClInclude Include="LightningSystem.h" />
     <ClInclude Include="LoggingSystem.h" />
+    <ClInclude Include="MainMenuScene.h" />
     <ClInclude Include="MainMenuScreen.h" />
     <ClInclude Include="MathUtils.h" />
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="PlayerCombatDisplay.h" />
     <ClInclude Include="RainParticleSystem.h" />
+    <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
     <ClInclude Include="SnowParticleSystem.h" />
     <ClInclude Include="System.h" />
-    <ClInclude Include="TestMessage.h" />
     <ClInclude Include="TestSystem.h" />
     <ClInclude Include="TextParticleSystem.h" />
     <ClInclude Include="World.h" />

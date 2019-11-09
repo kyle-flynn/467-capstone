@@ -1,66 +1,275 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Dialogue.cpp" />
-    <ClCompile Include="EntitySystem.cpp" />
-    <ClCompile Include="EntitySystem.h" />
-    <ClCompile Include="FontManager.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="GameplayScreen.cpp" />
-    <ClCompile Include="Lightning.cpp" />
-    <ClCompile Include="LightningSystem.cpp" />
-    <ClCompile Include="LoggingSystem.cpp" />
-    <ClCompile Include="MainMenuScreen.cpp" />
-    <ClCompile Include="MenuOption.cpp" />
-    <ClCompile Include="MessageBus.cpp" />
-    <ClCompile Include="RainParticleSystem.cpp" />
-    <ClCompile Include="Screen.cpp" />
-    <ClCompile Include="ScreenManager.cpp" />
-    <ClCompile Include="SnowParticleSystem.cpp" />
-    <ClCompile Include="TestSystem.cpp" />
-    <ClCompile Include="TextParticleSystem.cpp" />
-    <ClCompile Include="World.cpp" />
-    <ClCompile Include="DialogueEditorMessageNode.cpp" />
-    <ClCompile Include="DialogueEditorOptionNode.cpp" />
-    <ClCompile Include="DialogueEditorScreen.cpp" />
-    <ClCompile Include="DialogueEditorPanel.cpp" />
-    <ClCompile Include="Item.cpp" />
-    <ClCompile Include="ItemOption.cpp" />
-    <ClCompile Include="ItemEditorScreen.cpp" />
-    <ClCompile Include="EditorText.cpp" />
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Logic">
+      <UniqueIdentifier>{9784a173-d8aa-463a-88b5-df50e5e5bdd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic">
+      <UniqueIdentifier>{fce9e0b4-5100-44c5-9e1d-0511106fc3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Systems">
+      <UniqueIdentifier>{8f266785-9059-40b4-b665-91273135fe5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Systems">
+      <UniqueIdentifier>{d18f526f-1704-4ca3-b6ec-3b4e880731d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\World">
+      <UniqueIdentifier>{a9f79839-590e-41f8-840b-a3080d1769b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\World">
+      <UniqueIdentifier>{21efba99-16c7-4fe1-9226-8f45b65f9751}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Managers">
+      <UniqueIdentifier>{09059b11-ab91-4fac-a539-ba4ed145c455}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Screens">
+      <UniqueIdentifier>{86fefabf-ec4e-4496-ba20-42d8aa640c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Managers">
+      <UniqueIdentifier>{00d4590b-a913-427f-ae30-fff93af81e38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Effects">
+      <UniqueIdentifier>{661f8d5d-bb00-446a-8e2d-aa2622ae0043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Effects">
+      <UniqueIdentifier>{5f483d68-b6b6-4a48-99cf-e29daf4cab52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics">
+      <UniqueIdentifier>{f680bd4a-2641-4395-b25f-2318acc1caa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics">
+      <UniqueIdentifier>{ccac21b6-9db7-4a05-9f7d-76988f610131}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Logic\Screens\Scenes">
+      <UniqueIdentifier>{33cea967-6538-46b1-8143-40fb2bff4be7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Graphics\Combat">
+      <UniqueIdentifier>{566d53f7-7359-4207-8e9c-b9dbe82926d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\Combat">
+      <UniqueIdentifier>{a42bb827-1094-4816-a1c1-c71221b171bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Screens">
+      <UniqueIdentifier>{f871c0c9-d6d1-424a-ba7c-03b2dfc8a245}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Logic\Screens\Scenes">
+      <UniqueIdentifier>{caaa83db-2581-427d-8661-177ac69f5bef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Dialogue">
+      <UniqueIdentifier>{9db43130-78d6-45d2-aa83-91630a194fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Dialogue">
+      <UniqueIdentifier>{96e6a57b-8751-4c5b-aa10-ce8061c832db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Dialogue.h" />
-    <ClInclude Include="Components.h" />
-    <ClInclude Include="EntityComponentSystem.h" />
-    <ClInclude Include="FontManager.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="GameplayScreen.h" />
-    <ClInclude Include="Lightning.h" />
-    <ClInclude Include="LightningSystem.h" />
-    <ClInclude Include="LoggingSystem.h" />
-    <ClInclude Include="MainMenuScreen.h" />
-    <ClInclude Include="MathUtils.h" />
-    <ClInclude Include="MenuOption.h" />
-    <ClInclude Include="Message.h" />
-    <ClInclude Include="MessageBus.h" />
-    <ClInclude Include="Particle.h" />
-    <ClInclude Include="RainParticleSystem.h" />
-    <ClInclude Include="Screen.h" />
-    <ClInclude Include="ScreenManager.h" />
-    <ClInclude Include="SnowParticleSystem.h" />
-    <ClInclude Include="System.h" />
-    <ClInclude Include="TestMessage.h" />
-    <ClInclude Include="TestSystem.h" />
-    <ClInclude Include="TextParticleSystem.h" />
-    <ClInclude Include="World.h" />
-    <ClInclude Include="DialogueEditorMessageNode.h" />
-    <ClInclude Include="DialogueEditorOptionNode.h" />
-    <ClInclude Include="DialogueEditorScreen.h" />
-    <ClInclude Include="DialogueEditorPanel.h" />
-    <ClInclude Include="Item.h" />
-    <ClInclude Include="ItemOption.h" />
-    <ClInclude Include="ItemEditorScreen.h" />
-    <ClInclude Include="EditorText.h" />
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MessageBus.cpp">
+      <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files\World</Filter>
+    </ClCompile>
+    <ClCompile Include="EntitySystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="EntitySystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreenManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="Screen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="RainParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="LoggingSystem.cpp">
+      <Filter>Source Files\Logic\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="Lightning.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="LightningSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="TextParticleSystem.cpp">
+      <Filter>Source Files\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="FontManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuOption.cpp">
+      <Filter>Source Files\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source Files\Logic\Screens\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuScene.cpp">
+      <Filter>Source Files\Logic\Screens\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="NetworkManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerCombatDisplay.cpp">
+      <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleTextbox.cpp">
+      <Filter>Source Files\Graphics\Combat</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorMessageNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorOptionNode.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorPanel.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorScreen.cpp">
+      <Filter>Source Files\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="CombatManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDataManager.cpp">
+      <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MessageBus.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="Message.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files\World</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityComponentSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Components.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreenManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="Screen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="RainParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="LoggingSystem.h">
+      <Filter>Header Files\Logic\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Lightning.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="MathUtils.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LightningSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextParticleSystem.h">
+      <Filter>Header Files\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="FontManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuOption.h">
+      <Filter>Header Files\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\Logic\Screens\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuScene.h">
+      <Filter>Header Files\Logic\Screens\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCombatDisplay.h">
+      <Filter>Header Files\Graphics\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleTextbox.h">
+      <Filter>Header Files\Graphics\Combat</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorMessageNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorOptionNode.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorPanel.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorScreen.h">
+      <Filter>Header Files\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="CombatManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="GameDataManager.h">
+      <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

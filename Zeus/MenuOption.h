@@ -10,9 +10,9 @@ public:
 	MenuOption(const std::string& text, bool isSelected);
 	void setSelected(bool selected);
 	void update(float deltaTime, sf::Vector2i mousePosition);
+	bool isSelected;
 private:
 	sf::Text text;
-	bool isSelected;
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;
 };
 
