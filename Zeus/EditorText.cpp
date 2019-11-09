@@ -1,7 +1,5 @@
 #include "EditorText.h"
 
-#include <iostream>
-
 EditorText::EditorText() {
 	defaultText.setFont(FontManager::getInstance().oldStandard);
 	editText.setFont(FontManager::getInstance().oldStandard);
@@ -16,6 +14,7 @@ EditorText::EditorText() {
 	isSelected = false;
 	isPressed = false;
 	editable = true;
+	numeric = false;
 }
 
 EditorText::EditorText(sf::String string) {
@@ -32,6 +31,7 @@ EditorText::EditorText(sf::String string) {
 	isSelected = false;
 	isPressed = false;
 	editable = true;
+	numeric = false;
 }
 
 void EditorText::setSelected(bool select) {
@@ -73,12 +73,28 @@ void EditorText::update(sf::Event event, sf::Vector2i mousePosition) {
 		}
 	}
 	else if (event.type == sf::Event::TextEntered && isPressed && editable) {
-		std::cout << event.text.unicode << std::endl;
 		if (event.text.unicode == 8) {
-			editText.setString(editText.getString().substring(0, editText.getString().getSize() - 1));
+			if (numeric && editText.getString().getSize() == 1) {
+				editText.setString(sf::String("0"));
+			}
+			else {
+				editText.setString(editText.getString().substring(0, editText.getString().getSize() - 1));
+			}
+		}
+		else if (!numeric) {
+			editText.setString(editText.getString() + sf::String(event.text.unicode));
 		}
 		else {
-			editText.setString(editText.getString() + sf::String(event.text.unicode));
+			if (event.text.unicode >= 48 &&
+				event.text.unicode <= 57 &&
+				std::stof(editText.getString().toAnsiString()) == 0.0) {
+				editText.setString(sf::String(event.text.unicode));
+			}
+			else if (event.text.unicode >= 48 &&
+				event.text.unicode <= 57 ||
+				event.text.unicode == 46) {
+				editText.setString(editText.getString() + sf::String(event.text.unicode));
+			}
 		}
 	}
 }
@@ -101,6 +117,10 @@ void EditorText::setText(sf::String string) {
 
 void EditorText::setEditable(bool edit) {
 	editable = edit;
+}
+
+void EditorText::setNumeric(bool num) {
+	numeric = num;
 }
 
 sf::Vector2f EditorText::getSize() {

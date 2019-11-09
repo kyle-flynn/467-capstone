@@ -1,5 +1,4 @@
 #include "ItemEditorScreen.h"
-#include <iostream>
 
 ItemEditorScreen::ItemEditorScreen() {
 	Screen();
@@ -74,11 +73,13 @@ ItemEditorScreen::ItemEditorScreen() {
 		listDown.getPosition().x,
 		listDown.getPosition().y);
 	activeType.setEditable(false);
+	activeStat.setNumeric(true);
 	loadIcons();
 	loadItems();
 }
 
 void ItemEditorScreen::update(float deltaTime) {
+	sortItems();
 	activeName.update(deltaTime, mousePosition);
 	activeType.update(deltaTime, mousePosition);
 	activeStat.update(deltaTime, mousePosition);
@@ -131,15 +132,13 @@ void ItemEditorScreen::update(sf::Event event) {
 			else {
 				it--;
 			}
-			std::cout << "List up" << std::endl;
 		}
 		else if (downBounds.contains(mousePosition.x, mousePosition.y)) {
-			std::cout << "List down" << std::endl;
 			it = (it + 1) % items.size();
 		}
 		else if (typeBounds.contains(mousePosition.x, mousePosition.y)) {
-			std::cout << "Update Type" << std::endl;
 			active->item.itemType = (type)(((int)(active->item.itemType) + 1) % 4);
+			updateActiveStats();
 		}
 		else {
 			for (ItemOption* i : items) {
@@ -148,6 +147,11 @@ void ItemEditorScreen::update(sf::Event event) {
 				}
 			}
 		}
+	}
+	if (active != nullptr) {
+		active->item.name = activeName.getText();
+		active->item.stat = std::stof(activeStat.getText().toAnsiString());
+		active->item.description = activeDescription.getText();
 	}
 }
 
@@ -184,7 +188,6 @@ void ItemEditorScreen::addItem() {
 	ItemOption* newItem = new ItemOption();
 	newItem->item.icon = defaultIcon;
 	items.push_back(newItem);
-	std::cout << items.size() << std::endl;
 }
 
 void ItemEditorScreen::removeItem() {
@@ -236,7 +239,6 @@ void ItemEditorScreen::changeActive() {
 void ItemEditorScreen::loadIcons() {
 	for (const auto& entry : std::filesystem::directory_iterator("Resources/images/questjournal/icons")) {
 		sf::Texture texture;
-		std::cout << entry.path() << std::endl;
 		texture.loadFromFile(entry.path().string());
 		icons.push_back(texture);
 	}
@@ -275,21 +277,28 @@ void ItemEditorScreen::sortItems() {
 }
 
 void ItemEditorScreen::updateActiveStats() {
-	activeName.setText(sf::String(active->getName()));
-	activeType.setText(sf::String(active->getType()));
+	activeName.setText(sf::String(active->item.name));
 	if (active->item.itemType == type::Weapon) {
+		activeType.setText(sf::String("Weapon"));
+		activeStat.setDefault(sf::String("Damage:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
 	else if (active->item.itemType == type::Equippable) {
+		activeType.setText(sf::String("Equippable"));
+		activeStat.setDefault(sf::String("Armor:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
 	else if (active->item.itemType == type::Consumable) {
+		activeType.setText(sf::String("Consumable"));
+		activeStat.setDefault(sf::String("Stat:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
 	else {
-		activeStat.setText(sf::String(""));
+		activeType.setText(sf::String("Other"));
+		activeStat.setDefault(sf::String("Other"));
+		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
-	activeDescription.setText(sf::String(active->getDescription()));
+	activeDescription.setText(sf::String(active->item.description));
 	activeIcon.setTexture(active->item.icon);
 }
 

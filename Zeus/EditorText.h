@@ -20,11 +20,12 @@ public:
 	sf::String getText();
 	void setText(sf::String string);
 	void setEditable(bool edit);
+	void setNumeric(bool num);
 	sf::Vector2f getSize();
 
 private:
 
-	bool isPressed, editable;
+	bool isPressed, editable, numeric;
 	const int TEXT_SIZE = 20;
 	sf::Text defaultText, editText;
 	

@@ -18,7 +18,7 @@ Item::Item(sf::String name) {
 
 Item::Item(sf::String name, type itemType) {
 	this->name = name;
-	this->description = "Item descipriton";
+	this->description = "Item description";
 	this->itemType = itemType;
 	this->stat = 0.0;
 }
