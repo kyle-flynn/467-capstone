@@ -27,6 +27,7 @@
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemOption.cpp" />
     <ClCompile Include="ItemEditorScreen.cpp" />
+    <ClCompile Include="EditorText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Dialogue.h" />
@@ -60,5 +61,6 @@
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemOption.h" />
     <ClInclude Include="ItemEditorScreen.h" />
+    <ClInclude Include="EditorText.h" />
   </ItemGroup>
 </Project>

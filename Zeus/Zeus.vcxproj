@@ -141,6 +141,7 @@
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
     <ClCompile Include="DialogueEditorPanel.cpp" />
     <ClCompile Include="DialogueEditorScreen.cpp" />
+    <ClCompile Include="EditorText.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="DialogueEditorOptionNode.h" />
     <ClInclude Include="DialogueEditorPanel.h" />
     <ClInclude Include="DialogueEditorScreen.h" />
+    <ClInclude Include="EditorText.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />

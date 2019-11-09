@@ -10,32 +10,32 @@ ItemEditorScreen::ItemEditorScreen() {
 	defaultIcon.loadFromFile("Resources/images/questjournal/icons/9.png");
 	activeIcon.setTexture(defaultIcon);
 	activeIcon.setScale((float)(ICON_SIZE / defaultIcon.getSize().x), (float)(ICON_SIZE / defaultIcon.getSize().y));
-	header.setFont(FontManager::getInstance().oldStandard);
+	/*header.setFont(FontManager::getInstance().oldStandard);
 	activeName.setFont(FontManager::getInstance().oldStandard);
 	activeType.setFont(FontManager::getInstance().oldStandard);
 	activeStat.setFont(FontManager::getInstance().oldStandard);
-	activeDescription.setFont(FontManager::getInstance().oldStandard);
+	activeDescription.setFont(FontManager::getInstance().oldStandard);*/
 	newItem.setFont(FontManager::getInstance().oldStandard);
 	deleteItem.setFont(FontManager::getInstance().oldStandard);
 	header.setCharacterSize(32);
-	activeName.setCharacterSize(20);
+	/*activeName.setCharacterSize(20);
 	activeType.setCharacterSize(20);
+	activeStat.setCharacterSize(20);
+	activeDescription.setCharacterSize(20);*/
 	newItem.setCharacterSize(20);
 	deleteItem.setCharacterSize(20);
-	activeStat.setCharacterSize(20);
-	activeDescription.setCharacterSize(20);
 	header.setFillColor(sf::Color::Black);
-	activeName.setFillColor(sf::Color::Black);
+	/*activeName.setFillColor(sf::Color::Black);
 	activeType.setFillColor(sf::Color::Black);
+	activeStat.setFillColor(sf::Color::Black);
+	activeDescription.setFillColor(sf::Color::Black);*/
 	newItem.setFillColor(sf::Color::Black);
 	deleteItem.setFillColor(sf::Color::Black);
-	activeStat.setFillColor(sf::Color::Black);
-	activeDescription.setFillColor(sf::Color::Black);
 	header.setString(sf::String("Item List"));
-	activeName.setString(sf::String("Item name: ___________"));
-	activeType.setString(sf::String("Item type: ___________"));
-	activeStat.setString(sf::String("Damage: ___________"));
-	activeDescription.setString(sf::String("Description: "));
+	/*activeName.setText(sf::String("Item name: ___________"));
+	activeType.setText(sf::String("Item type: ___________"));
+	activeStat.setText(sf::String("Damage: ___________"));
+	activeDescription.setText(sf::String("Description: "));*/
 	newItem.setString(sf::String("New Item"));
 	deleteItem.setString(sf::String("Delete Item"));
 	header.setPosition(850.0f, 150.0f);
@@ -73,11 +73,16 @@ ItemEditorScreen::ItemEditorScreen() {
 		listDown.getPosition().y - listDown.getRadius(),
 		listDown.getPosition().x,
 		listDown.getPosition().y);
+	activeType.setEditable(false);
 	loadIcons();
 	loadItems();
 }
 
 void ItemEditorScreen::update(float deltaTime) {
+	activeName.update(deltaTime, mousePosition);
+	activeType.update(deltaTime, mousePosition);
+	activeStat.update(deltaTime, mousePosition);
+	activeDescription.update(deltaTime, mousePosition);
 	for (ItemOption* i : items) {
 		i->update(deltaTime, mousePosition);
 	}
@@ -102,6 +107,15 @@ void ItemEditorScreen::update(float deltaTime) {
 }
 
 void ItemEditorScreen::update(sf::Event event) {
+	sf::Rect<float> typeBounds(
+		activeType.getPosition().x,
+		activeType.getPosition().y,
+		activeType.getSize().x,
+		activeType.getSize().y);
+	activeName.update(event, mousePosition);
+	activeType.update(event, mousePosition);
+	activeStat.update(event, mousePosition);
+	activeDescription.update(event, mousePosition);
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		if (newBounds.contains(mousePosition.x, mousePosition.y)) {
@@ -122,6 +136,10 @@ void ItemEditorScreen::update(sf::Event event) {
 		else if (downBounds.contains(mousePosition.x, mousePosition.y)) {
 			std::cout << "List down" << std::endl;
 			it = (it + 1) % items.size();
+		}
+		else if (typeBounds.contains(mousePosition.x, mousePosition.y)) {
+			std::cout << "Update Type" << std::endl;
+			active->item.itemType = (type)(((int)(active->item.itemType) + 1) % 4);
 		}
 		else {
 			for (ItemOption* i : items) {
@@ -154,11 +172,12 @@ void ItemEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void ItemEditorScreen::handleEvent(sf::Event event) {
-	if (event.type == sf::Event::MouseButtonPressed &&
+	/*if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
 		update(event);
-	}
+	}*/
+	update(event);
 }
 
 void ItemEditorScreen::addItem() {
@@ -187,27 +206,30 @@ void ItemEditorScreen::changeActive() {
 	for (ItemOption* i : items) {
 		if (i->isSelected) {
 			active = i;
-			activeName.setString(sf::String("Item Name: " + i->getName()));
-			activeType.setString(sf::String("Item Type: " + i->getType()));
-			if (active->item.itemType == Item::Weapon) {
-				activeStat.setString(sf::String("Damage: " + std::to_string(active->item.stat)));
+			updateActiveStats();
+			/*activeName.setText(sf::String(i->getName()));
+			activeType.setText(sf::String( i->getType()));
+			if (active->item.itemType == type::Weapon) {
+				activeStat.setText(sf::String(std::to_string(active->item.stat)));
 			}
-			else if (active->item.itemType == Item::Equippable) {
-				activeStat.setString(sf::String("Armor: " + std::to_string(active->item.stat)));
+			else if (active->item.itemType == type::Equippable) {
+				activeStat.setText(sf::String(std::to_string(active->item.stat)));
 			}
-			else if (active->item.itemType == Item::Consumable) {
-				activeStat.setString(sf::String("Amount: " + std::to_string(active->item.stat)));
+			else if (active->item.itemType == type::Consumable) {
+				activeStat.setText(sf::String(std::to_string(active->item.stat)));
 			}
 			else {
-				activeStat.setString(sf::String(""));
+				activeStat.setText(sf::String(""));
 			}
-			activeIcon.setTexture(i->item.icon);
+			activeDescription.setText(sf::String(i->getDescription()));
+			activeIcon.setTexture(i->item.icon);*/
 			return;
 		}
 	}
-	activeName.setString(sf::String("Item Name:"));
-	activeType.setString(sf::String("Item Type:"));
-	activeStat.setString(sf::String("Damage:"));
+	activeName.setText(sf::String("__________"));
+	activeType.setText(sf::String("__________"));
+	activeStat.setText(sf::String("__________"));
+	activeDescription.setText(sf::String("__________"));
 	activeIcon.setTexture(defaultIcon);
 }
 
@@ -227,22 +249,22 @@ void ItemEditorScreen::loadItems() {
 void ItemEditorScreen::sortItems() {
 	std::vector<ItemOption*> tempItems;
 	for (ItemOption* i : items) {
-		if (i->item.itemType == Item::Weapon) {
+		if (i->item.itemType == type::Weapon) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == Item::Equippable) {
+		if (i->item.itemType == type::Equippable) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == Item::Consumable) {
+		if (i->item.itemType == type::Consumable) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == Item::Other) {
+		if (i->item.itemType == type::Other) {
 			tempItems.push_back(i);
 		}
 	}
@@ -250,6 +272,25 @@ void ItemEditorScreen::sortItems() {
 	for (ItemOption* i : tempItems) {
 		items.push_back(i);
 	}
+}
+
+void ItemEditorScreen::updateActiveStats() {
+	activeName.setText(sf::String(active->getName()));
+	activeType.setText(sf::String(active->getType()));
+	if (active->item.itemType == type::Weapon) {
+		activeStat.setText(sf::String(std::to_string(active->item.stat)));
+	}
+	else if (active->item.itemType == type::Equippable) {
+		activeStat.setText(sf::String(std::to_string(active->item.stat)));
+	}
+	else if (active->item.itemType == type::Consumable) {
+		activeStat.setText(sf::String(std::to_string(active->item.stat)));
+	}
+	else {
+		activeStat.setText(sf::String(""));
+	}
+	activeDescription.setText(sf::String(active->getDescription()));
+	activeIcon.setTexture(active->item.icon);
 }
 
 void ItemEditorScreen::drawActive(sf::RenderWindow& window) {

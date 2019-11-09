@@ -19,6 +19,7 @@ public:
 	void update(sf::Event event, sf::Vector2i mousePosition);
 	sf::String getName();
 	sf::String getType();
+	sf::String getDescription();
 	sf::Sprite getIcon();
 
 private:
@@ -28,7 +29,8 @@ private:
 	sf::Text itemName, itemType;
 	sf::Sprite sprite;
 
-	sf::String typeToString(Item::type type);
+	void updateValues();
+	sf::String typeToString(type type);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;
 
 };

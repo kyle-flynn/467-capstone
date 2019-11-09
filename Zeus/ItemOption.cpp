@@ -54,6 +54,7 @@ void ItemOption::update(float deltaTime, sf::Vector2i mousePosition) {
 	else {
 		setSelected(false);
 	}
+	updateValues();
 }
 
 void ItemOption::update(sf::Event event, sf::Vector2i mousePosition) {
@@ -68,19 +69,28 @@ sf::String ItemOption::getType() {
 	return itemType.getString();
 }
 
+sf::String ItemOption::getDescription() {
+	return sf::String(item.description);
+}
+
 sf::Sprite ItemOption::getIcon() {
 	return sprite;
 }
 
-sf::String ItemOption::typeToString(Item::type type) {
+void ItemOption::updateValues() {
+	itemName.setString(item.name);
+	itemType.setString(typeToString(item.itemType));
+}
+
+sf::String ItemOption::typeToString(type type) {
 	switch (type) {
-	case Item::Weapon:
+	case type::Weapon:
 		return sf::String("Weapon");
-	case Item::Equippable:
+	case type::Equippable:
 		return sf::String("Equippable");
-	case Item::Consumable:
+	case type::Consumable:
 		return sf::String("Consumable");
-	case Item::Other:
+	case type::Other:
 		return sf::String("Other");
 	}
 }

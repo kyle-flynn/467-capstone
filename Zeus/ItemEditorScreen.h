@@ -4,6 +4,7 @@
 #include "Screen.h"
 #include "Game.h"
 #include "MenuOption.h"
+#include "EditorText.h"
 
 #include <filesystem>
 
@@ -25,7 +26,11 @@ private:
 	const float ICON_SIZE = 200;
 	int it;
 	sf::Text header, newItem, deleteItem;
-	sf::Text activeName, activeType, activeStat, activeDescription;
+	EditorText activeName = EditorText(sf::String("Item Name:")), 
+		activeType = EditorText(sf::String("Item Type:")),
+		activeStat = EditorText(sf::String("Damage:")),
+		activeDescription = EditorText(sf::String("Description:"));
+	//sf::Text activeName, activeType, activeStat, activeDescription;
 	sf::Texture BGTexture, defaultIcon;
 	sf::Sprite BGSprite, activeIcon;
 	sf::Vector2i mousePosition;
@@ -38,6 +43,7 @@ private:
 	void loadIcons();
 	void loadItems();
 	void sortItems();
+	void updateActiveStats();
 	void drawActive(sf::RenderWindow& window);
 
 };
