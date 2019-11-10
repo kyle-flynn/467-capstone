@@ -155,14 +155,35 @@
     <ClCompile Include="DialogueEditorPanel.cpp">
       <Filter>Source Files\Dialogue</Filter>
     </ClCompile>
-    <ClCompile Include="DialogueEditorScreen.cpp">
-      <Filter>Source Files\Dialogue</Filter>
-    </ClCompile>
     <ClCompile Include="CombatManager.cpp">
       <Filter>Source Files\Logic\Managers</Filter>
     </ClCompile>
     <ClCompile Include="GameDataManager.cpp">
       <Filter>Source Files\Logic\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorText.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemOption.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ItemEditorScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="DialogueEditorScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterEditorScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterOption.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -262,14 +283,35 @@
     <ClInclude Include="DialogueEditorPanel.h">
       <Filter>Header Files\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="DialogueEditorScreen.h">
-      <Filter>Header Files\Dialogue</Filter>
-    </ClInclude>
     <ClInclude Include="CombatManager.h">
       <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
     <ClInclude Include="GameDataManager.h">
       <Filter>Header Files\Logic\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorText.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemOption.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemEditorScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="DialogueEditorScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterEditorScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterOption.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
