@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{31A21E2E-DF84-4D10-B049-804DB42D696E}</ProjectGuid>
     <RootNamespace>Zeus</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -42,7 +42,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -135,6 +135,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleTextbox.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterEditorScreen.cpp" />
+    <ClCompile Include="CharacterOption.cpp" />
     <ClCompile Include="CombatManager.cpp" />
     <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
@@ -172,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleTextbox.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterEditorScreen.h" />
+    <ClInclude Include="CharacterOption.h" />
     <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />

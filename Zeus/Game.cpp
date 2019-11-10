@@ -10,6 +10,7 @@
 #include "CombatScreen.h"
 #include "DialogueEditorScreen.h"
 #include "ItemEditorScreen.h"
+#include "CharacterEditorScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
@@ -53,7 +54,8 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	ScreenManager::getInstance().setScreen(new ItemEditorScreen());
+	ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
+	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 	//ScreenManager::getInstance().setScreen(new CombatScreen());

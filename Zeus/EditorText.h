@@ -1,6 +1,8 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <iomanip>
+#include <sstream>
 #include "FontManager.h"
 
 class EditorText : public sf::Drawable, public sf::Transformable {
@@ -9,8 +11,8 @@ public:
 
 	bool isSelected;
 
-	EditorText();
-	EditorText(sf::String string);
+	EditorText(float maxSize = 0.0f);
+	EditorText(sf::String string, float maxSize = 0.0f);
 	void setSelected(bool select);
 	void setPressed(bool press);
 	void update(float deltaTime, sf::Vector2i mousePosition);
@@ -25,10 +27,12 @@ public:
 
 private:
 
-	bool isPressed, editable, numeric;
+	bool isPressed, editable, numeric, numFlag;
 	const int TEXT_SIZE = 20;
+	float maxSize = 0.0f;
 	sf::Text defaultText, editText;
 	
+	void textWrap();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;
 };
 

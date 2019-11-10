@@ -1,6 +1,6 @@
 #include "EditorText.h"
 
-EditorText::EditorText() {
+EditorText::EditorText(float maxSize) {
 	defaultText.setFont(FontManager::getInstance().oldStandard);
 	editText.setFont(FontManager::getInstance().oldStandard);
 	defaultText.setCharacterSize(TEXT_SIZE);
@@ -15,9 +15,10 @@ EditorText::EditorText() {
 	isPressed = false;
 	editable = true;
 	numeric = false;
+	maxSize = maxSize;
 }
 
-EditorText::EditorText(sf::String string) {
+EditorText::EditorText(sf::String string, float maxSize) {
 	defaultText.setFont(FontManager::getInstance().oldStandard);
 	editText.setFont(FontManager::getInstance().oldStandard);
 	defaultText.setCharacterSize(TEXT_SIZE);
@@ -32,6 +33,7 @@ EditorText::EditorText(sf::String string) {
 	isPressed = false;
 	editable = true;
 	numeric = false;
+	maxSize = maxSize;
 }
 
 void EditorText::setSelected(bool select) {
@@ -41,6 +43,7 @@ void EditorText::setSelected(bool select) {
 
 void EditorText::setPressed(bool press) {
 	isPressed = press;
+	numFlag = false;
 }
 
 void EditorText::update(float deltaTime, sf::Vector2i mousePosition) {
@@ -84,7 +87,11 @@ void EditorText::update(sf::Event event, sf::Vector2i mousePosition) {
 		else if (!numeric) {
 			editText.setString(editText.getString() + sf::String(event.text.unicode));
 		}
-		else {
+		else if (isPressed) {
+			if (!numFlag) {
+				editText.setString(sf::String("0.0"));
+				numFlag = true;
+			}
 			if (event.text.unicode >= 48 &&
 				event.text.unicode <= 57 &&
 				std::stof(editText.getString().toAnsiString()) == 0.0) {
@@ -94,6 +101,13 @@ void EditorText::update(sf::Event event, sf::Vector2i mousePosition) {
 				event.text.unicode <= 57 ||
 				event.text.unicode == 46) {
 				editText.setString(editText.getString() + sf::String(event.text.unicode));
+			}
+			else if (event.text.unicode == 13) {
+				std::ostringstream out;
+				float temp = std::stof(editText.getString().toAnsiString());
+				out << std::setprecision(2) << std::fixed << temp;
+				editText.setString(sf::String(out.str()));
+				setPressed(false);
 			}
 		}
 	}
@@ -126,6 +140,10 @@ void EditorText::setNumeric(bool num) {
 sf::Vector2f EditorText::getSize() {
 	return sf::Vector2f(defaultText.getGlobalBounds().width + editText.getGlobalBounds().width + 20,
 		defaultText.getGlobalBounds().height);
+}
+
+void EditorText::textWrap() {
+
 }
 
 void EditorText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
