@@ -33,10 +33,10 @@ private:
 	MainMenuScene mainScene;
 
 	sf::Rect<float> combatBounds, movementBounds;
-	EditorText characterEditor = EditorText(sf::String("")),
-		monsterEditor = EditorText(sf::String("")),
-		itemEditor = EditorText(sf::String("")),
-		dialogueEditor = EditorText(sf::String(""));
+	EditorText characterEditor = EditorText(sf::String("I")),
+		monsterEditor = EditorText(sf::String("I")),
+		itemEditor = EditorText(sf::String("I")),
+		dialogueEditor = EditorText(sf::String("I"));
 	sf::Vector2i mousePosition;
 };
 

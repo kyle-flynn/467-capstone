@@ -7,6 +7,7 @@
 #include "ItemEditorScreen.h"
 #include "DIalogueEditorScreen.h"
 #include "DemoScreen.h"
+#include "DialogueEditorPanel.h"
 #include "CombatScreen.h"
 
 MainMenuScreen::MainMenuScreen() : 
@@ -48,6 +49,10 @@ MainMenuScreen::MainMenuScreen() :
 }
 
 void MainMenuScreen::update(float deltaTime) {
+	characterEditor.update(deltaTime, mousePosition);
+	monsterEditor.update(deltaTime, mousePosition);
+	itemEditor.update(deltaTime, mousePosition);
+	dialogueEditor.update(deltaTime, mousePosition);
 	this->lightningSystem.update(deltaTime);
 	this->titleTextSystem.update(deltaTime);
 
@@ -57,23 +62,34 @@ void MainMenuScreen::update(float deltaTime) {
 			ScreenManager::getInstance().setScreen(new GameplayScreen());
 		}
 	}*/
-
-	characterEditor.update(deltaTime, mousePosition);
-	monsterEditor.update(deltaTime, mousePosition);
-	itemEditor.update(deltaTime, mousePosition);
-	dialogueEditor.update(deltaTime, mousePosition);
 }
 
 void MainMenuScreen::update(sf::Event event) {
+	sf::Rect<float> cBounds(
+		characterEditor.getPosition().x,
+		characterEditor.getPosition().y,
+		characterEditor.getSize().x,
+		characterEditor.getSize().y + 7);
+	sf::Rect<float> iBounds(
+		itemEditor.getPosition().x,
+		itemEditor.getPosition().y,
+		itemEditor.getSize().x,
+		itemEditor.getSize().y + 7);
+	sf::Rect<float> dBounds(
+		dialogueEditor.getPosition().x,
+		dialogueEditor.getPosition().y,
+		dialogueEditor.getSize().x,
+		dialogueEditor.getSize().y + 7);
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
-		if (characterEditor.isSelected) {
+		if (cBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
 		}
-		else if (itemEditor.isSelected) {
+		else if (iBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 		}
-		else if (dialogueEditor.isSelected) {
+		else if (dBounds.contains(mousePosition.x, mousePosition.y)) {
+			//Game::gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
 			ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 		}
 		else if (movementBounds.contains(mousePosition.x, mousePosition.y)) {
@@ -113,4 +129,5 @@ void MainMenuScreen::draw(sf::RenderWindow& window) {
 	window.draw(monsterEditor);
 	window.draw(itemEditor);
 	window.draw(characterEditor);
+	window.draw(dialogueEditor);
 }

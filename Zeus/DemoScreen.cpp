@@ -1,4 +1,5 @@
 #include "DemoScreen.h"
+#include "MainMenuScreen.h"
 
 #include <iostream>
 
@@ -104,6 +105,10 @@ void DemoScreen::draw(sf::RenderWindow& window) {
 }
 
 void DemoScreen::handleEvent(sf::Event event) {
+	if (event.type == event.TextEntered &&
+		event.text.unicode == 27) {
+		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	}
 	update(event);
 }
 
