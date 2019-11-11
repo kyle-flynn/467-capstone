@@ -214,5 +214,8 @@
     <ClInclude Include="DynamicText.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DynamicText2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

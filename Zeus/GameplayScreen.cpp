@@ -1,7 +1,7 @@
 #include "GameplayScreen.h"
 #include <iostream>
 
-GameplayScreen::GameplayScreen(int &shptr) : Screen() {
+GameplayScreen::GameplayScreen(int &shptr, int **tileVals): Screen() {
 	// Texture Sheet dimensions are 12x21 (value range: 0-251)
 
 	// Empty Values for texture sheet: 
@@ -46,10 +46,10 @@ GameplayScreen::GameplayScreen(int &shptr) : Screen() {
 	const int userInput = shptr;
 	std::cout << "GameplayScreen Value: " << userInput << "\n";
 	
-	int** tiles = new int* [userInput];
-	for (int i = 0; i < userInput; i++) {
-		tiles[i] = new int[userInput];
-	}
+	//int** tiles = new int* [userInput];
+	//for (int i = 0; i < userInput; i++) {
+		//tiles[i] = new int[userInput];
+	//}
 
 	
 
@@ -89,7 +89,7 @@ GameplayScreen::GameplayScreen(int &shptr) : Screen() {
 		{50,50,50}
 	};
 	*/
-	this->world = new World(std::string("Resources/Tiles/tileset_grass.png"), tiles, userInput, 16, 16);
+	this->world = new World(std::string("Resources/Tiles/tileset_grass.png"), tileVals, userInput, 16, 16);
 }
 
 void GameplayScreen::draw(sf::RenderWindow& window) {

@@ -22,13 +22,14 @@ MainMenuScreen::MainMenuScreen() :
 
 void MainMenuScreen::update(float deltaTime) {
 	int* shptr = 0;
+	int** tileVals = 0;
 	this->lightningSystem.update(deltaTime);
 	this->titleTextSystem.update(deltaTime);
 
 	this->mainScene.update(deltaTime);
 	if (this->mainScene.hasSelected) {
 		if (this->mainScene.selectedId == 0) {
-			ScreenManager::getInstance().setScreen(new GameplayScreen(*shptr));
+			ScreenManager::getInstance().setScreen(new GameplayScreen(*shptr, tileVals));
 		}
 	}
 }

@@ -8,7 +8,7 @@
 
 class GameplayScreen : public Screen {
 public:
-	GameplayScreen(int &shptr);
+	GameplayScreen(int &shptr, int **tileVals);
 	//void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
 
