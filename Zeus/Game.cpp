@@ -7,9 +7,15 @@
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
 #include "MainMenuScreen.h"
+#include "CombatScreen.h"
+#include "DialogueEditorScreen.h"
+#include "ItemEditorScreen.h"
+#include "CharacterEditorScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
+
+#include <TGUI/TGUI.hpp>
 
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
@@ -21,6 +27,10 @@ int main() {
 	window.setFramerateLimit(60);
 	window.setActive();
 
+	tgui::Gui gui(window);
+
+	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
+	//gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
 	// Getting an instance of the message bus and starting its own thread.
 	MessageBus mBus = MessageBus::getInstance();
 	// mBus.setUpdatesPerSecond(120); // We can also change the updates per second of the message bus.
@@ -44,8 +54,12 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
+	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
+	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
+	//ScreenManager::getInstance().setScreen(new CombatScreen());
+	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 
 	//LogData* logData = new LogData();
 	//logData->level = LogLevel::INFO;
@@ -61,6 +75,8 @@ int main() {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
+			gui.handleEvent(event);
+			ScreenManager::getInstance().handleEvent(event);
 		}
 
 		float deltaTime = clock.restart().asSeconds();
@@ -76,6 +92,7 @@ int main() {
 			window.draw(drawComponent.sprite);
 		}
 		*/
+		gui.draw();
 		window.display();
 	}
 
