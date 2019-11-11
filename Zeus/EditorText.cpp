@@ -38,7 +38,7 @@ EditorText::EditorText(sf::String string, float maxSize) {
 
 void EditorText::setSelected(bool select) {
 	isSelected = select;
-	editText.setFillColor(select ? sf::Color::Blue : sf::Color::Black);
+	editText.setFillColor(select ? sf::Color::Blue : color);
 }
 
 void EditorText::setPressed(bool press) {
@@ -127,6 +127,12 @@ sf::String EditorText::getText() {
 
 void EditorText::setText(sf::String string) {
 	editText.setString(string);
+}
+
+void EditorText::setColor(sf::Color color) {
+	this->color = color;
+	defaultText.setFillColor(color);
+	editText.setFillColor(color);
 }
 
 void EditorText::setEditable(bool edit) {

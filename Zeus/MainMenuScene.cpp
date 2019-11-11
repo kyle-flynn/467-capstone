@@ -7,10 +7,10 @@ MainMenuScene::MainMenuScene() :
 	optionJoinSession("Join Session", false),
 	optionOptions("Options", false)
 {
-	this->optionCampaignEditor.setPosition(150.0f, 225.0f);
-	this->optionCreateSession.setPosition(150.0f, 275.0f);
-	this->optionJoinSession.setPosition(150.0f, 325.0f);
-	this->optionOptions.setPosition(150.0f, 375.0f);
+	this->optionCampaignEditor.setPosition(100.0f, 225.0f);
+	this->optionCreateSession.setPosition(100.0f, 275.0f);
+	this->optionJoinSession.setPosition(100.0f, 325.0f);
+	this->optionOptions.setPosition(100.0f, 375.0f);
 }
 
 void MainMenuScene::update(float deltaTime) {
