@@ -179,11 +179,14 @@
     <ClCompile Include="Character.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CharacterEditorScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CharacterOption.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterEditorScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -307,11 +310,14 @@
     <ClInclude Include="Character.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CharacterEditorScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CharacterOption.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterEditorScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

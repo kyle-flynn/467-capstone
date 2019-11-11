@@ -11,6 +11,7 @@
 #include "DialogueEditorScreen.h"
 #include "ItemEditorScreen.h"
 #include "CharacterEditorScreen.h"
+#include "DemoScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
@@ -22,6 +23,7 @@ const float Game::HEIGHT = 720.0f;
 
 int main() {
 	FontManager::getInstance().loadFonts();
+	GameDataManager::getInstance();
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
@@ -54,7 +56,8 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
-	ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
+	ScreenManager::getInstance().setScreen(new DemoScreen());
+	//ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
 	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
