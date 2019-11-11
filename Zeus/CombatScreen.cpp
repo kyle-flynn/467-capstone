@@ -1,7 +1,7 @@
 #include "CombatScreen.h"
 
 #include "CombatManager.h"
-
+#include "MainMenuScreen.h"
 #include <iostream>
 
 CombatScreen::CombatScreen() :
@@ -69,5 +69,9 @@ void CombatScreen::draw(sf::RenderWindow& window) {
 }
 
 void CombatScreen::handleEvent(sf::Event event) {
+	if (event.type == event.TextEntered &&
+		event.text.unicode == 27) {
+		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	}
 	this->textbox.handleEvent(event);
 }

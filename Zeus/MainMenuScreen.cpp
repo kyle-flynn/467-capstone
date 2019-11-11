@@ -98,7 +98,7 @@ void MainMenuScreen::update(sf::Event event) {
 		else if (combatBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new CombatScreen());
 		}
-		else if (mainScene.hasSelected) {
+		/*else if (mainScene.hasSelected) {
 			characterEditor.setColor(sf::Color::White);
 			itemEditor.setColor(sf::Color::White);
 			monsterEditor.setColor(sf::Color::White);
@@ -109,7 +109,7 @@ void MainMenuScreen::update(sf::Event event) {
 			itemEditor.setColor(sf::Color::Transparent);
 			monsterEditor.setColor(sf::Color::Transparent);
 			dialogueEditor.setColor(sf::Color::Transparent);
-		}
+		}*/
 	}
 }
 
