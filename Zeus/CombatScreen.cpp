@@ -24,7 +24,7 @@ CombatScreen::CombatScreen() :
 }
 
 void CombatScreen::update(float deltaTime) {
-
+	this->textbox.update(deltaTime);
 }
 
 void CombatScreen::draw(sf::RenderWindow& window) {
@@ -46,4 +46,8 @@ void CombatScreen::draw(sf::RenderWindow& window) {
 	}
 
 	window.draw(this->textbox);
+}
+
+void CombatScreen::handleEvent(sf::Event event) {
+	this->textbox.handleEvent(event);
 }

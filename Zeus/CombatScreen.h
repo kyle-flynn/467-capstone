@@ -17,6 +17,7 @@ public:
 	CombatScreen();
 	void update(float deltaTime);
 	void draw(sf::RenderWindow& window);
+	void handleEvent(sf::Event event);
 private:
 	std::vector<PlayerCombatDisplay*> combatDisplays;
 	std::vector<entt::entity*> enemies;
