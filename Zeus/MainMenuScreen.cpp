@@ -17,16 +17,19 @@ MainMenuScreen::MainMenuScreen() :
 	this->zeusTexture.loadFromFile("Resources/Intro/zeus_opaque_landscape.png");
 	this->zeusSprite.setTexture(this->zeusTexture);
 	this->zeusSprite.setScale(0.6666f, 0.6666f);
+	
 }
 
 void MainMenuScreen::update(float deltaTime) {
+	int* shptr = 0;
+	int** tileVals = 0;
 	this->lightningSystem.update(deltaTime);
 	this->titleTextSystem.update(deltaTime);
 
 	this->mainScene.update(deltaTime);
 	if (this->mainScene.hasSelected) {
 		if (this->mainScene.selectedId == 0) {
-			ScreenManager::getInstance().setScreen(new GameplayScreen());
+			ScreenManager::getInstance().setScreen(new GameplayScreen(*shptr, tileVals));
 		}
 	}
 }
