@@ -2,9 +2,25 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "EntityComponentSystem.h"
+
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
 
+// Classes For Certain Components
+struct Move {
+	std::string name;
+	std::string description;
+	int damage;
+};
+
+struct Action {
+	int order;
+	Move move;
+	entt::entity entity;
+};
+
+// Components
 struct BaseComponent {
 	std::string name;
 	int entityType;
@@ -30,6 +46,10 @@ struct PositionComponent {
 
 struct CombatComponent {
 	int speed;
+};
+
+struct MovesetComponent {
+	std::vector<Move> moves;
 };
 
 #endif

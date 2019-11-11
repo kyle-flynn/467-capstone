@@ -13,6 +13,17 @@
 			"tile_start_x": 629,
 			"tile_start_y": 640,
 			"scale": 3.0
+		},
+		"moveset": [
+			{
+				"name": "Starstorm",
+				"damage": 20,
+				"description": "Lots of stars."
+			}
+		],
+		"health": {
+			"max": 100,
+			"current": 100
 		}
 	  },
 	  {
@@ -28,6 +39,27 @@
 			"tile_start_x": 0,
 			"tile_start_y": 70,
 			"scale": 1.0
+		},
+		"moveset": [
+			{
+				"name": "Bombs",
+				"damage": 10,
+				"description": "Bombs?"
+			},
+			{
+				"name": "Excuse me, Princess",
+				"damage": 1,
+				"description": "Well excuuuuuuuuuuuuse me, princess!"
+			},
+			{
+				"name": "Sword Attack",
+				"damage": 10,
+				"description": "Stabby stab stab."
+			}
+		],
+		"health": {
+			"max": 50,
+			"current": 50
 		}
 	  },
 	  {
@@ -43,6 +75,17 @@
 			"tile_start_x": 0,
 			"tile_start_y": 0,
 			"scale": 1.0
+		},
+		"moveset": [
+			{
+				"name": "Paper Cut",
+				"damage": 7,
+				"description": "Ouch!"
+			}
+		],
+		"health": {
+			"max": 37,
+			"current": 37
 		}
 	  }
   ]
