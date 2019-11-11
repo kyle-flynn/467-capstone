@@ -262,22 +262,6 @@
     <ClInclude Include="NetworkManager.h">
       <Filter>Header Files\Logic\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="UserInputField.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Title.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DynamicText2.h">
     <ClInclude Include="PlayerCombatDisplay.h">
       <Filter>Header Files\Graphics\Combat</Filter>
     </ClInclude>

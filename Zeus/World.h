@@ -12,7 +12,7 @@
 
 class World {
 public:
-	World(const std::string& filename, int **tiles, int userInput, int tileWidth, int tileHeight);
+	World(const std::string& filename, int tiles[4][4], int tileWidth, int tileHeight);
 	void draw(sf::RenderWindow& window);
 private:
 	sf::Texture tilesheet;
