@@ -1,5 +1,7 @@
 #include "DemoScreen.h"
 
+#include <iostream>
+
 DemoScreen::DemoScreen() {
 	Screen();
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
@@ -10,7 +12,7 @@ DemoScreen::DemoScreen() {
 	sprite->setTextureRect(sf::IntRect(0, 96, 24, 32));
 	auto entt = registry.create();
 	registry.assign<RenderComponent>(entt, texture, sprite);
-	registry.assign<PositionComponent>(entt, 500.0f, 500.0f);
+	registry.assign<PositionComponent>(entt, 500.0f, 500.0f, 5.0f, 500.0f, 500.0f);
 }
 
 void DemoScreen::update(float deltaTime) {
@@ -18,7 +20,44 @@ void DemoScreen::update(float deltaTime) {
 	auto view = registry.view<PositionComponent>();
 	for (auto entity : view) {
 		auto& pos = registry.get<PositionComponent>(entity);
-
+		std::cout << pos.x << " " << pos.y << std::endl;
+		std::cout << pos.destX << " " << pos.destY << std::endl;
+		if (pos.x != pos.destX) {
+			if (pos.x < pos.destX) {
+				if (pos.x + pos.speed < pos.destX) {
+					pos.x += pos.speed;
+				}
+				else {
+					pos.x = pos.destX;
+				}
+			}
+			else {
+				if (pos.x - pos.speed > pos.destX) {
+					pos.x -= pos.speed;
+				}
+				else {
+					pos.x = pos.destX;
+				}
+			}
+		}
+		if (pos.y != pos.destY) {
+			if (pos.y < pos.destY) {
+				if (pos.y + pos.speed < pos.destY) {
+					pos.y += pos.speed;
+				}
+				else {
+					pos.y = pos.destY;
+				}
+			}
+			else {
+				if (pos.y - pos.speed > pos.destY) {
+					pos.y -= pos.speed;
+				}
+				else {
+					pos.y = pos.destY;
+				}
+			}
+		}
 	}
 }
 
@@ -29,8 +68,24 @@ void DemoScreen::update(sf::Event event) {
 		auto view = reg.view<PositionComponent>();
 		for (auto entity : view) {
 			auto& pos = reg.get<PositionComponent>(entity);
-			pos.x = mousePosition.x;
-			pos.y = mousePosition.y;
+			pos.destX = mousePosition.x;
+			pos.destY = mousePosition.y;
+		}
+	}
+	if (event.type == sf::Event::KeyPressed) {
+		entt::registry& reg = GameDataManager::getInstance().getRegistry();
+		auto view = reg.view<PositionComponent>();
+		for (auto entity : view) {
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift)) {
+				auto& pos = reg.get<PositionComponent>(entity);
+				pos.speed += 1.0f;
+			}
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::LControl)) {
+				auto& pos = reg.get<PositionComponent>(entity);
+				if (pos.speed > 1.0) {
+					pos.speed -= 1.0f;
+				}
+			}
 		}
 	}
 }
@@ -43,6 +98,7 @@ void DemoScreen::draw(sf::RenderWindow& window) {
 		auto& rend = reg.get<RenderComponent>(entity);
 		auto& pos = reg.get<PositionComponent>(entity);
 		rend.sprite->setPosition(pos.x, pos.y);
+		rend.sprite->setScale(3.0f, 3.0f);
 		window.draw(*rend.sprite);
 	}
 }
