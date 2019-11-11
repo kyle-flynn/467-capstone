@@ -1,11 +1,13 @@
 #include "PlayerCombatDisplay.h"
 
 PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite) :
-playerSprite(playerSprite)
+	playerSprite(playerSprite),
+	isActive(false),
+	up(true)
 {
 	this->combatDisplay.loadFromFile("Resources/Sprites/player_combat_display.png");
-	this->combatSprite.setTexture(this->combatDisplay);
-	this->combatSprite.setScale(2.0f, 2.0f);
+	this->battleTextbox.setTexture(this->combatDisplay);
+	this->battleTextbox.setScale(2.0f, 2.0f);
 	this->name.setString(name);
 	this->name.setFont(FontManager::getInstance().joystick);
 	this->name.setFillColor(sf::Color::Black);
@@ -27,28 +29,49 @@ playerSprite(playerSprite)
 	this->mana.setFillColor(sf::Color::White);
 	this->mana.setOutlineColor(sf::Color::Black);
 
-	float width = this->combatSprite.getGlobalBounds().width;
+	float width = this->battleTextbox.getGlobalBounds().width;
 	sf::FloatRect textRect = this->name.getLocalBounds();
 	this->name.setOrigin(textRect.left + textRect.width / 2.0f,
 		textRect.top + textRect.height / 2.0f);
-	this->name.setPosition(sf::Vector2f(this->combatSprite.getGlobalBounds().width / 2.0f, this->getPosition().y + 27.0f));
+	this->name.setPosition(sf::Vector2f(this->battleTextbox.getGlobalBounds().width / 2.0f, this->getPosition().y + 27.0f));
 
 	this->hitpoints.setPosition(sf::Vector2f(20.0f, 50.0f));
 	this->mana.setPosition(sf::Vector2f(20.0f, 93.0f));
 
 	// Scale by height.
 	float scale = 40.0f / this->playerSprite.getGlobalBounds().height;
+	this->y = -(this->playerSprite.getGlobalBounds().height / 2);
 	this->playerSprite.setScale(scale, scale);
-	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), -(this->playerSprite.getGlobalBounds().height / 2));
+	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), y);
 }
 
-void PlayerCombatDisplay::update(float deltaTime) {}
+void PlayerCombatDisplay::update(float deltaTime) {
+	if (this->isActive) {
+		if (up) {
+			if (this->timeElapsed <= 0.5f) {
+				this->timeElapsed += deltaTime;
+				this->y -= deltaTime * 1.0f;
+			} else {
+				this->up = false;
+			}
+		} else {
+			if (this->timeElapsed <= 0.5f) {
+				this->timeElapsed += deltaTime;
+				this->y += deltaTime * 1.0f;
+			} else {
+				this->up = true;
+			}
+		}
+	}
+}
 
 void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	states.texture = NULL;
-
-	target.draw(this->combatSprite, states);
+	if (this->isActive) {
+		this->playerSprite.move(0.0f, y);
+	}
+	target.draw(this->battleTextbox, states);
 	target.draw(this->name, states);
 	target.draw(this->hitpoints, states);
 	target.draw(this->mana, states);
@@ -56,5 +79,9 @@ void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 }
 
 float PlayerCombatDisplay::getWidth() {
-	return this->combatSprite.getGlobalBounds().width;
+	return this->battleTextbox.getGlobalBounds().width;
+}
+
+void PlayerCombatDisplay::setActive(bool active) {
+	this->isActive = active;
 }

@@ -61,7 +61,7 @@ int main() {
 	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
-	//ScreenManager::getInstance().setScreen(new CombatScreen());
+	ScreenManager::getInstance().setScreen(new CombatScreen());
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 
 	//LogData* logData = new LogData();
