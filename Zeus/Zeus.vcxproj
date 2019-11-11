@@ -22,7 +22,7 @@
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{31A21E2E-DF84-4D10-B049-804DB42D696E}</ProjectGuid>
     <RootNamespace>Zeus</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -135,6 +135,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleTextbox.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterEditorScreen.cpp" />
+    <ClCompile Include="CharacterOption.cpp" />
     <ClCompile Include="CombatManager.cpp" />
     <ClCompile Include="CombatScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
@@ -142,12 +145,16 @@
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
     <ClCompile Include="DialogueEditorPanel.cpp" />
     <ClCompile Include="DialogueEditorScreen.cpp" />
+    <ClCompile Include="EditorText.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameDataManager.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemEditorScreen.cpp" />
+    <ClCompile Include="ItemOption.cpp" />
     <ClCompile Include="Lightning.cpp" />
     <ClCompile Include="LightningSystem.cpp" />
     <ClCompile Include="LoggingSystem.cpp" />
@@ -168,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleTextbox.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterEditorScreen.h" />
+    <ClInclude Include="CharacterOption.h" />
     <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />
@@ -176,11 +186,15 @@
     <ClInclude Include="DialogueEditorOptionNode.h" />
     <ClInclude Include="DialogueEditorPanel.h" />
     <ClInclude Include="DialogueEditorScreen.h" />
+    <ClInclude Include="EditorText.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDataManager.h" />
     <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemEditorScreen.h" />
+    <ClInclude Include="ItemOption.h" />
     <ClInclude Include="Lightning.h" />
     <ClInclude Include="LightningSystem.h" />
     <ClInclude Include="LoggingSystem.h" />

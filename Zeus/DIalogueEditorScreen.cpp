@@ -34,6 +34,7 @@ void DialogueEditorScreen::update(sf::Event event) {
 		n.update(event, this->mousePosition);
 		if (n.isSelected) {
 			this->changeActive(n.getNode(), nullptr);
+			return;
 		}
 	}
 	for (DialogueEditorOptionNode& n : this->options) {
@@ -41,6 +42,7 @@ void DialogueEditorScreen::update(sf::Event event) {
 		if (n.isSelected) {
 			this->changeActive(nullptr, n.getNode());
 		}
+		return;
 	}
 	sf::Rect<float> bounds(
 		sf::Vector2f(700, 500),
