@@ -41,8 +41,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -91,15 +91,16 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\CLib\SFML\source\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\CLib\json-3.7.1\include;C:\CLib\tgui\include;C:\CLib\SFML\source\include;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>C:\CLib\SFML\build\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\CLib\SFML\build\lib\Debug;C:\CLib\tgui\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-system-d.lib;sfml-audio-d.lib;sfml-main-d.lib;sfml-network-d.lib;tgui-d.lib;tgui-s-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
+      <Command>copy "$(SolutionDir)Resources" "$(TargetDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -133,11 +134,27 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BattleTextbox.cpp" />
+    <ClCompile Include="Character.cpp" />
+    <ClCompile Include="CharacterEditorScreen.cpp" />
+    <ClCompile Include="CharacterOption.cpp" />
+    <ClCompile Include="CombatManager.cpp" />
+    <ClCompile Include="CombatScreen.cpp" />
+    <ClCompile Include="Dialogue.cpp" />
+    <ClCompile Include="DialogueEditorMessageNode.cpp" />
+    <ClCompile Include="DialogueEditorOptionNode.cpp" />
+    <ClCompile Include="DialogueEditorPanel.cpp" />
+    <ClCompile Include="DialogueEditorScreen.cpp" />
+    <ClCompile Include="EditorText.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />
     <ClCompile Include="FontManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameDataManager.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemEditorScreen.cpp" />
+    <ClCompile Include="ItemOption.cpp" />
     <ClCompile Include="Lightning.cpp" />
     <ClCompile Include="LightningSystem.cpp" />
     <ClCompile Include="LoggingSystem.cpp" />
@@ -146,6 +163,7 @@
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="PlayerCombatDisplay.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -160,11 +178,28 @@
     <ClInclude Include="Components.h" />
     <ClInclude Include="DynamicText.h" />
     <ClInclude Include="DynamicText2.h" />
+    <ClInclude Include="BattleTextbox.h" />
+    <ClInclude Include="Character.h" />
+    <ClInclude Include="CharacterEditorScreen.h" />
+    <ClInclude Include="CharacterOption.h" />
+    <ClInclude Include="CombatManager.h" />
+    <ClInclude Include="CombatScreen.h" />
+    <ClInclude Include="Components.h" />
+    <ClInclude Include="Dialogue.h" />
+    <ClInclude Include="DialogueEditorMessageNode.h" />
+    <ClInclude Include="DialogueEditorOptionNode.h" />
+    <ClInclude Include="DialogueEditorPanel.h" />
+    <ClInclude Include="DialogueEditorScreen.h" />
+    <ClInclude Include="EditorText.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameDataManager.h" />
     <ClInclude Include="GameplayScreen.h" />
     <ClInclude Include="Pic.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemEditorScreen.h" />
+    <ClInclude Include="ItemOption.h" />
     <ClInclude Include="Lightning.h" />
     <ClInclude Include="LightningSystem.h" />
     <ClInclude Include="LoggingSystem.h" />
@@ -176,6 +211,7 @@
     <ClInclude Include="MessageBus.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="PlayerCombatDisplay.h" />
     <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />

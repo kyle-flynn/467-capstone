@@ -1,6 +1,11 @@
 #include <SFML/Graphics.hpp>
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
+#include "MainMenuScreen.h"
+#include "CombatScreen.h"
+#include "DialogueEditorScreen.h"
+#include "ItemEditorScreen.h"
+#include "CharacterEditorScreen.h"
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
@@ -10,6 +15,8 @@
 #include "DynamicText.h"
 #include "DynamicText2.h"
 #include "Game.h"
+
+#include <TGUI/TGUI.hpp>
 
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
@@ -27,6 +34,14 @@ int main() {
 	sf::RenderWindow window;
 
 	sf::Vector2i centerWindow((sf::VideoMode::getDesktopMode().width / 2) - 445, (sf::VideoMode::getDesktopMode().height / 2) - 480);
+	tgui::Gui gui(window);
+
+	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
+	//gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+	// Getting an instance of the message bus and starting its own thread.
+	MessageBus mBus = MessageBus::getInstance();
+	// mBus.setUpdatesPerSecond(120); // We can also change the updates per second of the message bus.
+	mBus.start();
 
 	window.create(sf::VideoMode(900, 900), "SFML Textbox", sf::Style::Titlebar | sf::Style::Close);
 	window.setPosition(centerWindow);
@@ -50,6 +65,12 @@ int main() {
 	text1.setLimit(true, 30);
 	text1.setBorderSize(1);
 	text1.setBackColor(sf::Color::Black);
+	ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
+	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
+	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	//ScreenManager::getInstance().setScreen(new GameplayScreen());
+	//ScreenManager::getInstance().setScreen(new CombatScreen());
+	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 
 	Button btn1("Enter", { 150, 30 }, 20, sf::Color::Green, sf::Color::Black);
 	btn1.setFont(font);
@@ -272,11 +293,24 @@ int main() {
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
+			gui.handleEvent(event);
+			ScreenManager::getInstance().handleEvent(event);
 		}
 		window.clear();
 		ScreenManager::getInstance().draw(window);
+		/*
+		auto view = registry.view<DrawComponent, PositionComponent>();
+		for (auto entity : view) {
+			auto& drawComponent = view.get<DrawComponent>(entity);
+			auto& positionComponent = view.get<PositionComponent>(entity);
+			drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
+			window.draw(drawComponent.sprite);
+		}
+		*/
+		gui.draw();
 		window.display();
 
 	}
 
+	return 0;
 }
