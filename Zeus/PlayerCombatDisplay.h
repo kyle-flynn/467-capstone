@@ -25,7 +25,7 @@ private:
 	bool isActive;
 	bool up;
 	float timeElapsed;
-	float y;
+	float spriteScale;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
 

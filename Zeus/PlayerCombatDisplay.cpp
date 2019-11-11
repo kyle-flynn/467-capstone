@@ -3,7 +3,8 @@
 PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite) :
 	playerSprite(playerSprite),
 	isActive(false),
-	up(true)
+	up(true),
+	timeElapsed(0)
 {
 	this->combatDisplay.loadFromFile("Resources/Sprites/player_combat_display.png");
 	this->battleTextbox.setTexture(this->combatDisplay);
@@ -40,25 +41,26 @@ PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSpr
 
 	// Scale by height.
 	float scale = 40.0f / this->playerSprite.getGlobalBounds().height;
-	this->y = -(this->playerSprite.getGlobalBounds().height / 2);
+	this->spriteScale = scale;
 	this->playerSprite.setScale(scale, scale);
-	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), y);
+	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), -(this->playerSprite.getGlobalBounds().height / 2));
 }
 
 void PlayerCombatDisplay::update(float deltaTime) {
 	if (this->isActive) {
+		this->timeElapsed += deltaTime;
 		if (up) {
-			if (this->timeElapsed <= 0.5f) {
-				this->timeElapsed += deltaTime;
-				this->y -= deltaTime * 1.0f;
+			if (this->timeElapsed <= 0.2f) {
+				this->playerSprite.move(0.0f, -deltaTime * 16.0f);
 			} else {
+				this->timeElapsed = 0.0f;
 				this->up = false;
 			}
 		} else {
-			if (this->timeElapsed <= 0.5f) {
-				this->timeElapsed += deltaTime;
-				this->y += deltaTime * 1.0f;
+			if (this->timeElapsed <= 0.2f) {
+				this->playerSprite.move(0.0f, deltaTime * 16.0f);
 			} else {
+				this->timeElapsed = 0.0f;
 				this->up = true;
 			}
 		}
@@ -68,9 +70,6 @@ void PlayerCombatDisplay::update(float deltaTime) {
 void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	states.texture = NULL;
-	if (this->isActive) {
-		this->playerSprite.move(0.0f, y);
-	}
 	target.draw(this->battleTextbox, states);
 	target.draw(this->name, states);
 	target.draw(this->hitpoints, states);
@@ -83,5 +82,6 @@ float PlayerCombatDisplay::getWidth() {
 }
 
 void PlayerCombatDisplay::setActive(bool active) {
+	this->playerSprite.setPosition(this->playerSprite.getPosition().x, -(this->playerSprite.getGlobalBounds().height / 2));
 	this->isActive = active;
 }

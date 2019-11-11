@@ -31,7 +31,6 @@ CombatScreen::CombatScreen() :
 }
 
 void CombatScreen::update(float deltaTime) {
-	std::cout << deltaTime << std::endl;
 	for (auto display : this->combatDisplays) {
 		display->update(deltaTime);
 	}
