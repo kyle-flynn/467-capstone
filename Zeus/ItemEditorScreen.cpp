@@ -1,4 +1,5 @@
 #include "ItemEditorScreen.h"
+#include "MainMenuScreen.h"
 
 ItemEditorScreen::ItemEditorScreen() {
 	Screen();
@@ -176,6 +177,10 @@ void ItemEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void ItemEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == event.TextEntered &&
+		event.text.unicode == 27) {
+		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	}
 	/*if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;

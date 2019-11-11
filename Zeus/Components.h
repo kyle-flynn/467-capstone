@@ -42,6 +42,9 @@ struct HealthComponent {
 struct PositionComponent {
 	float x;
 	float y;
+	float speed;
+	float destX;
+	float destY;
 };
 
 struct CombatComponent {
