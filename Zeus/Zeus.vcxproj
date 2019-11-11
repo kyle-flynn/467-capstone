@@ -174,10 +174,6 @@
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Components.h" />
-    <ClInclude Include="DynamicText.h" />
-    <ClInclude Include="DynamicText2.h" />
     <ClInclude Include="BattleTextbox.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterEditorScreen.h" />
@@ -196,7 +192,6 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDataManager.h" />
     <ClInclude Include="GameplayScreen.h" />
-    <ClInclude Include="Pic.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemEditorScreen.h" />
     <ClInclude Include="ItemOption.h" />
@@ -220,8 +215,6 @@
     <ClInclude Include="System.h" />
     <ClInclude Include="TestSystem.h" />
     <ClInclude Include="TextParticleSystem.h" />
-    <ClInclude Include="Title.h" />
-    <ClInclude Include="UserInputField.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

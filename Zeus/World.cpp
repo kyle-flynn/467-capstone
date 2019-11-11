@@ -1,6 +1,6 @@
 #include "World.h"
 
-World::World(const std::string& filename, int **tiles, int userInput, int tileWidth, int tileHeight) {
+World::World(const std::string& filename, int tiles[4][4], int tileWidth, int tileHeight) {
 	/* loadFromFile returns a boolean to describe if the load succeeded or not. Throw an error if it does not.
 	   Whenever we make a world constructor, we should probably surround it in a try/catch block.
 	*/
@@ -10,11 +10,9 @@ World::World(const std::string& filename, int **tiles, int userInput, int tileWi
 	this->tileWidth = tileWidth;
 	this->tileHeight = tileHeight;
 
-	std::cout << "World Value: " << userInput << "\n";
-
 	// This is set for static dimensions, a 4x4 tile grid. This can be changed, or made dynamic based upon world parameters.
-	for (int i = 0; i < userInput; i++) {
-		for (int j = 0; j < userInput; j++) {
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 4; j++) {
 			sf::Sprite sprite;
 			// This divides the texture sheet into tiles.
 			float sheetTilesX = this->tilesheet.getSize().x / tileWidth + 0.0f; // =12
