@@ -230,9 +230,6 @@ int main() {
 								filledAll = true;
 								std::cout << "All done!\n";
 								window.close();
-								//ScreenManager::getInstance().setScreen(new GameplayScreen());
-								//sf::RenderWindow window;
-								//ScreenManager::getInstance().draw(window);
 							}
 						}
 						
