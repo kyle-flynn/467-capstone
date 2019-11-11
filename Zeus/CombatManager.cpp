@@ -49,6 +49,28 @@ void CombatManager::loadEntities(const std::string& fileLoc) {
 				sprite->setTextureRect(sf::IntRect(tileStartX, tileStartY, tileSizeX, tileSizeY));
 				registry.assign<RenderComponent>(entity, texture, sprite, sf::Vector2i(tileSizeX, tileSizeY), sf::Vector2i(tileStartX, tileStartY), scale);
 			}
+
+			if (cJSON.at("health").is_structured()) {
+				json healthJSON = cJSON.at("health");
+				int max = healthJSON.at("max");
+				int current = healthJSON.at("current");
+				registry.assign<HealthComponent>(entity, current, max);
+			}
+
+			if (cJSON.at("moveset").is_structured() &&
+				cJSON.at("moveset").is_array()) {
+				json movesJSON = cJSON.at("moveset");
+				std::vector<Move> moves;
+				for (int i = 0; i < movesJSON.size(); i++) {
+					json moveJSON = movesJSON.at(i);
+					Move move;
+					move.name = moveJSON.at("name");
+					move.damage = moveJSON.at("damage");
+					move.description = moveJSON.at("description");
+					moves.push_back(move);
+				}
+				registry.assign<MovesetComponent>(entity, moves);
+			}
 		} catch(std::exception e) {
 			std::cout << "Error loading character" << std::endl;
 		}

@@ -1,7 +1,9 @@
 #include "PlayerCombatDisplay.h"
 
 PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSprite) :
-	playerSprite(playerSprite)
+	playerSprite(playerSprite),
+	isActive(false),
+	up(true)
 {
 	this->combatDisplay.loadFromFile("Resources/Sprites/player_combat_display.png");
 	this->battleTextbox.setTexture(this->combatDisplay);
@@ -38,16 +40,37 @@ PlayerCombatDisplay::PlayerCombatDisplay(std::string name, sf::Sprite& playerSpr
 
 	// Scale by height.
 	float scale = 40.0f / this->playerSprite.getGlobalBounds().height;
+	this->y = -(this->playerSprite.getGlobalBounds().height / 2);
 	this->playerSprite.setScale(scale, scale);
-	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), -(this->playerSprite.getGlobalBounds().height / 2));
+	this->playerSprite.setPosition((width / 2) - (this->playerSprite.getGlobalBounds().width / 2), y);
 }
 
-void PlayerCombatDisplay::update(float deltaTime) {}
+void PlayerCombatDisplay::update(float deltaTime) {
+	if (this->isActive) {
+		if (up) {
+			if (this->timeElapsed <= 0.5f) {
+				this->timeElapsed += deltaTime;
+				this->y -= deltaTime * 1.0f;
+			} else {
+				this->up = false;
+			}
+		} else {
+			if (this->timeElapsed <= 0.5f) {
+				this->timeElapsed += deltaTime;
+				this->y += deltaTime * 1.0f;
+			} else {
+				this->up = true;
+			}
+		}
+	}
+}
 
 void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	states.texture = NULL;
-
+	if (this->isActive) {
+		this->playerSprite.move(0.0f, y);
+	}
 	target.draw(this->battleTextbox, states);
 	target.draw(this->name, states);
 	target.draw(this->hitpoints, states);
@@ -57,4 +80,8 @@ void PlayerCombatDisplay::draw(sf::RenderTarget& target, sf::RenderStates states
 
 float PlayerCombatDisplay::getWidth() {
 	return this->battleTextbox.getGlobalBounds().width;
+}
+
+void PlayerCombatDisplay::setActive(bool active) {
+	this->isActive = active;
 }

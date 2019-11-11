@@ -11,8 +11,11 @@ combatActionsBox(sf::Quads, 12),
 combatDescriptionBox(sf::Quads, 12),
 selectedOption(0),
 selectedAction(0),
-dualRows(0)
+dualRows(0),
+actionReady(false)
 {
+	std::vector<Move> moves(0);
+	this->moveset.moves = moves;
 	this->textboxTexture.loadFromFile("Resources/Sprites/spritesheet_combat.png");
 
 	// Load text and fonts
@@ -110,7 +113,12 @@ void BattleTextbox::setSelectedAction(int selected) {
 		for (auto text : this->dualRows) {
 			text->setFillColor(sf::Color::Black);
 		}
-		this->descriptionText.setString("This is a description.");
+		if (this->battleMode == BattleMode::ACTIONS_CHOOSING_BATTLE) {
+			this->descriptionText.setString(this->moveset.moves[selected].description);
+		} else if (this->battleMode == BattleMode::ACTIONS_CHOOSING_ITEMS) {
+			this->descriptionText.setString(this->items[selected].description);
+		}
+	
 		this->selectedAction = selected;
 		this->dualRows[selected]->setFillColor(sf::Color::Color(0.0f, 119.0f, 255.0f));
 	}
@@ -122,7 +130,10 @@ void BattleTextbox::setBattleMode(BattleMode newMode) {
 	case OPTIONS_CHOOSING:
 		//this->textMode = BattleTextMode::ACTIONS_SINGLE_ROW;
 		break;
-	case ACTIONS_CHOOSING:
+	case ACTIONS_CHOOSING_BATTLE:
+		//this->textMode = BattleTextMode::ACTIONS_DUAL_ROW_DUAL_COLUMN;
+		break;
+	case ACTIONS_CHOOSING_ITEMS:
 		//this->textMode = BattleTextMode::ACTIONS_DUAL_ROW_DUAL_COLUMN;
 		break;
 	case COMBAT_LOG:
@@ -247,7 +258,8 @@ void BattleTextbox::handleEvent(sf::Event event) {
 				this->executeSelectedOption();
 			}
 		}
-	} else if (this->battleMode == BattleMode::ACTIONS_CHOOSING) {
+	} else if (this->battleMode == BattleMode::ACTIONS_CHOOSING_BATTLE ||
+			   this->battleMode == BattleMode::ACTIONS_CHOOSING_ITEMS) {
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.text.unicode == sf::Keyboard::Left) {
 				this->setSelectedAction(this->selectedAction - 1);
@@ -258,7 +270,7 @@ void BattleTextbox::handleEvent(sf::Event event) {
 			} else if (event.text.unicode == sf::Keyboard::Down) {
 				this->setSelectedAction(this->selectedAction + 3);
 			} else if (event.text.unicode == sf::Keyboard::Enter) {
-				// this->executeSelectedOption();
+				this->executeSelectedAction();
 			} else if (event.text.unicode == sf::Keyboard::Escape) {
 				this->battleMode = BattleMode::OPTIONS_CHOOSING;
 				this->textMode = BattleTextMode::SINGLE_ROW;
@@ -281,11 +293,12 @@ void BattleTextbox::handleEvent(sf::Event event) {
 void BattleTextbox::updateBattleText(const std::string& text) {
 	this->battleMode = BattleMode::COMBAT_LOG;
 	this->singleRow.setString(text);
-	if (this->textMode == BattleTextMode::SINGLE_ROW_COMBAT) {
+	/*if (this->textMode == BattleTextMode::SINGLE_ROW_COMBAT) {
 		this->singleRow.setPosition(45.0f, 30.0f);
 	} else {
 		this->singleRow.setPosition(30.0f, 30.0f);
-	}
+	}*/
+	this->singleRow.setPosition(45.0f, 30.0f);
 	this->checkForNewlines(text);
 }
 
@@ -311,11 +324,11 @@ void BattleTextbox::checkForNewlines(const std::string& text) {
 void BattleTextbox::executeSelectedOption() {
 	switch (this->selectedOption) {
 	case 0:
-		this->battleMode = BattleMode::ACTIONS_CHOOSING;
+		this->battleMode = BattleMode::ACTIONS_CHOOSING_BATTLE;
 		this->renderMoveset();
 		break;
 	case 1:
-		this->battleMode = BattleMode::ACTIONS_CHOOSING;
+		this->battleMode = BattleMode::ACTIONS_CHOOSING_ITEMS;
 		this->renderItems();
 		break;
 	case 2:
@@ -334,12 +347,17 @@ void BattleTextbox::executeSelectedOption() {
 	}
 }
 
+void BattleTextbox::executeSelectedAction() {
+	this->action.move = this->moveset.moves[this->selectedAction];
+	this->actionReady = true;
+}
+
 void BattleTextbox::renderItems() {
 	this->dualRows.clear();
 	this->textMode = BattleTextMode::DUAL_ROW_DUAL_COLUMNS;
 	int colCount = 0;
 	int rowCount = 0;
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < this->items.size(); i++) {
 		sf::Text* itemText = new sf::Text();
 		itemText->setFont(FontManager::getInstance().joystick);
 		itemText->setCharacterSize(18);
@@ -350,7 +368,7 @@ void BattleTextbox::renderItems() {
 		}
 
 		itemText->setPosition(30.0f + ((i % 3) * 320.0f), 30.0f + (rowCount * 20.0f));
-		itemText->setString("ITEM GOES HERE");
+		itemText->setString(this->items[i].name);
 		colCount++;
 		this->dualRows.push_back(itemText);
 	}
@@ -362,7 +380,7 @@ void BattleTextbox::renderMoveset() {
 	this->textMode = BattleTextMode::DUAL_ROW_DUAL_COLUMNS;
 	int colCount = 0;
 	int rowCount = 0;
-	for (int i = 0; i < 9; i++) {
+	for (int i = 0; i < this->moveset.moves.size(); i++) {
 		sf::Text* itemText = new sf::Text();
 		itemText->setFont(FontManager::getInstance().joystick);
 		itemText->setCharacterSize(18);
@@ -373,7 +391,7 @@ void BattleTextbox::renderMoveset() {
 		}
 
 		itemText->setPosition(30.0f + ((i % 3) * 320.0f), 30.0f + (rowCount * 20.0f));
-		itemText->setString("MOVE GOES HERE");
+		itemText->setString(this->moveset.moves[i].name);
 		colCount++;
 		this->dualRows.push_back(itemText);
 	}
@@ -387,7 +405,8 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	// target.draw(this->textboxSprite, states);
 	// target.draw(this->battleText, states);
 	if (this->battleMode == BattleMode::OPTIONS_CHOOSING ||
-		this->battleMode == BattleMode::ACTIONS_CHOOSING) {
+		this->battleMode == BattleMode::ACTIONS_CHOOSING_BATTLE ||
+		this->battleMode == BattleMode::ACTIONS_CHOOSING_ITEMS) {
 		target.draw(this->combatOptionsBox, states);
 		target.draw(this->combatActionsBox, states);
 		target.draw(this->optionOne, states);
@@ -402,7 +421,9 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 				target.draw(*text, states);
 			}
 		}
-		if (this->battleMode == BattleMode::ACTIONS_CHOOSING) {
+		if (this->battleMode == BattleMode::ACTIONS_CHOOSING_BATTLE ||
+			(this->battleMode == BattleMode::ACTIONS_CHOOSING_ITEMS &&
+			 this->items.size() > 0)) {
 			target.draw(this->combatDescriptionBox, states);
 			target.draw(this->descriptionText, states);
 		}
@@ -412,6 +433,25 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	}
 }
 
-int BattleTextbox::getSelected() {
-	return this->selectedOption;
+void BattleTextbox::reset() {
+	this->actionReady = false;
+	this->setSelectedOption(0);
+}
+
+void BattleTextbox::setEntity(entt::entity& entity) {
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	this->action.entity = entity;
+	this->moveset = registry.get<MovesetComponent>(entity);
+}
+
+void BattleTextbox::setItems(std::vector<Item> items) {
+	this->items = items;
+}
+
+bool BattleTextbox::hasAction() {
+	return this->actionReady;
+}
+
+Action BattleTextbox::getAction() {
+	return this->action;
 }

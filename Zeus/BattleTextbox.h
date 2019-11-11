@@ -2,6 +2,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "GameDataManager.h"
+#include "Components.h"
+#include "Item.h"
+
 #ifndef GAME_BATTLE_TEXTBOX_H
 #define GAME_BATTLE_TEXTBOX_H
 
@@ -14,7 +18,8 @@ enum BattleTextMode {
 
 enum BattleMode {
 	OPTIONS_CHOOSING,
-	ACTIONS_CHOOSING,
+	ACTIONS_CHOOSING_BATTLE,
+	ACTIONS_CHOOSING_ITEMS,
 	COMBAT_LOG
 };
 
@@ -26,7 +31,11 @@ public:
 	void updateBattleText(const std::string& text);
 	void setSelectedOption(int selected);
 	void setSelectedAction(int selected);
-	int getSelected();
+	void setEntity(entt::entity& entity);
+	void setItems(std::vector<Item> items);
+	void reset();
+	bool hasAction();
+	Action getAction();
 private:
 	sf::Texture textboxTexture;
 
@@ -43,8 +52,15 @@ private:
 	sf::VertexArray combatActionsBox;
 	sf::VertexArray combatDescriptionBox;
 
+	MovesetComponent moveset;
+	std::vector<Item> items;
+
 	BattleTextMode textMode;
 	BattleMode battleMode;
+
+	Action action;
+
+	bool actionReady;
 
 	int selectedOption;
 	int selectedAction;
@@ -56,6 +72,7 @@ private:
 	void initActionsBoxVertices();
 	void initDescriptionBoxVertices();
 	void executeSelectedOption();
+	void executeSelectedAction();
 
 	void renderItems();
 	void renderMoveset();

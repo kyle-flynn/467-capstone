@@ -8,6 +8,8 @@
 #include "GameDataManager.h"
 #include "PlayerCombatDisplay.h"
 #include "BattleTextbox.h"
+#include "Components.h"
+#include "EntityComponentSystem.h"
 
 #ifndef GAME_COMBAT_SCREEN_H
 #define GAME_COMBAT_SCREEN_H
@@ -21,6 +23,8 @@ public:
 private:
 	std::vector<PlayerCombatDisplay*> combatDisplays;
 	std::vector<entt::entity*> enemies;
+	std::vector<Action> actions;
+
 	BattleTextbox textbox;
 };
 
