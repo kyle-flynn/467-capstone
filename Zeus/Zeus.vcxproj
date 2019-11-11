@@ -175,7 +175,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Button.h" />
-    <ClInclude Include="Components.h" />
     <ClInclude Include="DynamicText.h" />
     <ClInclude Include="DynamicText2.h" />
     <ClInclude Include="BattleTextbox.h" />
