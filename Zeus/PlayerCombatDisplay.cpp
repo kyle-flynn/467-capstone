@@ -50,15 +50,15 @@ void PlayerCombatDisplay::update(float deltaTime) {
 	if (this->isActive) {
 		this->timeElapsed += deltaTime;
 		if (up) {
-			if (this->timeElapsed <= 0.2f) {
-				this->playerSprite.move(0.0f, -deltaTime * 16.0f);
+			if (this->timeElapsed <= 0.20f) {
+				this->playerSprite.move(0.0f, -deltaTime * 24.0f);
 			} else {
 				this->timeElapsed = 0.0f;
 				this->up = false;
 			}
 		} else {
-			if (this->timeElapsed <= 0.2f) {
-				this->playerSprite.move(0.0f, deltaTime * 16.0f);
+			if (this->timeElapsed <= 0.20f) {
+				this->playerSprite.move(0.0f, deltaTime * 24.0f);
 			} else {
 				this->timeElapsed = 0.0f;
 				this->up = true;
@@ -84,4 +84,12 @@ float PlayerCombatDisplay::getWidth() {
 void PlayerCombatDisplay::setActive(bool active) {
 	this->playerSprite.setPosition(this->playerSprite.getPosition().x, -(this->playerSprite.getGlobalBounds().height / 2));
 	this->isActive = active;
+}
+
+void PlayerCombatDisplay::setCombatComponent(CombatComponent c) {
+	this->combatComponent = c;
+}
+
+CombatComponent& PlayerCombatDisplay::getCombatComponent() {
+	return this->combatComponent;
 }

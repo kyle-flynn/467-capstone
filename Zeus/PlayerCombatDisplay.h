@@ -4,7 +4,7 @@
 #include <string>
 
 #include "FontManager.h"
-#include <iostream>
+#include "Components.h"
 
 #ifndef GAME_PLAYER_COMBAT_DISPLAY_H
 #define GAME_PLAYER_COMBAT_DISPLAY_H
@@ -15,6 +15,8 @@ public:
 	float getWidth();
 	void update(float deltaTime);
 	void setActive(bool active);
+	void setCombatComponent(CombatComponent c);
+	CombatComponent& getCombatComponent();
 private:
 	sf::Texture combatDisplay;
 	sf::Sprite battleTextbox;
@@ -22,6 +24,7 @@ private:
 	sf::Text name;
 	sf::Text hitpoints;
 	sf::Text mana;
+	CombatComponent combatComponent;
 	bool isActive;
 	bool up;
 	float timeElapsed;

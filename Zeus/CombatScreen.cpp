@@ -8,24 +8,31 @@ CombatScreen::CombatScreen() :
 	textbox()
 {
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
+	CombatManager::getInstance().initialize();
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
 	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
 	int count = 0;
-	int highestSpeed = 0;
 	for (auto entity : view) {
 		auto& baseC = view.get<BaseComponent>(entity);
 		auto& combatC = view.get<CombatComponent>(entity);
-		if (combatC.speed >= highestSpeed && baseC.entityType > -1) {
-			highestSpeed = combatC.speed;
-			auto& movesC = view.get<MovesetComponent>(entity);
-			this->textbox.setEntity(entity);
-		}
 		if (baseC.entityType > -1) {
 			auto& renderC = view.get<RenderComponent>(entity);
 			PlayerCombatDisplay* display = new PlayerCombatDisplay(std::string(baseC.name), *renderC.sprite);
 			display->setPosition((((float)count) * display->getWidth()) + (count > 0 ? 50.0f : 0.0f), 592.0f);
+			display->setCombatComponent(combatC);
 			this->combatDisplays.push_back(display);
 			count++;
+		}
+
+		if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
+			this->textbox.setEntity(entity);
+			for (auto display : this->combatDisplays) {
+				if (display->getCombatComponent().combatId == combatC.combatId) {
+					display->setActive(true);
+				} else {
+					display->setActive(false);
+				}
+			}
 		}
 	}
 }
@@ -47,7 +54,28 @@ void CombatScreen::update(float deltaTime) {
 		} else if (a.type == TYPE_BATTLE) {
 			const std::string desc = baseC.name + " used " + a.move.name + ". " + std::to_string(a.move.damage) + "HP of damage.";
 			this->textbox.updateBattleText(desc);
+		} else if (a.type == TYPE_PASS) {
+			// Do nothing. Advance.
 		}
+		CombatManager::getInstance().takeTurn();
+		int count = 0;
+		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+		for (auto entity : view) {
+			auto& baseC = view.get<BaseComponent>(entity);
+			auto& combatC = view.get<CombatComponent>(entity);
+			if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
+				this->textbox.setEntity(entity);
+				for (auto display : this->combatDisplays) {
+					if (display->getCombatComponent().combatId == combatC.combatId) {
+						display->setActive(true);
+					}
+					else {
+						display->setActive(false);
+					}
+				}
+			}
+		}
+
 	}
 }
 

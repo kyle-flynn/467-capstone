@@ -18,6 +18,7 @@ struct Move {
 struct Action {
 	int order;
 	int type;
+	bool pass;
 	Item item;
 	Move move;
 	entt::entity entity;
@@ -51,6 +52,7 @@ struct PositionComponent {
 };
 
 struct CombatComponent {
+	unsigned int combatId;
 	int speed;
 };
 

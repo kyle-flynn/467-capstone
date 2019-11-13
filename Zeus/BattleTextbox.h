@@ -11,6 +11,7 @@
 
 static const int TYPE_ITEM = 1;
 static const int TYPE_BATTLE = 2;
+static const int TYPE_PASS = 0;
 
 enum BattleTextMode {
 	SINGLE_ROW,

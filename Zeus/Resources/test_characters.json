@@ -66,7 +66,7 @@
 		"name": "Alex",
 		"type": 1,
 		"combat": {
-			"speed": 5
+			"speed": 8
 		},
 		"render": {
 			"sprite_sheet": "Resources/Sprites/spritesheet_paper_mario.png",

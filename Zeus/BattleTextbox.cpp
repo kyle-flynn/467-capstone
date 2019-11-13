@@ -340,6 +340,9 @@ void BattleTextbox::executeSelectedOption() {
 		this->textMode = BattleTextMode::SINGLE_ROW_COMBAT;
 		this->dualRows.clear();
 		this->updateBattleText("You've decided to take a pass on that one.");
+		this->action.type = TYPE_PASS;
+		this->action.pass = true;
+		this->actionReady = true;
 		break;
 	case 3:
 		this->textMode = BattleTextMode::SINGLE_ROW_COMBAT;

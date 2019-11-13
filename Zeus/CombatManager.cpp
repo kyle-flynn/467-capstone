@@ -2,7 +2,9 @@
 
 #include <iostream>
 
-CombatManager::CombatManager() {}
+CombatManager::CombatManager() :
+	combatTurn(0)
+{}
 
 CombatManager& CombatManager::getInstance() {
 	static CombatManager instance;
@@ -10,9 +12,15 @@ CombatManager& CombatManager::getInstance() {
 }
 
 void CombatManager::loadEntities(const std::string& fileLoc) {
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	registry.sort<CombatComponent>([](const CombatComponent& c1, const CombatComponent& c2) {
+		return c1.speed < c2.speed;
+	});
+
 	std::ifstream i(fileLoc);
 	json j;
 	i >> j;
+	unsigned int combatCount = 0;
 	for (int i = 0; i < j.at("characters").size(); i++) {
 		try {
 			// Load through JSON
@@ -21,7 +29,6 @@ void CombatManager::loadEntities(const std::string& fileLoc) {
 			// c->name = cJSON.at("name");
 			// this->characterList.push_back(c);
 			// Load into ECS
-			entt::registry& registry = GameDataManager::getInstance().getRegistry();
 			auto entity = registry.create();
 			
 			registry.assign<BaseComponent>(entity, std::string(cJSON.at("name")), cJSON.at("type"));
@@ -30,7 +37,7 @@ void CombatManager::loadEntities(const std::string& fileLoc) {
 				// Convert and assign a combat component
 				json combatJSON = cJSON.at("combat");
 				int speed = combatJSON.at("speed");
-				registry.assign<CombatComponent>(entity, speed);
+				registry.assign<CombatComponent>(entity, combatCount++, speed);
 			}
 
 			if (cJSON.at("render").is_structured()) {
@@ -78,5 +85,37 @@ void CombatManager::loadEntities(const std::string& fileLoc) {
 }
 
 void CombatManager::initialize() {
-	
+	// After loading everyone, determine who goes first, and if it is the enemy or player.
+	this->determineTurnOrder();
+}
+
+void CombatManager::determineTurnOrder() {
+	this->combatTurn = 0;
+	this->combatants.clear();
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	for (auto entity : view) {
+		auto& combatC = view.get<CombatComponent>(entity);
+		this->combatants.push_back(combatC);
+	}
+	std::sort(this->combatants.begin(), this->combatants.end(), [](const CombatComponent& lhs, const CombatComponent& rhs) {
+		return lhs.speed > rhs.speed;
+	});
+}
+
+bool CombatManager::takeTurn() {
+	if (this->combatTurn < this->combatants.size()) {
+		this->combatTurn++;
+		return true;
+	} else {
+		return false;
+	}
+}
+
+int CombatManager::getCombatId() {
+	if (this->combatants.size() > 0 && this->combatTurn < this->combatants.size()) {
+		return this->combatants[this->combatTurn].combatId;
+	} else {
+		return -1;
+	}
 }
