@@ -41,8 +41,13 @@ void CombatScreen::update(float deltaTime) {
 		entt::entity& entity = a.entity;
 		auto& baseC = registry.get<BaseComponent>(entity);
 		this->textbox.reset();
-		const std::string desc = baseC.name + " used " + a.move.name + ". " + std::to_string(a.move.damage) + "HP of damage.";
-		this->textbox.updateBattleText(desc);
+		if (a.type == TYPE_ITEM) {
+			const std::string desc = baseC.name + " used " + a.item.name + ".";
+			this->textbox.updateBattleText(desc);
+		} else if (a.type == TYPE_BATTLE) {
+			const std::string desc = baseC.name + " used " + a.move.name + ". " + std::to_string(a.move.damage) + "HP of damage.";
+			this->textbox.updateBattleText(desc);
+		}
 	}
 }
 

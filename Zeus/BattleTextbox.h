@@ -9,6 +9,9 @@
 #ifndef GAME_BATTLE_TEXTBOX_H
 #define GAME_BATTLE_TEXTBOX_H
 
+static const int TYPE_ITEM = 1;
+static const int TYPE_BATTLE = 2;
+
 enum BattleTextMode {
 	SINGLE_ROW,
 	DUAL_ROW,
@@ -72,7 +75,7 @@ private:
 	void initActionsBoxVertices();
 	void initDescriptionBoxVertices();
 	void executeSelectedOption();
-	void executeSelectedAction();
+	bool executeSelectedAction();
 
 	void renderItems();
 	void renderMoveset();

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include "EntityComponentSystem.h"
+#include "Item.h"
 
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
@@ -16,6 +17,8 @@ struct Move {
 
 struct Action {
 	int order;
+	int type;
+	Item item;
 	Move move;
 	entt::entity entity;
 };

@@ -270,7 +270,12 @@ void BattleTextbox::handleEvent(sf::Event event) {
 			} else if (event.text.unicode == sf::Keyboard::Down) {
 				this->setSelectedAction(this->selectedAction + 3);
 			} else if (event.text.unicode == sf::Keyboard::Enter) {
-				this->executeSelectedAction();
+				if (!this->executeSelectedAction()) {
+					this->battleMode = BattleMode::OPTIONS_CHOOSING;
+					this->textMode = BattleTextMode::SINGLE_ROW;
+					this->singleRow.setPosition(30.0f, 30.0f);
+					this->singleRow.setString("Choose a course of action.");
+				} 
 			} else if (event.text.unicode == sf::Keyboard::Escape) {
 				this->battleMode = BattleMode::OPTIONS_CHOOSING;
 				this->textMode = BattleTextMode::SINGLE_ROW;
@@ -347,9 +352,20 @@ void BattleTextbox::executeSelectedOption() {
 	}
 }
 
-void BattleTextbox::executeSelectedAction() {
-	this->action.move = this->moveset.moves[this->selectedAction];
-	this->actionReady = true;
+bool BattleTextbox::executeSelectedAction() {
+	if (this->battleMode == BattleMode::ACTIONS_CHOOSING_ITEMS && this->items.size() > 0) {
+		this->action.type = TYPE_ITEM;
+		this->action.item = this->items[this->selectedAction];
+		this->actionReady = true;
+		return true;
+	} else if (this->battleMode == BattleMode::ACTIONS_CHOOSING_BATTLE && this->moveset.moves.size() > 0) {
+		this->action.type = TYPE_BATTLE;
+		this->action.move = this->moveset.moves[this->selectedAction];
+		this->actionReady = true;
+		return true;
+	} else {
+		return false;
+	}
 }
 
 void BattleTextbox::renderItems() {
@@ -371,6 +387,14 @@ void BattleTextbox::renderItems() {
 		itemText->setString(this->items[i].name);
 		colCount++;
 		this->dualRows.push_back(itemText);
+	}
+	if (this->items.size() > 0) {
+		sf::Text* itemText = new sf::Text();
+		itemText->setFont(FontManager::getInstance().joystick);
+		itemText->setCharacterSize(18);
+		itemText->setFillColor(sf::Color::Black);
+		itemText->setPosition(30.0f, 30.0f);
+		itemText->setString("(No items available for use)");
 	}
 	this->setSelectedAction(0);
 }
@@ -394,6 +418,14 @@ void BattleTextbox::renderMoveset() {
 		itemText->setString(this->moveset.moves[i].name);
 		colCount++;
 		this->dualRows.push_back(itemText);
+	}
+	if (this->moveset.moves.size() > 0) {
+		sf::Text* itemText = new sf::Text();
+		itemText->setFont(FontManager::getInstance().joystick);
+		itemText->setCharacterSize(18);
+		itemText->setFillColor(sf::Color::Black);
+		itemText->setPosition(30.0f, 30.0f);
+		itemText->setString("(No moves available for use)");
 	}
 	this->setSelectedAction(0);
 }
