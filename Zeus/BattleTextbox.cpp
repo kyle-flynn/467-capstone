@@ -12,11 +12,18 @@ combatDescriptionBox(sf::Quads, 12),
 selectedOption(0),
 selectedAction(0),
 dualRows(0),
-actionReady(false)
+actionReady(false),
+up(false),
+textDisplaying(false),
+elapsedTime(0)
 {
 	std::vector<Move> moves(0);
 	this->moveset.moves = moves;
 	this->textboxTexture.loadFromFile("Resources/Sprites/spritesheet_combat.png");
+	this->cursorTexture.loadFromFile("Resources/Sprites/cursor_texbox.png");
+
+	this->cursor.setTexture(this->cursorTexture);
+	this->cursor.setScale(2.0f, 2.0f);
 
 	// Load text and fonts
 	this->optionOne.setFont(FontManager::getInstance().joystick);
@@ -52,6 +59,7 @@ actionReady(false)
 	this->optionFour.setPosition(leftPadding + ((Game::WIDTH / 8) * 1), height - topPadding);
 	this->singleRow.setPosition(30.0f, topPadding);
 	this->descriptionText.setPosition(30.0f, height + 20.0f);
+	this->cursor.setPosition(Game::WIDTH - 60.0f, height - 15.0f);
 
 	// Set text strings
 	
@@ -224,7 +232,24 @@ void BattleTextbox::assignTexCoords(sf::VertexArray& vertices, size_t index, flo
 }
 
 void BattleTextbox::update(float deltaTime) {
-	
+	if (this->battleMode == BattleMode::COMBAT_LOG) {
+		this->elapsedTime += deltaTime;
+		if (up) {
+			if (this->elapsedTime <= 0.20f) {
+				this->cursor.move(0.0f, -deltaTime * 24.0f);
+			} else {
+				this->elapsedTime = 0.0f;
+				this->up = false;
+			}
+		} else {
+			if (this->elapsedTime <= 0.20f) {
+				this->cursor.move(0.0f, deltaTime * 24.0f);
+			} else {
+				this->elapsedTime = 0.0f;
+				this->up = true;
+			}
+		}
+	}
 }
 
 void BattleTextbox::handleEvent(sf::Event event) {
@@ -290,6 +315,7 @@ void BattleTextbox::handleEvent(sf::Event event) {
 				this->textMode = BattleTextMode::SINGLE_ROW;
 				this->singleRow.setPosition(30.0f, 30.0f);
 				this->singleRow.setString("Choose a course of action.");
+				this->textDisplaying = false;
 			}
 		}
 	}
@@ -297,6 +323,7 @@ void BattleTextbox::handleEvent(sf::Event event) {
 
 void BattleTextbox::updateBattleText(const std::string& text) {
 	this->battleMode = BattleMode::COMBAT_LOG;
+	this->textDisplaying = true;
 	this->singleRow.setString(text);
 	/*if (this->textMode == BattleTextMode::SINGLE_ROW_COMBAT) {
 		this->singleRow.setPosition(45.0f, 30.0f);
@@ -465,6 +492,7 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 	} else if (this->battleMode == BattleMode::COMBAT_LOG) {
 		target.draw(this->combatTextbox, states);
 		target.draw(this->singleRow, states);
+		target.draw(this->cursor, states);
 	}
 }
 
@@ -485,6 +513,10 @@ void BattleTextbox::setItems(std::vector<Item> items) {
 
 bool BattleTextbox::hasAction() {
 	return this->actionReady;
+}
+
+bool BattleTextbox::hasText() {
+	return this->textDisplaying;
 }
 
 Action BattleTextbox::getAction() {

@@ -5,7 +5,9 @@
 #include <iostream>
 
 CombatScreen::CombatScreen() :
-	textbox()
+	textbox(),
+	textDisplayChange(false),
+	lastDisplay(false)
 {
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
 	CombatManager::getInstance().initialize();
@@ -58,6 +60,10 @@ void CombatScreen::update(float deltaTime) {
 			// Do nothing. Advance.
 		}
 		CombatManager::getInstance().takeTurn();
+	}
+
+	if (this->textDisplayChange) {
+		entt::registry& registry = GameDataManager::getInstance().getRegistry();
 		int count = 0;
 		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
 		for (auto entity : view) {
@@ -68,15 +74,16 @@ void CombatScreen::update(float deltaTime) {
 				for (auto display : this->combatDisplays) {
 					if (display->getCombatComponent().combatId == combatC.combatId) {
 						display->setActive(true);
-					}
-					else {
+					} else {
 						display->setActive(false);
 					}
 				}
 			}
 		}
-
 	}
+
+	this->textDisplayChange = (!this->textbox.hasText() && this->lastDisplay);
+	this->lastDisplay = this->textbox.hasText();
 }
 
 void CombatScreen::draw(sf::RenderWindow& window) {

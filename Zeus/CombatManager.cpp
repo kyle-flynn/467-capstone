@@ -103,11 +103,25 @@ void CombatManager::determineTurnOrder() {
 	});
 }
 
+void CombatManager::processPlayerAction(Action& a) {
+	if (a.type == TYPE_PASS) {
+
+	} else if (a.type == TYPE_ITEM) {
+
+	} else if (a.type == TYPE_BATTLE) {
+
+	} else {
+		// Do nothing? Not yet sure.
+	}
+}
+
 bool CombatManager::takeTurn() {
-	if (this->combatTurn < this->combatants.size()) {
+	if (this->combatTurn + 1 < this->combatants.size()) {
 		this->combatTurn++;
 		return true;
 	} else {
+		// TODO - Confirm this is the right thing to do at this time.
+		this->determineTurnOrder();
 		return false;
 	}
 }
@@ -118,4 +132,8 @@ int CombatManager::getCombatId() {
 	} else {
 		return -1;
 	}
+}
+
+bool CombatManager::hasTurnReady() {
+	return this->turnReady;
 }

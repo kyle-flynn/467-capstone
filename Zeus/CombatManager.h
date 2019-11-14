@@ -21,14 +21,16 @@ public:
 	static CombatManager& getInstance();
 	void loadEntities(const std::string& fileLoc);
 	void initialize();
-	bool takeTurn();
+	void processPlayerAction(Action& a);
 	void determineTurnOrder();
-
 	int getCombatId();
+	bool takeTurn();
+	bool hasTurnReady();
 private:
 	CombatManager();
 	std::vector<CombatComponent> combatants;
 	int combatTurn;
+	bool turnReady;
 };
 
 #endif

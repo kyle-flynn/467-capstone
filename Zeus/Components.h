@@ -8,6 +8,10 @@
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
 
+static const int TYPE_ITEM = 1;
+static const int TYPE_BATTLE = 2;
+static const int TYPE_PASS = 0;
+
 // Classes For Certain Components
 struct Move {
 	std::string name;

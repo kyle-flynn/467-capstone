@@ -9,10 +9,6 @@
 #ifndef GAME_BATTLE_TEXTBOX_H
 #define GAME_BATTLE_TEXTBOX_H
 
-static const int TYPE_ITEM = 1;
-static const int TYPE_BATTLE = 2;
-static const int TYPE_PASS = 0;
-
 enum BattleTextMode {
 	SINGLE_ROW,
 	DUAL_ROW,
@@ -39,9 +35,13 @@ public:
 	void setItems(std::vector<Item> items);
 	void reset();
 	bool hasAction();
+	bool hasText();
 	Action getAction();
 private:
 	sf::Texture textboxTexture;
+	sf::Texture cursorTexture;
+
+	sf::Sprite cursor;
 
 	sf::Text optionOne;
 	sf::Text optionTwo;
@@ -65,10 +65,11 @@ private:
 	Action action;
 
 	bool actionReady;
-
+	bool textDisplaying;
+	bool up;
 	int selectedOption;
 	int selectedAction;
-
+	float elapsedTime;
 	void checkForNewlines(const std::string& text);
 	void setBattleMode(BattleMode newMode);
 	void initBattleBoxVertices();

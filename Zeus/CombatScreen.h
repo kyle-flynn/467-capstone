@@ -24,7 +24,8 @@ private:
 	std::vector<PlayerCombatDisplay*> combatDisplays;
 	std::vector<entt::entity*> enemies;
 	std::vector<Action> actions;
-
+	bool textDisplayChange;
+	bool lastDisplay;
 	BattleTextbox textbox;
 };
 
