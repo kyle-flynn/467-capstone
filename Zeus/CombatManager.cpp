@@ -167,10 +167,34 @@ void CombatManager::processEnemyAction() {
 		std::random_device rand;
 		std::mt19937 engine(rand());
 		std::uniform_int_distribution<> moveDistribution(0, moveC.moves.size() - 1);
+		std::uniform_int_distribution<> entityDistribution(0, this->combatants.size() - 1);
 		int move = moveDistribution(engine);
+		int player = entityDistribution(engine);
+		int count = 0;
+		int targetId = 0;
 		Move m = moveC.moves[move];
 		std::string moveDesc = baseC.name + " used " + m.name;
-		std::string moveDmg = std::to_string(m.damage) + " HP of damage to the party.";
+		std::string moveDmg = std::to_string(m.damage) + " HP of damage ";
+		std::vector<CombatComponent> targets;
+		for (auto combatant : this->combatants) {
+			if (combatant.combatId != combatC.combatId) {
+				targets.push_back(combatant);
+			}
+		}
+		for (auto target : targets) {
+			if (count == player) {
+				targetId = target.combatId;
+			}
+			count++;
+		}
+		for (auto entity : view) {
+			auto& targetC = view.get<CombatComponent>(entity);
+			if (targetC.combatId == targetId) {
+				auto& targetName = view.get<BaseComponent>(entity).name;
+				moveDmg += "to " + targetName + ".";
+				break;
+			}
+		}
 		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
 		this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
 		// this->hasTurnReady = true;

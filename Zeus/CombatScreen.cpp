@@ -62,7 +62,6 @@ void CombatScreen::update(float deltaTime) {
 	}
 
 	if (this->textDisplayChange) {
-		std::cout << "DISPLAY CHANGE" << std::endl;
 		entt::registry& registry = GameDataManager::getInstance().getRegistry();
 		int count = 0;
 		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
