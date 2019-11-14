@@ -198,6 +198,7 @@ void ItemEditorScreen::removeItem() {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.at(i) == active) {
 				active = nullptr;
+				delete items[i];
 				items.erase(items.begin() + i);
 			}
 		}

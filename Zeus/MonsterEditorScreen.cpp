@@ -1,8 +1,8 @@
-#include "CharacterEditorScreen.h"
+#include "MonsterEditorScreen.h"
 
 #include <iostream>
 
-CharacterEditorScreen::CharacterEditorScreen() {
+MonsterEditorScreen::MonsterEditorScreen() {
 	Screen();
 	it = 0;
 
@@ -12,20 +12,20 @@ CharacterEditorScreen::CharacterEditorScreen() {
 	defaultIcon.loadFromFile("Resources/images/questjournal/icons/9.png");
 	defaultAvatar.loadFromFile("Resources/images/questjournal/icons/9.png");
 	header.setFont(FontManager::getInstance().oldStandard);
-	newChar.setFont(FontManager::getInstance().oldStandard);
-	deleteChar.setFont(FontManager::getInstance().oldStandard);
+	newMonster.setFont(FontManager::getInstance().oldStandard);
+	deleteMonster.setFont(FontManager::getInstance().oldStandard);
 	header.setCharacterSize(32);
-	newChar.setCharacterSize(20);
-	deleteChar.setCharacterSize(20);
+	newMonster.setCharacterSize(20);
+	deleteMonster.setCharacterSize(20);
 	header.setFillColor(sf::Color::Black);
-	newChar.setFillColor(sf::Color::Black);
-	deleteChar.setFillColor(sf::Color::Black);
+	newMonster.setFillColor(sf::Color::Black);
+	deleteMonster.setFillColor(sf::Color::Black);
 	header.setString(sf::String("Character List"));
-	newChar.setString(sf::String("New Chracter"));
-	deleteChar.setString(sf::String("Delete Character"));
+	newMonster.setString(sf::String("New Chracter"));
+	deleteMonster.setString(sf::String("Delete Character"));
 	header.setPosition(850.0f, 150.0f);
-	newChar.setPosition(725.0f, 550.0f);
-	deleteChar.setPosition(newChar.getGlobalBounds().width + 850.0f, 550.0f);
+	newMonster.setPosition(725.0f, 550.0f);
+	deleteMonster.setPosition(newMonster.getGlobalBounds().width + 850.0f, 550.0f);
 	listUp.setRadius(10);
 	listDown.setRadius(10);
 	listUp.setPointCount(3);
@@ -39,8 +39,6 @@ CharacterEditorScreen::CharacterEditorScreen() {
 	activeName.setPosition(150.0f, 150.0f);
 	activeType.setPosition(150.0f, 200.0f);
 	activeHP.setPosition(150.0f, 250.0f);
-	activeMana.setPosition(150.0f, 300.0f);
-	activeStamina.setPosition(150.0f, 350.0f);
 	activeDescription.setPosition(150.0f, 400.0f);
 	activeIcon.setTexture(defaultIcon);
 	activeAvatar.setTexture(defaultAvatar);
@@ -50,17 +48,15 @@ CharacterEditorScreen::CharacterEditorScreen() {
 	activeAvatar.setScale((float)(AVATAR_WIDTH / defaultAvatar.getSize().x), (float)(AVATAR_HEIGHT / defaultAvatar.getSize().y));
 	activeType.setEditable(false);
 	activeHP.setNumeric(true);
-	activeMana.setNumeric(true);
-	activeStamina.setNumeric(true);
 
 	newBounds = sf::Rect<float>(
 		725.0f, 550.0f,
-		newChar.getGlobalBounds().width,
-		newChar.getGlobalBounds().height + 20.0f);
+		newMonster.getGlobalBounds().width,
+		newMonster.getGlobalBounds().height + 20.0f);
 	deleteBounds = sf::Rect<float>(
-		deleteChar.getPosition().x, 550.0f,
-		deleteChar.getGlobalBounds().width,
-		deleteChar.getGlobalBounds().height + 20.0f);
+		deleteMonster.getPosition().x, 550.0f,
+		deleteMonster.getGlobalBounds().width,
+		deleteMonster.getGlobalBounds().height + 20.0f);
 	upBounds = sf::Rect<float>(
 		listUp.getPosition().x,
 		listUp.getPosition().y,
@@ -74,25 +70,23 @@ CharacterEditorScreen::CharacterEditorScreen() {
 
 	loadIcons();
 	loadAvatars();
-	loadCharacters();
+	loadMonsters();
 }
 
-void CharacterEditorScreen::update(float deltaTime) {
-	sortCharacters();
+void MonsterEditorScreen::update(float deltaTime) {
+	sortMonsters();
 	activeName.update(deltaTime, mousePosition);
 	activeType.update(deltaTime, mousePosition);
 	activeHP.update(deltaTime, mousePosition);
-	activeMana.update(deltaTime, mousePosition);
-	activeStamina.update(deltaTime, mousePosition);
 	activeDescription.update(deltaTime, mousePosition);
-	for (CharacterOption* c : characters) {
+	for (MonsterOption* c : monsters) {
 		c->update(deltaTime, mousePosition);
 	}
 	if (newBounds.contains(mousePosition.x, mousePosition.y)) {
-		newChar.setFillColor(sf::Color::Blue);
+		newMonster.setFillColor(sf::Color::Blue);
 	}
 	else if (deleteBounds.contains(mousePosition.x, mousePosition.y)) {
-		deleteChar.setFillColor(sf::Color::Blue);
+		deleteMonster.setFillColor(sf::Color::Blue);
 	}
 	else if (upBounds.contains(mousePosition.x, mousePosition.y)) {
 		listUp.setFillColor(sf::Color::Blue);
@@ -101,14 +95,14 @@ void CharacterEditorScreen::update(float deltaTime) {
 		listDown.setFillColor(sf::Color::Blue);
 	}
 	else {
-		newChar.setFillColor(sf::Color::Black);
-		deleteChar.setFillColor(sf::Color::Black);
+		newMonster.setFillColor(sf::Color::Black);
+		deleteMonster.setFillColor(sf::Color::Black);
 		listUp.setFillColor(sf::Color::Black);
 		listDown.setFillColor(sf::Color::Black);
 	}
 }
 
-void CharacterEditorScreen::update(sf::Event event) {
+void MonsterEditorScreen::update(sf::Event event) {
 	sf::Rect<float> typeBounds(
 		activeType.getPosition().x,
 		activeType.getPosition().y,
@@ -117,113 +111,112 @@ void CharacterEditorScreen::update(sf::Event event) {
 	activeName.update(event, mousePosition);
 	activeType.update(event, mousePosition);
 	activeHP.update(event, mousePosition);
-	activeMana.update(event, mousePosition);
-	activeStamina.update(event, mousePosition);
 	activeDescription.update(event, mousePosition);
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		if (newBounds.contains(mousePosition.x, mousePosition.y)) {
-			addCharacter();
+			addMonster();
 		}
 		else if (deleteBounds.contains(mousePosition.x, mousePosition.y)) {
-			removeCharacter();
+			removeMonster();
 		}
 		else if (upBounds.contains(mousePosition.x, mousePosition.y)) {
 			if (it == 0) {
-				it = characters.size() - 1;
+				it = monsters.size() - 1;
 			}
 			else {
 				it--;
 			}
 		}
 		else if (downBounds.contains(mousePosition.x, mousePosition.y)) {
-			it = (it + 1) % characters.size();
+			it = (it + 1) % monsters.size();
 		}
 		else if (typeBounds.contains(mousePosition.x, mousePosition.y)) {
-			active->c.playable = active->c.playable ? false : true;
+			if (active->m.mType == Monster::type::Ground) {
+				active->m.mType = Monster::type::Flying;
+			}
+			else {
+				active->m.mType = Monster::type::Ground;
+			}
 			updateActive();
 		}
 		else {
-			for (CharacterOption* c : characters) {
-				if (c->isSelected) {
+			for (MonsterOption* m : monsters) {
+				if (m->isSelected) {
 					changeActive();
 				}
 			}
 		}
 	}
 	if (active != nullptr) {
-		active->c.name = activeName.getText();
-		active->c.maxHP = std::stof(activeHP.getText().toAnsiString());
-		active->c.maxMana = std::stof(activeMana.getText().toAnsiString());
-		active->c.maxStamina = std::stof(activeStamina.getText().toAnsiString());
-		active->c.description = activeDescription.getText().toAnsiString();
+		active->m.name = activeName.getText();
+		active->m.maxHP = std::stof(activeHP.getText().toAnsiString());
+		active->m.description = activeDescription.getText().toAnsiString();
 	}
 }
 
-void CharacterEditorScreen::draw(sf::RenderWindow& window) {
+void MonsterEditorScreen::draw(sf::RenderWindow& window) {
 	mousePosition = sf::Mouse::getPosition(window);
 	window.draw(BGSprite);
 	window.draw(header);
-	window.draw(newChar);
-	window.draw(deleteChar);
+	window.draw(newMonster);
+	window.draw(deleteMonster);
 	window.draw(listUp);
 	window.draw(listDown);
 	window.draw(activeName);
 	window.draw(activeType);
 	window.draw(activeHP);
-	window.draw(activeMana);
-	window.draw(activeStamina);
 	window.draw(activeDescription);
 	window.draw(activeIcon);
 	window.draw(activeAvatar);
 	drawActive(window);
 }
 
-void CharacterEditorScreen::handleEvent(sf::Event event) {
+void MonsterEditorScreen::handleEvent(sf::Event event) {
 	update(event);
 }
 
-void CharacterEditorScreen::addCharacter() {
-	CharacterOption* c = new CharacterOption();
-	c->c.icon = defaultIcon;
-	c->c.sprite = defaultAvatar;
-	characters.push_back(c);
+void MonsterEditorScreen::addMonster() {
+	MonsterOption* m = new MonsterOption();
+	m->m.icon = defaultIcon;
+	m->m.sprite = defaultAvatar;
+	monsters.push_back(m);
 }
 
-void CharacterEditorScreen::removeCharacter() {
+void MonsterEditorScreen::removeMonster() {
 	if (active == nullptr) {
 		return;
 	}
 	else {
-		for (int i = 0; i < characters.size(); i++) {
-			if (characters.at(i) == active) {
+		for (int i = 0; i < monsters.size(); i++) {
+			if (monsters.at(i) == active) {
 				active = nullptr;
-				delete characters[i];
-				characters.erase(characters.begin() + i);
+				std::cout << monsters.size() << std::endl;
+				delete monsters[i];
+				std::cout << monsters.size() << std::endl;
+				monsters.erase(monsters.begin() + i);
 			}
 		}
 	}
 	changeActive();
 }
 
-void CharacterEditorScreen::changeActive() {
-	for (CharacterOption* c : characters) {
-		if (c->isSelected) {
-			active = c;
+void MonsterEditorScreen::changeActive() {
+	for (MonsterOption* m : monsters) {
+		if (m->isSelected) {
+			active = m;
 			updateActive();
 			return;
 		}
 	}
 	activeName.setText(sf::String("__________"));
 	activeHP.setText(sf::String("__________"));
-	activeMana.setText(sf::String("__________"));
-	activeStamina.setText(sf::String("__________"));
 	activeDescription.setText(sf::String("__________"));
 	activeIcon.setTexture(defaultIcon);
 	activeAvatar.setTexture(defaultAvatar);
 }
 
-void CharacterEditorScreen::loadIcons() {
+void MonsterEditorScreen::loadIcons() {
 	for (const auto& entry : std::filesystem::directory_iterator("Resources/images/questjournal/icons")) {
 		sf::Texture texture;
 		std::cout << entry.path().string() << std::endl;
@@ -232,7 +225,7 @@ void CharacterEditorScreen::loadIcons() {
 	}
 }
 
-void CharacterEditorScreen::loadAvatars() {
+void MonsterEditorScreen::loadAvatars() {
 	for (const auto& entry : std::filesystem::directory_iterator("Resources/images/questjournal/icons")) {
 		sf::Texture texture;
 		texture.loadFromFile(entry.path().string());
@@ -240,71 +233,69 @@ void CharacterEditorScreen::loadAvatars() {
 	}
 }
 
-void CharacterEditorScreen::loadCharacters() {
+void MonsterEditorScreen::loadMonsters() {
 	/*for (Character c : GameDataManager::getInstance().getCharacters()) {
 		CharacterOption* character = new CharacterOption(c);
 		characters.push_back(character);
 	}*/
 }
 
-void CharacterEditorScreen::saveCharacters() {
+void MonsterEditorScreen::saveMonsters() {
 	//GameDataManager::getInstance().saveCharacters(characters);
 }
 
-void CharacterEditorScreen::sortCharacters() {
-	std::vector<CharacterOption*> tempChars;
-	for (CharacterOption* c : characters) {
-		if (c->c.playable == true) {
-			tempChars.push_back(c);
+void MonsterEditorScreen::sortMonsters() {
+	std::vector<MonsterOption*> tempMonsters;
+	for (MonsterOption* m : monsters) {
+		if (m->m.mType == Monster::type::Ground) {
+			tempMonsters.push_back(m);
 		}
 	}
-	for (CharacterOption* c : characters) {
-		if (c->c.playable == false) {
-			tempChars.push_back(c);
+	for (MonsterOption* m : monsters) {
+		if (m->m.mType == Monster::type::Flying) {
+			tempMonsters.push_back(m);
 		}
 	}
-	characters.clear();
-	for (CharacterOption* c : tempChars) {
-		characters.push_back(c);
+	monsters.clear();
+	for (MonsterOption* m : tempMonsters) {
+		monsters.push_back(m);
 	}
 }
 
-void CharacterEditorScreen::updateActive() {
-	activeName.setText(sf::String(active->c.name));
-	if (active->c.playable) {
-		activeType.setText(sf::String("Player"));
+void MonsterEditorScreen::updateActive() {
+	activeName.setText(sf::String(active->m.name));
+	if (active->m.mType == Monster::type::Ground) {
+		activeType.setText(sf::String("Ground"));
 	}
 	else {
-		activeType.setText(sf::String("NPC"));
+		activeType.setText(sf::String("Air"));
 	}
-	activeHP.setText(sf::String(std::to_string(active->c.maxHP)));
-	activeMana.setText(sf::String(std::to_string(active->c.maxMana)));
-	activeStamina.setText(sf::String(std::to_string(active->c.maxStamina)));
-	activeDescription.setText(sf::String(active->c.description));
-	activeIcon.setTexture(active->c.icon);
-	activeAvatar.setTexture(active->c.sprite);
+	activeHP.setText(sf::String(std::to_string(active->m.maxHP)));
+	activeDescription.setText(sf::String(active->m.description));
+	activeIcon.setTexture(active->m.icon);
+	activeAvatar.setTexture(active->m.sprite);
 }
 
-void CharacterEditorScreen::drawActive(sf::RenderWindow& window) {
-	for (CharacterOption* c : characters) {
-		c->setPosition(0, 0);
+void MonsterEditorScreen::drawActive(sf::RenderWindow& window) {
+	for (MonsterOption* m : monsters) {
+		m->setPosition(0, 0);
 	}
 	int current = 0;
 	int currentIt = it;
-	if (characters.size() <= 7) {
-		for (CharacterOption* c : characters) {
-			c->setPosition(715.0f, 225.0f + current * 35.0f);
-			window.draw(*c);
+	if (monsters.size() <= 7) {
+		for (MonsterOption* m : monsters) {
+			m->setPosition(715.0f, 225.0f + current * 35.0f);
+			window.draw(*m);
 			current++;
 		}
 		it = 0;
 	}
 	else {
 		while (current < 7) {
-			characters.at(currentIt)->setPosition(715.0f, 225.0f + current * 35.0f);
-			window.draw(*characters.at(currentIt));
+			monsters.at(currentIt)->setPosition(715.0f, 225.0f + current * 35.0f);
+			window.draw(*monsters.at(currentIt));
 			current++;
-			currentIt = (currentIt + 1) % characters.size();
+			currentIt = (currentIt + 1) % monsters.size();
 		}
 	}
 }

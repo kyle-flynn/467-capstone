@@ -162,6 +162,9 @@
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="MonsterEditorScreen.cpp" />
+    <ClCompile Include="MonsterOption.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="PlayerCombatDisplay.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
@@ -204,6 +207,9 @@
     <ClInclude Include="MenuOption.h" />
     <ClInclude Include="Message.h" />
     <ClInclude Include="MessageBus.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="MonsterEditorScreen.h" />
+    <ClInclude Include="MonsterOption.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="PlayerCombatDisplay.h" />
