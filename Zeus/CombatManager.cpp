@@ -115,6 +115,10 @@ void CombatManager::processPlayerAction(Action& a) {
 	}
 }
 
+void CombatManager::processEnemyAction() {
+
+}
+
 bool CombatManager::takeTurn() {
 	if (this->combatTurn + 1 < this->combatants.size()) {
 		this->combatTurn++;

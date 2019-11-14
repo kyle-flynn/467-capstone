@@ -1,5 +1,7 @@
 #pragma once
 
+#include <queue>
+
 #include <SFML/Graphics.hpp>
 
 #include "GameDataManager.h"
@@ -28,7 +30,7 @@ public:
 	BattleTextbox();
 	void update(float deltaTime);
 	void handleEvent(sf::Event event);
-	void updateBattleText(const std::string& text);
+	void appendBattleText(const std::string& text, BattleTextMode mode);
 	void setSelectedOption(int selected);
 	void setSelectedAction(int selected);
 	void setEntity(entt::entity& entity);
@@ -47,7 +49,7 @@ private:
 	sf::Text optionTwo;
 	sf::Text optionThree;
 	sf::Text optionFour;
-	sf::Text singleRow;
+	std::queue<sf::Text*> singleRow;
 	std::vector<sf::Text*> dualRows;
 	sf::Text descriptionText;
 

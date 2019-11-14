@@ -22,6 +22,7 @@ public:
 	void loadEntities(const std::string& fileLoc);
 	void initialize();
 	void processPlayerAction(Action& a);
+	void processEnemyAction();
 	void determineTurnOrder();
 	int getCombatId();
 	bool takeTurn();

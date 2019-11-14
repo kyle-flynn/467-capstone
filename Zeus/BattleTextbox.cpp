@@ -30,7 +30,7 @@ elapsedTime(0)
 	this->optionTwo.setFont(FontManager::getInstance().joystick);
 	this->optionThree.setFont(FontManager::getInstance().joystick);
 	this->optionFour.setFont(FontManager::getInstance().joystick);
-	this->singleRow.setFont(FontManager::getInstance().joystick);
+	// this->singleRow.setFont(FontManager::getInstance().joystick);
 	this->descriptionText.setFont(FontManager::getInstance().joystick);
 
 	// Set text font sizes
@@ -38,7 +38,7 @@ elapsedTime(0)
 	this->optionTwo.setCharacterSize(24);
 	this->optionThree.setCharacterSize(24);
 	this->optionFour.setCharacterSize(24);
-	this->singleRow.setCharacterSize(18);
+	// this->singleRow.setCharacterSize(18);
 	this->descriptionText.setCharacterSize(18);
 
 	// Set text fill colors
@@ -46,7 +46,7 @@ elapsedTime(0)
 	this->optionTwo.setFillColor(sf::Color::Black);
 	this->optionThree.setFillColor(sf::Color::Black);
 	this->optionFour.setFillColor(sf::Color::Black);
-	this->singleRow.setFillColor(sf::Color::Black);
+	// this->singleRow.setFillColor(sf::Color::Black);
 	this->descriptionText.setFillColor(sf::Color::Black);
 
 	// Set text positions
@@ -57,7 +57,7 @@ elapsedTime(0)
 	this->optionTwo.setPosition(leftPadding + ((Game::WIDTH / 8) * 1), topPadding);
 	this->optionThree.setPosition(leftPadding, height - topPadding);
 	this->optionFour.setPosition(leftPadding + ((Game::WIDTH / 8) * 1), height - topPadding);
-	this->singleRow.setPosition(30.0f, topPadding);
+	// this->singleRow.setPosition(30.0f, topPadding);
 	this->descriptionText.setPosition(30.0f, height + 20.0f);
 	this->cursor.setPosition(Game::WIDTH - 60.0f, height - 15.0f);
 
@@ -67,9 +67,9 @@ elapsedTime(0)
 	this->optionTwo.setString("Items");
 	this->optionThree.setString("Pass");
 	this->optionFour.setString("Run");
-	this->singleRow.setString("Choose a course of action.");
-
+	// this->singleRow.setString("Choose a course of action.");
 	this->descriptionText.setString("Description for thing here.");
+	this->appendBattleText("Choose a course of action.", BattleTextMode::SINGLE_ROW);
 
 	this->initBattleBoxVertices();
 	this->initOptionsBoxVertices();
@@ -298,39 +298,50 @@ void BattleTextbox::handleEvent(sf::Event event) {
 				if (!this->executeSelectedAction()) {
 					this->battleMode = BattleMode::OPTIONS_CHOOSING;
 					this->textMode = BattleTextMode::SINGLE_ROW;
-					this->singleRow.setPosition(30.0f, 30.0f);
-					this->singleRow.setString("Choose a course of action.");
+					this->appendBattleText("Choose a course of action.", this->textMode);
 				} 
 			} else if (event.text.unicode == sf::Keyboard::Escape) {
 				this->battleMode = BattleMode::OPTIONS_CHOOSING;
 				this->textMode = BattleTextMode::SINGLE_ROW;
-				this->singleRow.setPosition(30.0f, 30.0f);
-				this->singleRow.setString("Choose a course of action.");
+				this->appendBattleText("Choose a course of action.", this->textMode);
 			}
 		}
 	} else if (this->battleMode == BattleMode::COMBAT_LOG) {
 		if (event.type == sf::Event::KeyPressed) {
 			if (event.text.unicode == sf::Keyboard::Enter) {
-				this->battleMode = BattleMode::OPTIONS_CHOOSING;
-				this->textMode = BattleTextMode::SINGLE_ROW;
-				this->singleRow.setPosition(30.0f, 30.0f);
-				this->singleRow.setString("Choose a course of action.");
-				this->textDisplaying = false;
+				this->singleRow.pop();
+				if (this->singleRow.empty()) {
+					this->battleMode = BattleMode::OPTIONS_CHOOSING;
+					this->textMode = BattleTextMode::SINGLE_ROW;
+					this->appendBattleText("Choose a course of action.", this->textMode);
+					this->textDisplaying = false;
+				}
 			}
 		}
 	}
 }
 
-void BattleTextbox::updateBattleText(const std::string& text) {
-	this->battleMode = BattleMode::COMBAT_LOG;
+void BattleTextbox::appendBattleText(const std::string& text, BattleTextMode mode) {
+	sf::Text* newText = new sf::Text();
+	newText->setFont(FontManager::getInstance().joystick);
+	newText->setCharacterSize(18);
+	newText->setString(text);
+	newText->setFillColor(sf::Color::Black);
+	if (mode == BattleTextMode::SINGLE_ROW) {
+		newText->setPosition(30.0f, 30.0f);
+	} else if (mode == BattleTextMode::SINGLE_ROW_COMBAT) {
+		this->battleMode = BattleMode::COMBAT_LOG;
+		newText->setPosition(45.0f, 30.0f);
+	} else {
+		newText->setPosition(30.0f, 30.0f);
+	}
+	this->singleRow.push(newText);
 	this->textDisplaying = true;
-	this->singleRow.setString(text);
 	/*if (this->textMode == BattleTextMode::SINGLE_ROW_COMBAT) {
 		this->singleRow.setPosition(45.0f, 30.0f);
 	} else {
 		this->singleRow.setPosition(30.0f, 30.0f);
 	}*/
-	this->singleRow.setPosition(45.0f, 30.0f);
 	this->checkForNewlines(text);
 }
 
@@ -354,6 +365,8 @@ void BattleTextbox::checkForNewlines(const std::string& text) {
 }
 
 void BattleTextbox::executeSelectedOption() {
+	this->singleRow.pop();
+
 	switch (this->selectedOption) {
 	case 0:
 		this->battleMode = BattleMode::ACTIONS_CHOOSING_BATTLE;
@@ -366,7 +379,7 @@ void BattleTextbox::executeSelectedOption() {
 	case 2:
 		this->textMode = BattleTextMode::SINGLE_ROW_COMBAT;
 		this->dualRows.clear();
-		this->updateBattleText("You've decided to take a pass on that one.");
+		this->appendBattleText("You've decided to take a pass on that one.", this->textMode);
 		this->action.type = TYPE_PASS;
 		this->action.pass = true;
 		this->actionReady = true;
@@ -374,7 +387,7 @@ void BattleTextbox::executeSelectedOption() {
 	case 3:
 		this->textMode = BattleTextMode::SINGLE_ROW_COMBAT;
 		this->dualRows.clear();
-		this->updateBattleText("Couldn't run away!");
+		this->appendBattleText("Couldn't run away!", this->textMode);
 		break;
 	default:
 		// Do nothing.
@@ -475,8 +488,9 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		target.draw(this->optionTwo, states);
 		target.draw(this->optionThree, states);
 		target.draw(this->optionFour, states);
-		if (this->textMode == BattleTextMode::SINGLE_ROW) {
-			target.draw(this->singleRow);
+		if (this->textMode == BattleTextMode::SINGLE_ROW &&
+			!this->singleRow.empty()) {
+			target.draw(*(this->singleRow.front()), states);
 		} else if (this->textMode == BattleTextMode::DUAL_ROW_DUAL_COLUMNS ||
 				   this->textMode == BattleTextMode::DUAL_ROW) {
 			for (auto text : this->dualRows) {
@@ -491,7 +505,9 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 		}
 	} else if (this->battleMode == BattleMode::COMBAT_LOG) {
 		target.draw(this->combatTextbox, states);
-		target.draw(this->singleRow, states);
+		if (!this->singleRow.empty()) {
+			target.draw(*(this->singleRow.front()), states);
+		}
 		target.draw(this->cursor, states);
 	}
 }

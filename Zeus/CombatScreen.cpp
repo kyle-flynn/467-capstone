@@ -52,10 +52,12 @@ void CombatScreen::update(float deltaTime) {
 		this->textbox.reset();
 		if (a.type == TYPE_ITEM) {
 			const std::string desc = baseC.name + " used " + a.item.name + ".";
-			this->textbox.updateBattleText(desc);
+			this->textbox.appendBattleText(desc, BattleTextMode::SINGLE_ROW_COMBAT);
 		} else if (a.type == TYPE_BATTLE) {
-			const std::string desc = baseC.name + " used " + a.move.name + ". " + std::to_string(a.move.damage) + "HP of damage.";
-			this->textbox.updateBattleText(desc);
+			const std::string desc = baseC.name + " used " + a.move.name + ".";
+			const std::string desc2 = std::to_string(a.move.damage) + "HP of damage.";
+			this->textbox.appendBattleText(desc, BattleTextMode::SINGLE_ROW_COMBAT);
+			this->textbox.appendBattleText(desc2, BattleTextMode::SINGLE_ROW_COMBAT);
 		} else if (a.type == TYPE_PASS) {
 			// Do nothing. Advance.
 		}
