@@ -3,13 +3,13 @@
 #include <algorithm>
 #include <fstream>
 #include <vector>
+#include <random>
 #include <nlohmann/json.hpp>
 #include <SFML/Graphics.hpp>
 
 #include "GameDataManager.h"
 #include "Components.h"
-
-#include <iostream>
+#include "BattleTextbox.h"
 
 #ifndef GAME_COMBAT_MANAGER_H
 #define GAME_COMBAT_MANAGER_H
@@ -24,14 +24,17 @@ public:
 	void processPlayerAction(Action& a);
 	void processEnemyAction();
 	void determineTurnOrder();
+	void setBattleTextbox(BattleTextbox* textbox);
 	int getCombatId();
 	bool takeTurn();
 	bool hasTurnReady();
+	bool checkForEnemyTurn();
 private:
 	CombatManager();
 	std::vector<CombatComponent> combatants;
 	int combatTurn;
 	bool turnReady;
+	BattleTextbox* textbox;
 };
 
 #endif

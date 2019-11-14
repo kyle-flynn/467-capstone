@@ -30,7 +30,6 @@ elapsedTime(0)
 	this->optionTwo.setFont(FontManager::getInstance().joystick);
 	this->optionThree.setFont(FontManager::getInstance().joystick);
 	this->optionFour.setFont(FontManager::getInstance().joystick);
-	// this->singleRow.setFont(FontManager::getInstance().joystick);
 	this->descriptionText.setFont(FontManager::getInstance().joystick);
 
 	// Set text font sizes
@@ -46,7 +45,6 @@ elapsedTime(0)
 	this->optionTwo.setFillColor(sf::Color::Black);
 	this->optionThree.setFillColor(sf::Color::Black);
 	this->optionFour.setFillColor(sf::Color::Black);
-	// this->singleRow.setFillColor(sf::Color::Black);
 	this->descriptionText.setFillColor(sf::Color::Black);
 
 	// Set text positions
@@ -57,20 +55,16 @@ elapsedTime(0)
 	this->optionTwo.setPosition(leftPadding + ((Game::WIDTH / 8) * 1), topPadding);
 	this->optionThree.setPosition(leftPadding, height - topPadding);
 	this->optionFour.setPosition(leftPadding + ((Game::WIDTH / 8) * 1), height - topPadding);
-	// this->singleRow.setPosition(30.0f, topPadding);
 	this->descriptionText.setPosition(30.0f, height + 20.0f);
 	this->cursor.setPosition(Game::WIDTH - 60.0f, height - 15.0f);
 
 	// Set text strings
-	
 	this->optionOne.setString("Battle");
 	this->optionTwo.setString("Items");
 	this->optionThree.setString("Pass");
 	this->optionFour.setString("Run");
-	// this->singleRow.setString("Choose a course of action.");
 	this->descriptionText.setString("Description for thing here.");
-	this->appendBattleText("Choose a course of action.", BattleTextMode::SINGLE_ROW);
-
+	
 	this->initBattleBoxVertices();
 	this->initOptionsBoxVertices();
 	this->initActionsBoxVertices();
@@ -513,6 +507,7 @@ void BattleTextbox::draw(sf::RenderTarget& target, sf::RenderStates states) cons
 }
 
 void BattleTextbox::reset() {
+	// this->appendBattleText("Choose a course of action.", BattleTextMode::SINGLE_ROW);
 	this->actionReady = false;
 	this->setSelectedOption(0);
 }

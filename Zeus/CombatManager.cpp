@@ -87,6 +87,27 @@ void CombatManager::loadEntities(const std::string& fileLoc) {
 void CombatManager::initialize() {
 	// After loading everyone, determine who goes first, and if it is the enemy or player.
 	this->determineTurnOrder();
+	if (this->checkForEnemyTurn()) {
+		this->processEnemyAction();
+		this->takeTurn();
+	} else {
+		this->textbox->reset();
+	}
+}
+
+bool CombatManager::checkForEnemyTurn() {
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto view = registry.view<BaseComponent, CombatComponent>();
+	for (auto entity : view) {
+		auto& baseC = view.get<BaseComponent>(entity);
+		auto& combatC = view.get<CombatComponent>(entity);
+		if (this->combatants[combatTurn].combatId == combatC.combatId) {
+			if (baseC.entityType == -1) {
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void CombatManager::determineTurnOrder() {
@@ -104,23 +125,65 @@ void CombatManager::determineTurnOrder() {
 }
 
 void CombatManager::processPlayerAction(Action& a) {
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto& baseC = registry.get<BaseComponent>(a.entity);
+
 	if (a.type == TYPE_PASS) {
-
+		const std::string moveDesc = baseC.name + " used their turn to... pass.";
+		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
 	} else if (a.type == TYPE_ITEM) {
-
+		const std::string moveDesc = baseC.name + " used " + a.item.name + ".";
+		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
+		// this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
 	} else if (a.type == TYPE_BATTLE) {
-
+		const std::string moveDesc = baseC.name + " used " + a.move.name + ".";
+		const std::string moveDmg = std::to_string(a.move.damage) + "HP of damage.";
+		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
+		this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
 	} else {
 		// Do nothing? Not yet sure.
 	}
+	// this->hasTurnReady = true;
 }
 
 void CombatManager::processEnemyAction() {
+	bool found = false;
+	entt::entity enemy;
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	for (auto entity : view) {
+		auto& combatC = view.get<CombatComponent>(entity);
+		if (this->combatants[combatTurn].combatId == combatC.combatId) {
+			// We found our entity.
+			enemy = entity;
+			found = true;
+			break;
+		}
+	}
+	if (found) {
+		auto& baseC = view.get<BaseComponent>(enemy);
+		auto& combatC = view.get<CombatComponent>(enemy);
+		auto& moveC = view.get<MovesetComponent>(enemy);
+		std::random_device rand;
+		std::mt19937 engine(rand());
+		std::uniform_int_distribution<> moveDistribution(0, moveC.moves.size() - 1);
+		int move = moveDistribution(engine);
+		Move m = moveC.moves[move];
+		std::string moveDesc = baseC.name + " used " + m.name;
+		std::string moveDmg = std::to_string(m.damage) + " HP of damage to the party.";
+		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
+		this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
+		// this->hasTurnReady = true;
+	}
+}
 
+void CombatManager::setBattleTextbox(BattleTextbox* textbox) {
+	this->textbox = textbox;
 }
 
 bool CombatManager::takeTurn() {
-	if (this->combatTurn + 1 < this->combatants.size()) {
+	this->turnReady = false;
+	if ((this->combatTurn + 1) < this->combatants.size()) {
 		this->combatTurn++;
 		return true;
 	} else {

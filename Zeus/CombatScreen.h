@@ -26,6 +26,7 @@ private:
 	std::vector<Action> actions;
 	bool textDisplayChange;
 	bool lastDisplay;
+	bool enemyTurn;
 	BattleTextbox textbox;
 };
 

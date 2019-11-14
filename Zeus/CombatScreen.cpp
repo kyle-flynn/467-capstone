@@ -7,10 +7,11 @@
 CombatScreen::CombatScreen() :
 	textbox(),
 	textDisplayChange(false),
-	lastDisplay(false)
+	lastDisplay(false),
+	enemyTurn(false)
 {
+	CombatManager::getInstance().setBattleTextbox(&this->textbox);
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
-	CombatManager::getInstance().initialize();
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
 	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
 	int count = 0;
@@ -37,6 +38,9 @@ CombatScreen::CombatScreen() :
 			}
 		}
 	}
+
+	// Finally, initialize combat sequence after everything is setup.
+	CombatManager::getInstance().initialize();
 }
 
 void CombatScreen::update(float deltaTime) {
@@ -44,27 +48,21 @@ void CombatScreen::update(float deltaTime) {
 		display->update(deltaTime);
 	}
 	this->textbox.update(deltaTime);
+	
 	if (this->textbox.hasAction()) {
-		entt::registry& registry = GameDataManager::getInstance().getRegistry();
 		Action a = this->textbox.getAction();
-		entt::entity& entity = a.entity;
-		auto& baseC = registry.get<BaseComponent>(entity);
-		this->textbox.reset();
-		if (a.type == TYPE_ITEM) {
-			const std::string desc = baseC.name + " used " + a.item.name + ".";
-			this->textbox.appendBattleText(desc, BattleTextMode::SINGLE_ROW_COMBAT);
-		} else if (a.type == TYPE_BATTLE) {
-			const std::string desc = baseC.name + " used " + a.move.name + ".";
-			const std::string desc2 = std::to_string(a.move.damage) + "HP of damage.";
-			this->textbox.appendBattleText(desc, BattleTextMode::SINGLE_ROW_COMBAT);
-			this->textbox.appendBattleText(desc2, BattleTextMode::SINGLE_ROW_COMBAT);
-		} else if (a.type == TYPE_PASS) {
-			// Do nothing. Advance.
-		}
+		CombatManager::getInstance().processPlayerAction(a);
 		CombatManager::getInstance().takeTurn();
+		this->textbox.reset();
+		if (CombatManager::getInstance().checkForEnemyTurn()) {
+			CombatManager::getInstance().processEnemyAction();
+			CombatManager::getInstance().takeTurn();
+			enemyTurn = true;
+		}
 	}
 
 	if (this->textDisplayChange) {
+		std::cout << "DISPLAY CHANGE" << std::endl;
 		entt::registry& registry = GameDataManager::getInstance().getRegistry();
 		int count = 0;
 		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
