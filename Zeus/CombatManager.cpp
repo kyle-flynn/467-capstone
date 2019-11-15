@@ -114,7 +114,7 @@ void CombatManager::determineTurnOrder() {
 	this->combatTurn = 0;
 	this->combatants.clear();
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
-	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
 	for (auto entity : view) {
 		auto& combatC = view.get<CombatComponent>(entity);
 		this->combatants.push_back(combatC);
@@ -140,6 +140,22 @@ void CombatManager::processPlayerAction(Action& a) {
 		const std::string moveDmg = std::to_string(a.move.damage) + "HP of damage.";
 		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
 		this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
+
+		entt::entity enemy;
+		entt::registry& registry = GameDataManager::getInstance().getRegistry();
+		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
+		std::vector<CombatComponent> targets;
+		for (auto entity : view) {
+			auto& baseC = view.get<BaseComponent>(entity);
+			auto& combatC = view.get<CombatComponent>(entity);
+			auto& healthC = view.get<HealthComponent>(entity);
+			if (baseC.entityType == -1) {
+				if (!this->calculateDamage(a.move, entity)) {
+					this->textbox->appendBattleText(baseC.name + " has been defeated!", BattleTextMode::SINGLE_ROW_COMBAT);
+				}
+				break;
+			}
+		}
 	} else {
 		// Do nothing? Not yet sure.
 	}
@@ -150,14 +166,18 @@ void CombatManager::processEnemyAction() {
 	bool found = false;
 	entt::entity enemy;
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
-	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
+	std::vector<CombatComponent> targets;
 	for (auto entity : view) {
+		auto& baseC = view.get<BaseComponent>(entity);
 		auto& combatC = view.get<CombatComponent>(entity);
 		if (this->combatants[combatTurn].combatId == combatC.combatId) {
 			// We found our entity.
 			enemy = entity;
 			found = true;
-			break;
+		} else {
+			std::cout << "ADDED " << baseC.name << std::endl;
+			targets.push_back(combatC);
 		}
 	}
 	if (found) {
@@ -167,7 +187,7 @@ void CombatManager::processEnemyAction() {
 		std::random_device rand;
 		std::mt19937 engine(rand());
 		std::uniform_int_distribution<> moveDistribution(0, moveC.moves.size() - 1);
-		std::uniform_int_distribution<> entityDistribution(0, this->combatants.size() - 1);
+		std::uniform_int_distribution<> entityDistribution(0, targets.size() - 1);
 		int move = moveDistribution(engine);
 		int player = entityDistribution(engine);
 		int count = 0;
@@ -175,28 +195,32 @@ void CombatManager::processEnemyAction() {
 		Move m = moveC.moves[move];
 		std::string moveDesc = baseC.name + " used " + m.name;
 		std::string moveDmg = std::to_string(m.damage) + " HP of damage ";
-		std::vector<CombatComponent> targets;
-		for (auto combatant : this->combatants) {
-			if (combatant.combatId != combatC.combatId) {
-				targets.push_back(combatant);
-			}
-		}
 		for (auto target : targets) {
 			if (count == player) {
 				targetId = target.combatId;
 			}
 			count++;
 		}
+		bool deadPlayer = false;
+		std::string deadDesc;
 		for (auto entity : view) {
 			auto& targetC = view.get<CombatComponent>(entity);
+			auto& targetHealth = view.get<HealthComponent>(entity);
 			if (targetC.combatId == targetId) {
 				auto& targetName = view.get<BaseComponent>(entity).name;
 				moveDmg += "to " + targetName + ".";
+				if (!this->calculateDamage(m, entity)) {
+					deadDesc = "Player " + targetName + " has fainted!";
+					deadPlayer = true;
+				}
 				break;
 			}
 		}
 		this->textbox->appendBattleText(moveDesc, BattleTextMode::SINGLE_ROW_COMBAT);
 		this->textbox->appendBattleText(moveDmg, BattleTextMode::SINGLE_ROW_COMBAT);
+		if (deadPlayer) {
+			this->textbox->appendBattleText(deadDesc, BattleTextMode::SINGLE_ROW_COMBAT);
+		}
 		// this->hasTurnReady = true;
 	}
 }
@@ -213,6 +237,18 @@ bool CombatManager::takeTurn() {
 	} else {
 		// TODO - Confirm this is the right thing to do at this time.
 		this->determineTurnOrder();
+		return false;
+	}
+}
+
+bool CombatManager::calculateDamage(Move m, entt::entity& entity) {
+	entt::registry& registry = GameDataManager::getInstance().getRegistry();
+	auto& healthC = registry.get<HealthComponent>(entity);
+	if ((healthC.hitpoints - m.damage) >= 0) {
+		healthC.hitpoints -= m.damage;
+		return true;
+	} else {
+		healthC.hitpoints = 0;
 		return false;
 	}
 }

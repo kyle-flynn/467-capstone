@@ -13,16 +13,18 @@ CombatScreen::CombatScreen() :
 	CombatManager::getInstance().setBattleTextbox(&this->textbox);
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
-	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
 	int count = 0;
 	for (auto entity : view) {
 		auto& baseC = view.get<BaseComponent>(entity);
 		auto& combatC = view.get<CombatComponent>(entity);
+		auto& healthC = view.get<HealthComponent>(entity);
 		if (baseC.entityType > -1) {
 			auto& renderC = view.get<RenderComponent>(entity);
 			PlayerCombatDisplay* display = new PlayerCombatDisplay(std::string(baseC.name), *renderC.sprite);
 			display->setPosition((((float)count) * display->getWidth()) + (count > 0 ? 50.0f : 0.0f), 592.0f);
 			display->setCombatComponent(combatC);
+			display->setHealthComponent(healthC);
 			this->combatDisplays.push_back(display);
 			count++;
 		}
@@ -62,12 +64,17 @@ void CombatScreen::update(float deltaTime) {
 	}
 
 	if (this->textDisplayChange) {
+		for (auto display : this->combatDisplays) {
+			display->forceUpdate();
+		}
+
 		entt::registry& registry = GameDataManager::getInstance().getRegistry();
 		int count = 0;
-		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
 		for (auto entity : view) {
 			auto& baseC = view.get<BaseComponent>(entity);
 			auto& combatC = view.get<CombatComponent>(entity);
+			auto& healthC = view.get<HealthComponent>(entity);
 			if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
 				this->textbox.setEntity(entity);
 				for (auto display : this->combatDisplays) {

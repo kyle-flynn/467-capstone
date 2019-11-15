@@ -35,6 +35,7 @@ private:
 	int combatTurn;
 	bool turnReady;
 	BattleTextbox* textbox;
+	bool calculateDamage(Move m, entt::entity& entity);
 };
 
 #endif
