@@ -168,6 +168,11 @@ void CharacterEditorScreen::draw(sf::RenderWindow& window) {
 	window.draw(deleteChar);
 	window.draw(listUp);
 	window.draw(listDown);
+	activeType.setPosition(150.0f, activeName.getPosition().y + activeName.getSize().y + 25.0f);
+	activeHP.setPosition(150.0f, activeType.getPosition().y + activeType.getSize().y + 25.0f);
+	activeMana.setPosition(150.0f, activeHP.getPosition().y + activeHP.getSize().y + 25.0f);
+	activeStamina.setPosition(150.0f, activeMana.getPosition().y + activeMana.getSize().y + 25.0f);
+	activeDescription.setPosition(150.0f, activeStamina.getPosition().y + activeStamina.getSize().y + 25.0f);
 	window.draw(activeName);
 	window.draw(activeType);
 	window.draw(activeHP);

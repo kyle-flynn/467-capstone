@@ -27,7 +27,7 @@ private:
 	const float ICON_SIZE = 150, AVATAR_WIDTH = 150, AVATAR_HEIGHT = 250;
 	int it;
 	sf::Text header, newMonster, deleteMonster;
-	EditorText activeName = EditorText(sf::String("Monster name:")),
+	EditorText activeName = EditorText(sf::String("Monster Name:")),
 		activeType = EditorText(sf::String("Monster Type:")),
 		activeHP = EditorText(sf::String("Max Health:")),
 		activeDescription = EditorText(sf::String("Description:"));

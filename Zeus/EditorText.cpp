@@ -1,44 +1,35 @@
 #include "EditorText.h"
 
+#include <iostream>
+
 EditorText::EditorText(float maxSize) {
-	defaultText.setFont(FontManager::getInstance().oldStandard);
-	editText.setFont(FontManager::getInstance().oldStandard);
-	defaultText.setCharacterSize(TEXT_SIZE);
-	editText.setCharacterSize(TEXT_SIZE);
-	defaultText.setFillColor(sf::Color::Black);
-	editText.setFillColor(sf::Color::Black);
-	defaultText.setString(sf::String("DEFAULT TEXT: "));
-	editText.setString(sf::String("DEFAULT TEXT"));
-	editText.setPosition(defaultText.getPosition().x + defaultText.getLocalBounds().width + 20,
-		defaultText.getPosition().y);
+	text.setFont(FontManager::getInstance().oldStandard);
+	text.setCharacterSize(TEXT_SIZE);
+	text.setFillColor(sf::Color::Black);
+	text.setString("DEFAULT TEXT");
 	isSelected = false;
 	isPressed = false;
 	editable = true;
 	numeric = false;
-	maxSize = maxSize;
+	this->maxSize = maxSize;
 }
 
 EditorText::EditorText(sf::String string, float maxSize) {
-	defaultText.setFont(FontManager::getInstance().oldStandard);
-	editText.setFont(FontManager::getInstance().oldStandard);
-	defaultText.setCharacterSize(TEXT_SIZE);
-	editText.setCharacterSize(TEXT_SIZE);
-	defaultText.setFillColor(sf::Color::Black);
-	editText.setFillColor(sf::Color::Black);
-	defaultText.setString(string);
-	editText.setString(sf::String("DEFAULT TEXT"));
-	editText.setPosition(defaultText.getPosition().x + defaultText.getLocalBounds().width + 20,
-		defaultText.getPosition().y);
+	text.setFont(FontManager::getInstance().oldStandard);
+	text.setCharacterSize(TEXT_SIZE);
+	text.setFillColor(sf::Color::Black);
+	defaultText = string;
+	text.setString(string);
 	isSelected = false;
 	isPressed = false;
 	editable = true;
 	numeric = false;
-	maxSize = maxSize;
+	this->maxSize = maxSize;
 }
 
 void EditorText::setSelected(bool select) {
 	isSelected = select;
-	editText.setFillColor(select ? sf::Color::Blue : sf::Color::Black);
+	text.setFillColor(select ? sf::Color::Blue : sf::Color::Black);
 }
 
 void EditorText::setPressed(bool press) {
@@ -50,8 +41,8 @@ void EditorText::update(float deltaTime, sf::Vector2i mousePosition) {
 	sf::Rect<float> bounds(
 		getPosition().x,
 		getPosition().y,
-		defaultText.getGlobalBounds().width + editText.getGlobalBounds().width + 20,
-		defaultText.getGlobalBounds().height);
+		text.getGlobalBounds().width,
+		text.getGlobalBounds().height);
 	if (bounds.contains(mousePosition.x, mousePosition.y)) {
 		setSelected(true);
 	}
@@ -64,8 +55,8 @@ void EditorText::update(sf::Event event, sf::Vector2i mousePosition) {
 	sf::Rect<float> bounds(
 		getPosition().x,
 		getPosition().y,
-		defaultText.getGlobalBounds().width + editText.getGlobalBounds().width + 20,
-		defaultText.getGlobalBounds().height);
+		text.getGlobalBounds().width,
+		text.getGlobalBounds().height);
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		if (bounds.contains(mousePosition.x, mousePosition.y)) {
@@ -77,56 +68,58 @@ void EditorText::update(sf::Event event, sf::Vector2i mousePosition) {
 	}
 	else if (event.type == sf::Event::TextEntered && isPressed && editable) {
 		if (event.text.unicode == 8) {
-			if (numeric && editText.getString().getSize() == 1) {
-				editText.setString(sf::String("0"));
+			if (numeric && text.getString().getSize() == 1) {
+				inputText = "0.0";
 			}
 			else {
-				editText.setString(editText.getString().substring(0, editText.getString().getSize() - 1));
+				inputText = inputText.substring(0, inputText.getSize() - 1);
 			}
 		}
 		else if (!numeric) {
-			editText.setString(editText.getString() + sf::String(event.text.unicode));
+			inputText += event.text.unicode;
 		}
 		else if (isPressed) {
 			if (!numFlag) {
-				editText.setString(sf::String("0.0"));
+				inputText = "0.0";
 				numFlag = true;
 			}
 			if (event.text.unicode >= 48 &&
 				event.text.unicode <= 57 &&
-				std::stof(editText.getString().toAnsiString()) == 0.0) {
-				editText.setString(sf::String(event.text.unicode));
+				stof(inputText.toAnsiString()) == 0.0) {
+				inputText = event.text.unicode;
 			}
 			else if (event.text.unicode >= 48 &&
 				event.text.unicode <= 57 ||
 				event.text.unicode == 46) {
-				editText.setString(editText.getString() + sf::String(event.text.unicode));
+				inputText += event.text.unicode;
 			}
 			else if (event.text.unicode == 13) {
 				std::ostringstream out;
-				float temp = std::stof(editText.getString().toAnsiString());
+				float temp = stof(inputText.toAnsiString());
 				out << std::setprecision(2) << std::fixed << temp;
-				editText.setString(sf::String(out.str()));
+				inputText = sf::String(out.str());
 				setPressed(false);
 			}
 		}
+		textWrap();
 	}
 }
 
 sf::String EditorText::getDefault() {
-	return defaultText.getString();
+	return defaultText;
 }
 
 void EditorText::setDefault(sf::String string) {
-	defaultText.setString(string);
+	defaultText = string;
 }
 
 sf::String EditorText::getText() {
-	return editText.getString();
+	return inputText;
 }
 
 void EditorText::setText(sf::String string) {
-	editText.setString(string);
+	inputText = string;
+	textWrap();
 }
 
 void EditorText::setEditable(bool edit) {
@@ -138,17 +131,53 @@ void EditorText::setNumeric(bool num) {
 }
 
 sf::Vector2f EditorText::getSize() {
-	return sf::Vector2f(defaultText.getGlobalBounds().width + editText.getGlobalBounds().width + 20,
-		defaultText.getGlobalBounds().height);
+	return sf::Vector2f(text.getGlobalBounds().width, text.getGlobalBounds().height);
 }
 
 void EditorText::textWrap() {
-
+	sf::String string = defaultText + " " + inputText;
+	text.setString("");
+	sf::Text temp;
+	temp.setFont(FontManager::getInstance().oldStandard);
+	temp.setCharacterSize(TEXT_SIZE);
+	temp.setString(string);
+	if (temp.getGlobalBounds().width < 300) {
+		text.setString(string);
+		return;
+	}
+	else {
+		int previous = 0, lastSpace = 0;
+		for (int i = 0; i < string.getSize(); i++) {
+			if (string[i] == 32) {
+				temp.setString(string.substring(previous, i - previous));
+				if (temp.getGlobalBounds().width > 300) {
+					if (previous == 0) {
+						text.setString(string.substring(previous, lastSpace));
+						previous = lastSpace;
+						lastSpace = i;
+					}
+					else {
+						text.setString(text.getString() + "\n" + string.substring(previous + 1, lastSpace - previous));
+						previous = lastSpace;
+						lastSpace = i;
+					}
+				}
+				else {
+					lastSpace = i;
+				}
+			}
+		}
+		if (text.getString() == sf::String("")) {
+			text.setString(string);
+		}
+		else {
+			text.setString(text.getString() + "\n" + string.substring(previous + 1, sf::String::InvalidPos));
+		}
+	}
 }
 
 void EditorText::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	states.texture = NULL;
-	target.draw(defaultText, states);
-	target.draw(editText, states);
+	target.draw(text, states);
 }

@@ -164,6 +164,9 @@ void MonsterEditorScreen::draw(sf::RenderWindow& window) {
 	window.draw(listUp);
 	window.draw(listDown);
 	window.draw(activeName);
+	activeType.setPosition(150.0f, activeName.getSize().y + activeName.getPosition().y + 25.0f);
+	activeHP.setPosition(150.0f, activeType.getSize().y + activeType.getPosition().y + 25.0f);
+	activeDescription.setPosition(150.0f, activeHP.getSize().y + activeHP.getPosition().y + 25.0f);
 	window.draw(activeType);
 	window.draw(activeHP);
 	window.draw(activeDescription);
@@ -173,6 +176,10 @@ void MonsterEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void MonsterEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == sf::Event::TextEntered &&
+		event.text.unicode == 37) {
+		//TODO SAVE AND EXIT
+	}
 	update(event);
 }
 

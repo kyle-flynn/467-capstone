@@ -160,6 +160,9 @@ void ItemEditorScreen::draw(sf::RenderWindow& window) {
 	window.draw(BGSprite);
 	window.draw(header);
 	window.draw(activeName);
+	activeType.setPosition(150.0f, activeName.getPosition().y + activeName.getSize().y + 25.0f);
+	activeStat.setPosition(150.0f, activeType.getPosition().y + activeType.getSize().y + 25.0f);
+	activeDescription.setPosition(150.0f, activeStat.getPosition().y + activeStat.getSize().y + 25.0f);
 	window.draw(activeType);
 	window.draw(activeStat);
 	window.draw(activeIcon);

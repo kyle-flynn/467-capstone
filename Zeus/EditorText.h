@@ -30,7 +30,8 @@ private:
 	bool isPressed, editable, numeric, numFlag;
 	const int TEXT_SIZE = 20;
 	float maxSize = 0.0f;
-	sf::Text defaultText, editText;
+	sf::String defaultText, inputText;
+	sf::Text text;
 	
 	void textWrap();
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;

@@ -59,9 +59,9 @@ int main() {
 	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
-	//ScreenManager::getInstance().setScreen(new CombatScreen());
+	ScreenManager::getInstance().setScreen(new CombatScreen());
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
-	ScreenManager::getInstance().setScreen(new MonsterEditorScreen());
+	//ScreenManager::getInstance().setScreen(new MonsterEditorScreen());
 
 	//LogData* logData = new LogData();
 	//logData->level = LogLevel::INFO;
