@@ -22,8 +22,8 @@
 			}
 		],
 		"health": {
-			"max": 100,
-			"current": 100
+			"max": 50,
+			"current": 50
 		}
 	  },
 	  {
@@ -48,7 +48,7 @@
 			},
 			{
 				"name": "Excuse me, Princess",
-				"damage": 1,
+				"damage": 25,
 				"description": "Well excuuuuuuuuuuuuse me, princess!"
 			},
 			{

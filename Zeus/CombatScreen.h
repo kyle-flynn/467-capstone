@@ -27,6 +27,7 @@ private:
 	bool textDisplayChange;
 	bool lastDisplay;
 	bool enemyTurn;
+	bool endBattle;
 	BattleTextbox textbox;
 };
 

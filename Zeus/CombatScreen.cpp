@@ -8,7 +8,8 @@ CombatScreen::CombatScreen() :
 	textbox(),
 	textDisplayChange(false),
 	lastDisplay(false),
-	enemyTurn(false)
+	enemyTurn(false),
+	endBattle(false)
 {
 	CombatManager::getInstance().setBattleTextbox(&this->textbox);
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
@@ -51,41 +52,45 @@ void CombatScreen::update(float deltaTime) {
 	}
 	this->textbox.update(deltaTime);
 	
-	if (this->textbox.hasAction()) {
-		Action a = this->textbox.getAction();
-		CombatManager::getInstance().processPlayerAction(a);
-		CombatManager::getInstance().takeTurn();
-		this->textbox.reset();
-		if (CombatManager::getInstance().checkForEnemyTurn()) {
-			CombatManager::getInstance().processEnemyAction();
+	if (!CombatManager::getInstance().isBattleFinished()) {
+		if (this->textbox.hasAction()) {
+			Action a = this->textbox.getAction();
+			CombatManager::getInstance().processPlayerAction(a);
 			CombatManager::getInstance().takeTurn();
-			enemyTurn = true;
+			this->textbox.reset();
+			if (CombatManager::getInstance().checkForEnemyTurn()) {
+				CombatManager::getInstance().processEnemyAction();
+				CombatManager::getInstance().takeTurn();
+				enemyTurn = true;
+			}
 		}
-	}
 
-	if (this->textDisplayChange) {
-		for (auto display : this->combatDisplays) {
-			display->forceUpdate();
-		}
+		if (this->textDisplayChange) {
+			for (auto display : this->combatDisplays) {
+				display->forceUpdate();
+			}
 
-		entt::registry& registry = GameDataManager::getInstance().getRegistry();
-		int count = 0;
-		auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
-		for (auto entity : view) {
-			auto& baseC = view.get<BaseComponent>(entity);
-			auto& combatC = view.get<CombatComponent>(entity);
-			auto& healthC = view.get<HealthComponent>(entity);
-			if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
-				this->textbox.setEntity(entity);
-				for (auto display : this->combatDisplays) {
-					if (display->getCombatComponent().combatId == combatC.combatId) {
-						display->setActive(true);
-					} else {
-						display->setActive(false);
+			entt::registry& registry = GameDataManager::getInstance().getRegistry();
+			int count = 0;
+			auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
+			for (auto entity : view) {
+				auto& baseC = view.get<BaseComponent>(entity);
+				auto& combatC = view.get<CombatComponent>(entity);
+				auto& healthC = view.get<HealthComponent>(entity);
+				if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
+					this->textbox.setEntity(entity);
+					for (auto display : this->combatDisplays) {
+						if (display->getCombatComponent().combatId == combatC.combatId) {
+							display->setActive(true);
+						} else {
+							display->setActive(false);
+						}
 					}
 				}
 			}
 		}
+	} else if (CombatManager::getInstance().isBattleFinished() && !this->textbox.hasText()) {
+		this->endBattle = true;
 	}
 
 	this->textDisplayChange = (!this->textbox.hasText() && this->lastDisplay);
@@ -96,7 +101,7 @@ void CombatScreen::draw(sf::RenderWindow& window) {
 	for (auto display : this->combatDisplays) {
 		window.draw(*display);
 	}
-	
+
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
 	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent>();
 	for (auto entity : view) {
@@ -110,9 +115,13 @@ void CombatScreen::draw(sf::RenderWindow& window) {
 		}
 	}
 
-	window.draw(this->textbox);
+	if (!this->endBattle) {
+		window.draw(this->textbox);
+	}
 }
 
 void CombatScreen::handleEvent(sf::Event event) {
-	this->textbox.handleEvent(event);
+	if (!this->endBattle) {
+		this->textbox.handleEvent(event);
+	}
 }

@@ -117,7 +117,10 @@ void CombatManager::determineTurnOrder() {
 	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
 	for (auto entity : view) {
 		auto& combatC = view.get<CombatComponent>(entity);
-		this->combatants.push_back(combatC);
+		auto& healthC = view.get<HealthComponent>(entity);
+		if (healthC.hitpoints > 0) {
+			this->combatants.push_back(combatC);
+		}
 	}
 	std::sort(this->combatants.begin(), this->combatants.end(), [](const CombatComponent& lhs, const CombatComponent& rhs) {
 		return lhs.speed > rhs.speed;
@@ -152,6 +155,7 @@ void CombatManager::processPlayerAction(Action& a) {
 			if (baseC.entityType == -1) {
 				if (!this->calculateDamage(a.move, entity)) {
 					this->textbox->appendBattleText(baseC.name + " has been defeated!", BattleTextMode::SINGLE_ROW_COMBAT);
+					this->battleFinished = true;
 				}
 				break;
 			}
@@ -170,14 +174,16 @@ void CombatManager::processEnemyAction() {
 	std::vector<CombatComponent> targets;
 	for (auto entity : view) {
 		auto& baseC = view.get<BaseComponent>(entity);
+		auto& healthC = view.get<HealthComponent>(entity);
 		auto& combatC = view.get<CombatComponent>(entity);
 		if (this->combatants[combatTurn].combatId == combatC.combatId) {
 			// We found our entity.
 			enemy = entity;
 			found = true;
 		} else {
-			std::cout << "ADDED " << baseC.name << std::endl;
-			targets.push_back(combatC);
+			if (healthC.hitpoints > 0) {
+				targets.push_back(combatC);
+			}
 		}
 	}
 	if (found) {
@@ -212,6 +218,9 @@ void CombatManager::processEnemyAction() {
 				if (!this->calculateDamage(m, entity)) {
 					deadDesc = "Player " + targetName + " has fainted!";
 					deadPlayer = true;
+					if (targets.size() == 1) {
+						this->battleFinished = true;
+					}
 				}
 				break;
 			}
@@ -263,4 +272,8 @@ int CombatManager::getCombatId() {
 
 bool CombatManager::hasTurnReady() {
 	return this->turnReady;
+}
+
+bool CombatManager::isBattleFinished() {
+	return this->battleFinished;
 }
