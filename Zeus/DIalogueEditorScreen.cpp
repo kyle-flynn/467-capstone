@@ -1,4 +1,5 @@
 #include "DialogueEditorScreen.h"
+#include "MainMenuScreen.h"
 
 DialogueEditorScreen::DialogueEditorScreen() {
 	Screen();
@@ -41,8 +42,8 @@ void DialogueEditorScreen::update(sf::Event event) {
 		n.update(event, this->mousePosition);
 		if (n.isSelected) {
 			this->changeActive(nullptr, n.getNode());
+			return;
 		}
-		return;
 	}
 	sf::Rect<float> bounds(
 		sf::Vector2f(700, 500),
@@ -77,6 +78,10 @@ void DialogueEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void DialogueEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == event.TextEntered &&
+		event.text.unicode == 27) {
+		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	}
 	if (event.type == sf::Event::MouseButtonPressed || event.type == sf::Event::MouseButtonReleased) {
 		this->update(event);
 	}

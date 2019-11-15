@@ -1,6 +1,7 @@
 #pragma once
 
 #include "EntityComponentSystem.h"
+#include "Components.h"
 #include "Item.h"
 #include "ItemOption.h"
 //#include "Character.h"

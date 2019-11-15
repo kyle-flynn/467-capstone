@@ -11,6 +11,7 @@
 #include "DialogueEditorScreen.h"
 #include "ItemEditorScreen.h"
 #include "CharacterEditorScreen.h"
+#include "DemoScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
@@ -19,15 +20,17 @@
 
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
+static tgui::Gui gui;
 
 int main() {
 	FontManager::getInstance().loadFonts();
+	GameDataManager::getInstance();
 
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
 	window.setActive();
-
-	tgui::Gui gui(window);
+	
+	gui.setTarget(window);
 
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 	//gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
@@ -39,7 +42,6 @@ int main() {
 	LoggingSystem* logger = new LoggingSystem();
 
 	mBus.addSystem(logger);
-
 	/*
 	sf::Texture playerTexture;
 	sf::Sprite playerSprite;
@@ -54,9 +56,10 @@ int main() {
 	registry.assign<PositionComponent>(entity, 100.0f, 100.0f);
 	*/
 
+	//ScreenManager::getInstance().setScreen(new DemoScreen());
 	//ScreenManager::getInstance().setScreen(new CharacterEditorScreen());
 	//ScreenManager::getInstance().setScreen(new ItemEditorScreen());
-	//ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	ScreenManager::getInstance().setScreen(new MainMenuScreen());
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 	ScreenManager::getInstance().setScreen(new CombatScreen());
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
@@ -92,6 +95,14 @@ int main() {
 			window.draw(drawComponent.sprite);
 		}
 		*/
+		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(DialogueEditorScreen)) {
+			if (gui.get("DialogueEditorPanel") == nullptr) {
+				gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+			}
+		}
+		else {
+			gui.removeAllWidgets();
+		}
 		gui.draw();
 		window.display();
 	}

@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 enum class type { Weapon, Equippable, Consumable, Other };
+enum class weaponType { Sword, Axe, Hammer, Bow, Dagger };
 
 class Item {
 
@@ -12,6 +13,7 @@ public:
 
 	sf::String name, description;
 	type itemType;
+	weaponType wType;
 	float stat;
 	sf::Texture icon;
 

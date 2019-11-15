@@ -1,4 +1,5 @@
 #include "CharacterEditorScreen.h"
+#include "MainMenuScreen.h"
 
 #include <iostream>
 
@@ -180,6 +181,10 @@ void CharacterEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void CharacterEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == event.TextEntered &&
+		event.text.unicode == 27) {
+		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+	}
 	update(event);
 }
 
