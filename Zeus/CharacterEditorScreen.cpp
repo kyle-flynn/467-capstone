@@ -185,6 +185,10 @@ void CharacterEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void CharacterEditorScreen::handleEvent(sf::Event event) {
+	if (event.type == sf::Event::TextEntered &&
+		event.text.unicode == 27) {
+		GameDataManager::getInstance().addCharacters(characters);
+	}
 	update(event);
 }
 
@@ -246,14 +250,16 @@ void CharacterEditorScreen::loadAvatars() {
 }
 
 void CharacterEditorScreen::loadCharacters() {
-	/*for (Character c : GameDataManager::getInstance().getCharacters()) {
+	for (Character c : GameDataManager::getInstance().getCharacters()) {
 		CharacterOption* character = new CharacterOption(c);
+		character->c.icon = defaultIcon;
+		character->c.sprite = defaultAvatar;
 		characters.push_back(character);
-	}*/
+	}
 }
 
 void CharacterEditorScreen::saveCharacters() {
-	//GameDataManager::getInstance().saveCharacters(characters);
+	GameDataManager::getInstance().addCharacters(characters);
 }
 
 void CharacterEditorScreen::sortCharacters() {

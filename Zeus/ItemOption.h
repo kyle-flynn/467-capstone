@@ -30,7 +30,7 @@ private:
 	sf::Sprite sprite;
 
 	void updateValues();
-	sf::String typeToString(type type);
+	sf::String typeToString(Item::type type);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;
 
 };

@@ -177,8 +177,8 @@ void MonsterEditorScreen::draw(sf::RenderWindow& window) {
 
 void MonsterEditorScreen::handleEvent(sf::Event event) {
 	if (event.type == sf::Event::TextEntered &&
-		event.text.unicode == 37) {
-		//TODO SAVE AND EXIT
+		event.text.unicode == 27) {
+		GameDataManager::getInstance().addMonsters(monsters);
 	}
 	update(event);
 }
@@ -241,14 +241,16 @@ void MonsterEditorScreen::loadAvatars() {
 }
 
 void MonsterEditorScreen::loadMonsters() {
-	/*for (Character c : GameDataManager::getInstance().getCharacters()) {
-		CharacterOption* character = new CharacterOption(c);
-		characters.push_back(character);
-	}*/
+	for (Monster m : GameDataManager::getInstance().getMonsters()) {
+		MonsterOption* monster = new MonsterOption(m);
+		monster->m.icon = defaultIcon;
+		monster->m.sprite = defaultAvatar;
+		monsters.push_back(monster);
+	}
 }
 
 void MonsterEditorScreen::saveMonsters() {
-	//GameDataManager::getInstance().saveCharacters(characters);
+	GameDataManager::getInstance().addMonsters(monsters);
 }
 
 void MonsterEditorScreen::sortMonsters() {

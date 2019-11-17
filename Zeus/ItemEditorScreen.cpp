@@ -1,5 +1,7 @@
 #include "ItemEditorScreen.h"
 
+#include "GameDataManager.h"
+
 ItemEditorScreen::ItemEditorScreen() {
 	Screen();
 	it = 0;
@@ -125,7 +127,7 @@ void ItemEditorScreen::update(sf::Event event) {
 		else if (deleteBounds.contains(mousePosition.x, mousePosition.y)) {
 			removeItem();
 		}
-		else if (upBounds.contains(mousePosition.x, mousePosition.y)) {
+		else if (upBounds.contains(mousePosition.x, mousePosition.y) && !items.empty()) {
 			if (it == 0) {
 				it = items.size() - 1;
 			}
@@ -133,11 +135,11 @@ void ItemEditorScreen::update(sf::Event event) {
 				it--;
 			}
 		}
-		else if (downBounds.contains(mousePosition.x, mousePosition.y)) {
+		else if (downBounds.contains(mousePosition.x, mousePosition.y) && !items.empty()) {
 			it = (it + 1) % items.size();
 		}
 		else if (typeBounds.contains(mousePosition.x, mousePosition.y)) {
-			active->item.itemType = (type)(((int)(active->item.itemType) + 1) % 4);
+			active->item.itemType = (Item::type)(((int)(active->item.itemType) + 1) % 4);
 			updateActiveStats();
 		}
 		else {
@@ -184,6 +186,10 @@ void ItemEditorScreen::handleEvent(sf::Event event) {
 		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
 		update(event);
 	}*/
+	if (event.type == sf::Event::TextEntered &&
+		event.text.unicode == 27) {
+		GameDataManager::getInstance().addItems(items);
+	}
 	update(event);
 }
 
@@ -249,28 +255,32 @@ void ItemEditorScreen::loadIcons() {
 }
 
 void ItemEditorScreen::loadItems() {
-
+	for (Item i : GameDataManager::getInstance().getItems()) {
+		ItemOption* item = new ItemOption(i);
+		item->item.icon = defaultIcon;
+		items.push_back(item);
+	}
 }
 
 void ItemEditorScreen::sortItems() {
 	std::vector<ItemOption*> tempItems;
 	for (ItemOption* i : items) {
-		if (i->item.itemType == type::Weapon) {
+		if (i->item.itemType == Item::type::Weapon) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == type::Equippable) {
+		if (i->item.itemType == Item::type::Equippable) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == type::Consumable) {
+		if (i->item.itemType == Item::type::Consumable) {
 			tempItems.push_back(i);
 		}
 	}
 	for (ItemOption* i : items) {
-		if (i->item.itemType == type::Other) {
+		if (i->item.itemType == Item::type::Other) {
 			tempItems.push_back(i);
 		}
 	}
@@ -282,17 +292,17 @@ void ItemEditorScreen::sortItems() {
 
 void ItemEditorScreen::updateActiveStats() {
 	activeName.setText(sf::String(active->item.name));
-	if (active->item.itemType == type::Weapon) {
+	if (active->item.itemType == Item::type::Weapon) {
 		activeType.setText(sf::String("Weapon"));
 		activeStat.setDefault(sf::String("Damage:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
-	else if (active->item.itemType == type::Equippable) {
+	else if (active->item.itemType == Item::type::Equippable) {
 		activeType.setText(sf::String("Equippable"));
 		activeStat.setDefault(sf::String("Armor:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));
 	}
-	else if (active->item.itemType == type::Consumable) {
+	else if (active->item.itemType == Item::type::Consumable) {
 		activeType.setText(sf::String("Consumable"));
 		activeStat.setDefault(sf::String("Stat:"));
 		activeStat.setText(sf::String(std::to_string(active->item.stat)));

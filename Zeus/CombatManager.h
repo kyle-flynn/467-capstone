@@ -13,7 +13,7 @@
 
 using json = nlohmann::json;
 
-struct Character {
+struct CCharacter {
 	std::string name;
 	std::string spriteSheet;
 };
@@ -25,7 +25,7 @@ public:
 	void initialize();
 private:
 	CombatManager();
-	std::vector<Character*> characterList;
+	std::vector<CCharacter*> characterList;
 };
 
 #endif

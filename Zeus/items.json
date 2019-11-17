@@ -1,0 +1,32 @@
+[
+    {
+        "description": "Item description",
+        "name": "Sword",
+        "stat": 0.0,
+        "type": 0
+    },
+    {
+        "description": "Item description",
+        "name": "Axe",
+        "stat": 0.0,
+        "type": 0
+    },
+    {
+        "description": "Item description",
+        "name": "Plastic Shield",
+        "stat": 0.0,
+        "type": 1
+    },
+    {
+        "description": "Item description",
+        "name": "Health Potion",
+        "stat": 0.0,
+        "type": 2
+    },
+    {
+        "description": "Item description",
+        "name": "Noble Steed",
+        "stat": 0.0,
+        "type": 3
+    }
+]

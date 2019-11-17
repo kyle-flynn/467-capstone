@@ -82,15 +82,15 @@ void ItemOption::updateValues() {
 	itemType.setString(typeToString(item.itemType));
 }
 
-sf::String ItemOption::typeToString(type type) {
+sf::String ItemOption::typeToString(Item::type type) {
 	switch (type) {
-	case type::Weapon:
+	case Item::type::Weapon:
 		return sf::String("Weapon");
-	case type::Equippable:
+	case Item::type::Equippable:
 		return sf::String("Equippable");
-	case type::Consumable:
+	case Item::type::Consumable:
 		return sf::String("Consumable");
-	case type::Other:
+	case Item::type::Other:
 		return sf::String("Other");
 	}
 }
