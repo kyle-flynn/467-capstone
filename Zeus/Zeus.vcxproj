@@ -145,6 +145,7 @@
     <ClCompile Include="MainMenuScreen.cpp" />
     <ClCompile Include="MenuOption.cpp" />
     <ClCompile Include="MessageBus.cpp" />
+    <ClCompile Include="Minimap.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="Minimap.h" />
     <ClInclude Include="Pic.h" />
     <ClInclude Include="Lightning.h" />
     <ClInclude Include="LightningSystem.h" />
