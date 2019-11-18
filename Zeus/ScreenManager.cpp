@@ -21,6 +21,12 @@ void ScreenManager::draw(sf::RenderWindow& window) {
 	}
 }
 
+void ScreenManager::handleEvent(sf::Event event) {
+	if (this->screen) {
+		this->screen->handleEvent(event);
+	}
+}
+
 void ScreenManager::setScreen(Screen* screen) {
 	this->screen = screen;
 }

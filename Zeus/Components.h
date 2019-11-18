@@ -5,9 +5,17 @@
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
 
-struct DrawComponent {
-	sf::Texture texture;
-	sf::Sprite sprite;
+struct BaseComponent {
+	std::string name;
+	int entityType;
+};
+
+struct RenderComponent {
+	sf::Texture* texture;
+	sf::Sprite* sprite;
+	sf::Vector2i tileSize;
+	sf::Vector2i tileStart;
+	float scale;
 };
 
 struct HealthComponent {
@@ -20,9 +28,8 @@ struct PositionComponent {
 	float y;
 };
 
-struct ParallaxComponent {
-	float offset;
-	float velocity;
+struct CombatComponent {
+	int speed;
 };
 
 #endif
