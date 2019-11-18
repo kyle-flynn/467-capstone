@@ -69,6 +69,12 @@
     <Filter Include="Source Files\Dialogue">
       <UniqueIdentifier>{96e6a57b-8751-4c5b-aa10-ce8061c832db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Graphics\PlayerUI">
+      <UniqueIdentifier>{881facd6-79eb-443b-9b9d-e77f35e4bd32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Graphics\PlayerUI">
+      <UniqueIdentifier>{51dcab5d-258d-4ee8-907d-d414d0534d63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -193,6 +199,15 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Source Files\Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryMenu.cpp">
+      <Filter>Source Files\Graphics\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files\Graphics\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestMenu.cpp">
+      <Filter>Source Files\Graphics\PlayerUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +345,15 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Header Files\Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryMenu.h">
+      <Filter>Header Files\Graphics\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestMenu.h">
+      <Filter>Header Files\Graphics\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Graphics\PlayerUI</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

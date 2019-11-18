@@ -8,6 +8,8 @@ class Character {
 
 public:
 
+	enum class equipSlot { Head, Chest, Legs, MainHand, OffHand, Back };
+
 	sf::String name, description;
 	float maxHP, maxMana, maxStamina;
 	sf::Texture icon, sprite;

@@ -14,6 +14,8 @@
 class GameDataManager {
 public:
 
+	Item nullItem;
+
 	static GameDataManager& getInstance();
 	entt::registry& getRegistry();
 	std::vector<Item> getItems();

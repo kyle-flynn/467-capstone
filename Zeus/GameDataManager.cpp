@@ -2,6 +2,7 @@
 
 GameDataManager::GameDataManager() {
 	loadAssets();
+	nullItem = Item();
 }
 
 GameDataManager& GameDataManager::getInstance() {

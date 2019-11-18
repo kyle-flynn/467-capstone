@@ -152,6 +152,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameDataManager.cpp" />
     <ClCompile Include="GameplayScreen.cpp" />
+    <ClCompile Include="InventoryMenu.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="ItemEditorScreen.cpp" />
     <ClCompile Include="ItemOption.cpp" />
@@ -166,7 +167,9 @@
     <ClCompile Include="MonsterEditorScreen.cpp" />
     <ClCompile Include="MonsterOption.cpp" />
     <ClCompile Include="NetworkManager.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombatDisplay.cpp" />
+    <ClCompile Include="QuestMenu.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
@@ -195,6 +198,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDataManager.h" />
     <ClInclude Include="GameplayScreen.h" />
+    <ClInclude Include="InventoryMenu.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="ItemEditorScreen.h" />
     <ClInclude Include="ItemOption.h" />
@@ -212,7 +216,9 @@
     <ClInclude Include="MonsterOption.h" />
     <ClInclude Include="NetworkManager.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombatDisplay.h" />
+    <ClInclude Include="QuestMenu.h" />
     <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
