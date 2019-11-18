@@ -69,6 +69,9 @@
     <Filter Include="Source Files\Dialogue">
       <UniqueIdentifier>{96e6a57b-8751-4c5b-aa10-ce8061c832db}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\seans sfml">
+      <UniqueIdentifier>{58646612-26a5-4781-ac01-d4b40a8c23d5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -318,6 +321,21 @@
     </ClInclude>
     <ClInclude Include="CharacterEditorScreen.h">
       <Filter>Header Files\Logic\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="UserInputField.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicText.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicText2.h">
+      <Filter>Header Files\seans sfml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

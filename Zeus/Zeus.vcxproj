@@ -176,6 +176,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleTextbox.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="Character.h" />
     <ClInclude Include="CharacterEditorScreen.h" />
     <ClInclude Include="CharacterOption.h" />
@@ -188,6 +189,8 @@
     <ClInclude Include="DialogueEditorOptionNode.h" />
     <ClInclude Include="DialogueEditorPanel.h" />
     <ClInclude Include="DialogueEditorScreen.h" />
+    <ClInclude Include="DynamicText.h" />
+    <ClInclude Include="DynamicText2.h" />
     <ClInclude Include="EditorText.h" />
     <ClInclude Include="EntityComponentSystem.h" />
     <ClInclude Include="FontManager.h" />
@@ -217,6 +220,8 @@
     <ClInclude Include="System.h" />
     <ClInclude Include="TestSystem.h" />
     <ClInclude Include="TextParticleSystem.h" />
+    <ClInclude Include="Title.h" />
+    <ClInclude Include="UserInputField.h" />
     <ClInclude Include="World.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
