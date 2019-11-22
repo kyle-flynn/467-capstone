@@ -5,53 +5,103 @@
 #include <iostream>
 
 CombatScreen::CombatScreen() :
-	textbox()
+	textbox(),
+	textDisplayChange(false),
+	lastDisplay(false),
+	enemyTurn(false),
+	endBattle(false)
 {
+	CombatManager::getInstance().setBattleTextbox(&this->textbox);
 	CombatManager::getInstance().loadEntities("Resources/test_characters.json");
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
-	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, MovesetComponent>();
+	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
 	int count = 0;
-	int highestSpeed = 0;
 	for (auto entity : view) {
 		auto& baseC = view.get<BaseComponent>(entity);
 		auto& combatC = view.get<CombatComponent>(entity);
-		if (combatC.speed >= highestSpeed && baseC.entityType > -1) {
-			highestSpeed = combatC.speed;
-			auto& movesC = view.get<MovesetComponent>(entity);
-			this->textbox.setEntity(entity);
-		}
+		auto& healthC = view.get<HealthComponent>(entity);
 		if (baseC.entityType > -1) {
 			auto& renderC = view.get<RenderComponent>(entity);
 			PlayerCombatDisplay* display = new PlayerCombatDisplay(std::string(baseC.name), *renderC.sprite);
 			display->setPosition((((float)count) * display->getWidth()) + (count > 0 ? 50.0f : 0.0f), 592.0f);
+			display->setCombatComponent(combatC);
+			display->setHealthComponent(healthC);
 			this->combatDisplays.push_back(display);
 			count++;
 		}
+
+		if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
+			this->textbox.setEntity(entity);
+			for (auto display : this->combatDisplays) {
+				if (display->getCombatComponent().combatId == combatC.combatId) {
+					display->setActive(true);
+				} else {
+					display->setActive(false);
+				}
+			}
+		}
 	}
+
+	// Finally, initialize combat sequence after everything is setup.
+	CombatManager::getInstance().initialize();
 }
 
 void CombatScreen::update(float deltaTime) {
-	std::cout << deltaTime << std::endl;
 	for (auto display : this->combatDisplays) {
 		display->update(deltaTime);
 	}
 	this->textbox.update(deltaTime);
-	if (this->textbox.hasAction()) {
-		entt::registry& registry = GameDataManager::getInstance().getRegistry();
-		Action a = this->textbox.getAction();
-		entt::entity& entity = a.entity;
-		auto& baseC = registry.get<BaseComponent>(entity);
-		this->textbox.reset();
-		const std::string desc = baseC.name + " used " + a.move.name + ". " + std::to_string(a.move.damage) + "HP of damage.";
-		this->textbox.updateBattleText(desc);
+	
+	if (!CombatManager::getInstance().isBattleFinished()) {
+		if (this->textbox.hasAction()) {
+			Action a = this->textbox.getAction();
+			CombatManager::getInstance().processPlayerAction(a);
+			CombatManager::getInstance().takeTurn();
+			this->textbox.reset();
+			if (CombatManager::getInstance().checkForEnemyTurn()) {
+				CombatManager::getInstance().processEnemyAction();
+				CombatManager::getInstance().takeTurn();
+				enemyTurn = true;
+			}
+		}
+
+		if (this->textDisplayChange) {
+			for (auto display : this->combatDisplays) {
+				display->forceUpdate();
+			}
+
+			entt::registry& registry = GameDataManager::getInstance().getRegistry();
+			int count = 0;
+			auto view = registry.view<BaseComponent, RenderComponent, CombatComponent, HealthComponent, MovesetComponent>();
+			for (auto entity : view) {
+				auto& baseC = view.get<BaseComponent>(entity);
+				auto& combatC = view.get<CombatComponent>(entity);
+				auto& healthC = view.get<HealthComponent>(entity);
+				if (combatC.combatId == CombatManager::getInstance().getCombatId() && baseC.entityType > -1) {
+					this->textbox.setEntity(entity);
+					for (auto display : this->combatDisplays) {
+						if (display->getCombatComponent().combatId == combatC.combatId) {
+							display->setActive(true);
+						} else {
+							display->setActive(false);
+						}
+					}
+				}
+			}
+		}
+	} else if (CombatManager::getInstance().isBattleFinished() && !this->textbox.hasText()) {
+		this->endBattle = true;
 	}
+
+	this->textDisplayChange = (!this->textbox.hasText() && this->lastDisplay);
+	this->lastDisplay = this->textbox.hasText();
 }
 
 void CombatScreen::draw(sf::RenderWindow& window) {
 	for (auto display : this->combatDisplays) {
 		window.draw(*display);
 	}
-	
+
 	entt::registry& registry = GameDataManager::getInstance().getRegistry();
 	auto view = registry.view<BaseComponent, RenderComponent, CombatComponent>();
 	for (auto entity : view) {
@@ -65,9 +115,13 @@ void CombatScreen::draw(sf::RenderWindow& window) {
 		}
 	}
 
-	window.draw(this->textbox);
+	if (!this->endBattle) {
+		window.draw(this->textbox);
+	}
 }
 
 void CombatScreen::handleEvent(sf::Event event) {
-	this->textbox.handleEvent(event);
+	if (!this->endBattle) {
+		this->textbox.handleEvent(event);
+	}
 }

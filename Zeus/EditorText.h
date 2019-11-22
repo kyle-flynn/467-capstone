@@ -21,12 +21,14 @@ public:
 	void setDefault(sf::String string);
 	sf::String getText();
 	void setText(sf::String string);
+	void setColor(sf::Color color);
 	void setEditable(bool edit);
 	void setNumeric(bool num);
 	sf::Vector2f getSize();
 
 private:
 
+	sf::Color color = sf::Color::Black;
 	bool isPressed, editable, numeric, numFlag;
 	const int TEXT_SIZE = 20;
 	float maxSize = 0.0f;

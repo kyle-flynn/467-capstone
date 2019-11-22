@@ -12,6 +12,7 @@ public:
 
 	sf::String name, description;
 	type itemType;
+	weaponType wType;
 	float stat;
 	sf::Texture icon;
 

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <queue>
+
 #include <SFML/Graphics.hpp>
 
 #include "GameDataManager.h"
@@ -20,6 +22,7 @@ enum BattleMode {
 	OPTIONS_CHOOSING,
 	ACTIONS_CHOOSING_BATTLE,
 	ACTIONS_CHOOSING_ITEMS,
+	ACTIONS_CHOOSING_ENTITY,
 	COMBAT_LOG
 };
 
@@ -28,22 +31,26 @@ public:
 	BattleTextbox();
 	void update(float deltaTime);
 	void handleEvent(sf::Event event);
-	void updateBattleText(const std::string& text);
+	void appendBattleText(const std::string& text, BattleTextMode mode);
 	void setSelectedOption(int selected);
 	void setSelectedAction(int selected);
 	void setEntity(entt::entity& entity);
 	void setItems(std::vector<Item> items);
 	void reset();
 	bool hasAction();
+	bool hasText();
 	Action getAction();
 private:
 	sf::Texture textboxTexture;
+	sf::Texture cursorTexture;
+
+	sf::Sprite cursor;
 
 	sf::Text optionOne;
 	sf::Text optionTwo;
 	sf::Text optionThree;
 	sf::Text optionFour;
-	sf::Text singleRow;
+	std::queue<sf::Text*> singleRow;
 	std::vector<sf::Text*> dualRows;
 	sf::Text descriptionText;
 
@@ -61,10 +68,11 @@ private:
 	Action action;
 
 	bool actionReady;
-
+	bool textDisplaying;
+	bool up;
 	int selectedOption;
 	int selectedAction;
-
+	float elapsedTime;
 	void checkForNewlines(const std::string& text);
 	void setBattleMode(BattleMode newMode);
 	void initBattleBoxVertices();
@@ -72,7 +80,7 @@ private:
 	void initActionsBoxVertices();
 	void initDescriptionBoxVertices();
 	void executeSelectedOption();
-	void executeSelectedAction();
+	bool executeSelectedAction();
 
 	void renderItems();
 	void renderMoveset();

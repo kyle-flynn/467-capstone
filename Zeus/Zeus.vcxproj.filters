@@ -193,6 +193,11 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Source Files\Logic</Filter>
+    <ClCompile Include="DemoScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CharacterEditorScreen.cpp">
+      <Filter>Source Files\Logic\Screens</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -330,6 +335,11 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Header Files\Logic</Filter>
+    <ClInclude Include="DemoScreen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CharacterEditorScreen.h">
+      <Filter>Header Files\Logic\Screens</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

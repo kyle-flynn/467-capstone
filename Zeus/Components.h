@@ -3,9 +3,14 @@
 #include <SFML/Graphics.hpp>
 
 #include "EntityComponentSystem.h"
+#include "Item.h"
 
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
+
+static const int TYPE_ITEM = 1;
+static const int TYPE_BATTLE = 2;
+static const int TYPE_PASS = 0;
 
 // Classes For Certain Components
 struct Move {
@@ -16,6 +21,9 @@ struct Move {
 
 struct Action {
 	int order;
+	int type;
+	bool pass;
+	Item item;
 	Move move;
 	entt::entity entity;
 };
@@ -42,9 +50,13 @@ struct HealthComponent {
 struct PositionComponent {
 	float x;
 	float y;
+	float speed;
+	float destX;
+	float destY;
 };
 
 struct CombatComponent {
+	unsigned int combatId;
 	int speed;
 };
 

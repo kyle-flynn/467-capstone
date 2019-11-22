@@ -122,6 +122,12 @@ void EditorText::setText(sf::String string) {
 	textWrap();
 }
 
+void EditorText::setColor(sf::Color color) {
+	this->color = color;
+	defaultText.setFillColor(color);
+	editText.setFillColor(color);
+}
+
 void EditorText::setEditable(bool edit) {
 	editable = edit;
 }
