@@ -26,6 +26,7 @@ public:
 	//void handleEvent(sf::Event event);
 	//void changeActive();
 
+	int* shptr;
 	//World* world;
 	
 
@@ -34,8 +35,8 @@ private:
 
 	Title t1;
 	Textbox text1;
-	
-	//Button btn1;
+	Button btn1;
+
 	//void drawActive(sf::RenderWindow& window);
 };
 

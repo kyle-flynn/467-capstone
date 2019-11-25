@@ -25,6 +25,7 @@ const float Game::HEIGHT = 720.0f;
 static tgui::Gui gui;
 
 int main() {
+
 	FontManager::getInstance().loadFonts();
 	GameDataManager::getInstance();
 
@@ -111,7 +112,6 @@ int main() {
 			else {
 				gp.eventLogic(event, window);
 			}
-
 		}
 		if (gameplayScreenActive == false) {
 			float deltaTime = clock.restart().asSeconds();
