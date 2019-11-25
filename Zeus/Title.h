@@ -2,56 +2,36 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
+#include "FontManager.h"
+
 
 class Title {
 public:
-	Title(std::string titleText, sf::Vector2f boxSize, int charSize, sf::Color textColor, sf::Color borderColor) {
-		//title.setSize(boxSize);
-		box.setSize(boxSize);
-		box.setOutlineColor(borderColor);
+	Title();
+		//sf::Vector2f getSize();
 
-		// Get these for later use:
-		boxWidth = boxSize.x;
-		boxHeight = boxSize.y;
+		// Make sure font is passed by reference:
+	void setFont(sf::Font& fonts);
 
-		title.setString(titleText);
-		title.setCharacterSize(charSize);
-		title.setFillColor(textColor);
+	void setBackColor(sf::Color color);
 
-	}
+	void setBorderSize(float size);
 
-	// Make sure font is passed by reference:
-	void setFont(sf::Font& fonts) {
-		title.setFont(fonts);
-	}
+	void setPosition(sf::Vector2f point);
 
-	void setBackColor(sf::Color color) {
-		box.setFillColor(color);
-	}
-
-	void setBorderSize(float size) {
-		box.setOutlineThickness(size);
-	}
-
-	void setPosition(sf::Vector2f point) {
-		box.setPosition(point);
-
-		// Center text on button:
-		float xPos = (point.x + boxWidth / 2) - (title.getLocalBounds().width / 2);
-		float yPos = (point.y + boxHeight / 2.2) - (title.getLocalBounds().height / 2);
-		title.setPosition(xPos, yPos);
-	}
-
-	void drawTo(sf::RenderWindow& window) {
-		window.draw(box);
-		window.draw(title);
-	}
-
-
+	void drawTo(sf::RenderWindow& window);
 
 private:
 	sf::RectangleShape box;
 	sf::Text title;
+
+	sf::Vector2f boxSize;
+	std::string titleText;
+	int charSize;
+	sf::Color textColor;
+	sf::Color borderColor;
+
+	sf::Font font;
 
 	int boxWidth;
 	int boxHeight;

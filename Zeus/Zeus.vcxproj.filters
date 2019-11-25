@@ -72,6 +72,9 @@
     <Filter Include="Header Files\seans sfml">
       <UniqueIdentifier>{58646612-26a5-4781-ac01-d4b40a8c23d5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\seans sfml">
+      <UniqueIdentifier>{eae288f2-7bb4-4dcc-bfd8-4e0883eb8c40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -190,6 +193,9 @@
     </ClCompile>
     <ClCompile Include="CharacterEditorScreen.cpp">
       <Filter>Source Files\Logic\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>Source Files\seans sfml</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

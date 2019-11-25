@@ -18,12 +18,14 @@
 
 #include <TGUI/TGUI.hpp>
 // Seans additions
+/*
 #include <iostream>
 #include "UserInputField.h"
 #include "Button.h"
 #include "Title.h"
 #include "DynamicText.h"
 #include "DynamicText2.h"
+*/
 
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
@@ -49,6 +51,8 @@ int main() {
 	LoggingSystem* logger = new LoggingSystem();
 
 	mBus.addSystem(logger);
+
+	window.setKeyRepeatEnabled(true);
 	/*
 	sf::Texture playerTexture;
 	sf::Sprite playerSprite;
