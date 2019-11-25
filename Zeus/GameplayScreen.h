@@ -20,11 +20,10 @@ public:
 	GameplayScreen();
 	void specialKeyPressed(int key);
 	void eventLogic(sf::Event event, sf::RenderWindow& window);
-	//void update(float deltaTime);
-	//void update(sf::Event event);
+	void stage2Logic(int enteredNum);
+
 	void draw(sf::RenderWindow& window);
-	//void handleEvent(sf::Event event);
-	//void changeActive();
+	
 
 	int* shptr;
 	//World* world;
@@ -33,7 +32,9 @@ public:
 private:
 	//sf::Vector2i mousePosition;
 
-	Title t1;
+	sf::Texture image1;
+
+	Title t1, t2;
 	Textbox text1;
 	Button btn1;
 

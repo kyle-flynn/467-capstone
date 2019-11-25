@@ -77,12 +77,14 @@ int main() {
 
 	sf::Clock clock;
 	bool gameplayScreenActive = false;
+	int stageNum = 1;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();
 
 
 	while (window.isOpen()) {
 		sf::Event event;
 		int key = 0;
+
 		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(GameplayScreen)) {
 			gameplayScreenActive = true;
 			
@@ -113,6 +115,7 @@ int main() {
 				gp.eventLogic(event, window);
 			}
 		}
+
 		if (gameplayScreenActive == false) {
 			float deltaTime = clock.restart().asSeconds();
 			ScreenManager::getInstance().update(deltaTime);

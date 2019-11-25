@@ -8,14 +8,22 @@
 class Title {
 public:
 	Title();
-		//sf::Vector2f getSize();
-
-		// Make sure font is passed by reference:
+		
 	void setFont(sf::Font& fonts);
+
+	void setCharSize(int size);
+
+	void setTextColor(sf::Color color);
 
 	void setBackColor(sf::Color color);
 
+	void setBorderColor(sf::Color color);
+
 	void setBorderSize(float size);
+
+	void setTitle(std::string newString);
+
+	void setBoxSize(sf::Vector2f size);
 
 	void setPosition(sf::Vector2f point);
 
@@ -30,8 +38,10 @@ private:
 	int charSize;
 	sf::Color textColor;
 	sf::Color borderColor;
+	sf::Color bgColor;
 
 	sf::Font font;
+	std::string newString;
 
 	int boxWidth;
 	int boxHeight;

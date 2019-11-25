@@ -11,20 +11,30 @@ GameplayScreen::GameplayScreen() {
 	//int* shptr = 0;
 	int enteredNum = 0;
 
+	// Stage1 sfml
 	t1.setPosition({ 100, 100 });
 	t1.setBorderSize(2);
-	t1.setBackColor(sf::Color::Black);
+	
 	
 	text1.setPosition({ 130, 250 });
 	text1.setLimit(true, 30);
 	text1.setBorderSize(1);
 	text1.setBackColor(sf::Color::Black);
 	
-	//Button btn1("Enter", { 150, 30 }, 20, sf::Color::Green, sf::Color::Black);
-	//btn1.setFont(font);
 	btn1.setPosition({ 610, 250 });
+
+	// Stage2 sfml
+	if (!image1.loadFromFile("Resources/images/userTutorial/numberedTileset.jpg"))
+		std::cout << "Font not found!\n";
+
+	sf::Sprite sprite1(image1);
+	sprite1.setPosition(700, 100);
 	
-	
+	t2.setTitle("Fill in Values");
+	t2.setBoxSize({ 500, 100 });
+	t2.setPosition({ 100, 50 });
+	t2.setBorderSize(2);
+	//t2.setBackColor(sf::Color::Black);
 
 	//this->world = new World(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 }
@@ -68,6 +78,7 @@ void GameplayScreen::eventLogic(sf::Event event, sf::RenderWindow& window) {
 				shptr = &enteredNum;
 				std::cout << "Hello " << enteredNum << "\n";
 				//window.close();
+				stage2Logic(enteredNum);
 			}
 		}
 		
@@ -80,6 +91,17 @@ void GameplayScreen::eventLogic(sf::Event event, sf::RenderWindow& window) {
 
 	//std::cout << "value is now " << *shptr << "\n";
 }
+
+
+void GameplayScreen::stage2Logic(int enteredNum) {
+	//
+	//
+	// You were in the middle of figuring out how to change the stageNum var
+	// in the game loop upon receiving a correct number. Also changing the screen size
+	//
+	//
+}
+
 
 void GameplayScreen::draw(sf::RenderWindow& window) {
 	//mousePosition = sf::Mouse::getPosition(window);

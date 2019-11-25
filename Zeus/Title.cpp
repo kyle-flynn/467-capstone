@@ -6,14 +6,12 @@ Title::Title() {
 	charSize = 30;
 	textColor = sf::Color::Yellow;
 	borderColor = sf::Color::Red;
+	bgColor = sf::Color::Black;
 
-	//if (!font.loadFromFile("arial.ttf"))
-		//std::cout << "Font not found!\n";
 	
 	box.setSize(boxSize);
 	box.setOutlineColor(borderColor);
-
-	//box.setPosition(point);
+	box.setFillColor(bgColor);
 
 	boxWidth = boxSize.x;
 	boxHeight = boxSize.y;
@@ -22,19 +20,40 @@ Title::Title() {
 	title.setString(titleText);
 	title.setCharacterSize(charSize);
 	title.setFillColor(textColor);
-	
 }
 
 void Title::setFont(sf::Font& fonts) {
 	title.setFont(fonts);
 }
 
+void Title::setCharSize(int size) {
+	title.setCharacterSize(size);
+}
+
+void Title::setTextColor(sf::Color color) {
+	title.setFillColor(color);
+}
+
 void Title::setBackColor(sf::Color color) {
 	box.setFillColor(color);
 }
 
+void Title::setBorderColor(sf::Color color) {
+	box.setOutlineColor(color);
+}
+
 void Title::setBorderSize(float size) {
 	box.setOutlineThickness(size);
+}
+
+void Title::setTitle(std::string newString) {
+	title.setString(newString);
+}
+
+void Title::setBoxSize(sf::Vector2f size) {
+	box.setSize(size);
+	boxWidth = size.x;
+	boxHeight = size.y;
 }
 
 void Title::setPosition(sf::Vector2f point) {
