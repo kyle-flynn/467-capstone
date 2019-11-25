@@ -27,12 +27,14 @@ public:
 	//void changeActive();
 
 	//World* world;
+	
 
 private:
 	//sf::Vector2i mousePosition;
 
 	Title t1;
 	Textbox text1;
+	
 	//Button btn1;
 	//void drawActive(sf::RenderWindow& window);
 };
