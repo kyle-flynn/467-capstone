@@ -1,36 +1,34 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include "Item.h"
+#include "Monster.h"
 #include "FontManager.h"
 
-class ItemOption : public sf::Drawable, public sf::Transformable {
+class MonsterOption : public sf::Drawable, public sf::Transformable {
 
 public:
 
 	bool isSelected;
-	Item item;
-
-	ItemOption();
-	ItemOption(Item item);
+	Monster m;
+	MonsterOption();
+	MonsterOption(Monster m);
 	void setSelected(bool select);
 	void setPressed(bool press);
 	void update(float deltaTime, sf::Vector2i mousePosition);
 	void update(sf::Event event, sf::Vector2i mousePosition);
 	sf::String getName();
-	sf::String getType();
 	sf::String getDescription();
 	sf::Sprite getIcon();
+	sf::Sprite getAvatar();
 
 private:
 
 	bool isPressed;
 	const int TEXT_SIZE = 32;
-	sf::Text itemName, itemType;
-	sf::Sprite sprite;
+	sf::Text mName, type;
+	sf::Sprite icon, avatar;
 
 	void updateValues();
-	sf::String typeToString(Item::type type);
 	virtual void draw(sf::RenderTarget&, sf::RenderStates states) const;
 
 };

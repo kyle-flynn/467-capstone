@@ -2,14 +2,13 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
-enum class type { Weapon, Equippable, Consumable, Other };
-enum class weaponType { Sword, Axe, Hammer, Bow, Dagger };
+//enum class type { Weapon, Equippable, Consumable, Other };
 
 class Item {
 
 public:
 
-	//enum type {Weapon, Equippable, Consumable, Other};
+	enum class type {Weapon, Equippable, Consumable, Other};
 
 	sf::String name, description;
 	type itemType;

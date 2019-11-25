@@ -1,54 +1,51 @@
 #pragma once
 
-#include "Character.h"
 #include "Screen.h"
 #include "Game.h"
+#include "Monster.h"
 #include "EditorText.h"
-#include "CharacterOption.h"
 #include "GameDataManager.h"
+#include "MonsterOption.h"
 
 #include <filesystem>
 
-class CharacterEditorScreen : public Screen {
+class MonsterEditorScreen : public Screen {
 
-public:
+public :
 
-	CharacterEditorScreen();
+	MonsterEditorScreen();
 	void update(float deltaTime);
 	void update(sf::Event event);
 	void draw(sf::RenderWindow& window);
 	void handleEvent(sf::Event event);
-	void addCharacter();
-	void removeCharacter();
+	void addMonster();
+	void removeMonster();
 	void changeActive();
 
 private:
 
 	const float ICON_SIZE = 150, AVATAR_WIDTH = 150, AVATAR_HEIGHT = 250;
 	int it;
-	sf::Text header, newChar, deleteChar;
-	EditorText activeName = EditorText(sf::String("Character Name:")),
-		activeType = EditorText(sf::String("Character Type:")),
+	sf::Text header, newMonster, deleteMonster;
+	EditorText activeName = EditorText(sf::String("Monster Name:")),
+		activeType = EditorText(sf::String("Monster Type:")),
 		activeHP = EditorText(sf::String("Max Health:")),
-		activeMana = EditorText(sf::String("Max Mana:")),
-		activeStamina = EditorText(sf::String("Max Stamina:")),
 		activeDescription = EditorText(sf::String("Description:"));
 	sf::Texture BGTexture, defaultIcon, defaultAvatar;
 	sf::Sprite BGSprite, activeIcon, activeAvatar;
 	sf::Vector2i mousePosition;
-	std::vector<CharacterOption*> characters;
+	std::vector<MonsterOption*> monsters;
 	std::vector<sf::Texture> icons, avatars;
 	sf::Rect<float> newBounds, deleteBounds, upBounds, downBounds;
 	sf::CircleShape listUp, listDown;
-	CharacterOption* active;
+	MonsterOption* active;
 
 	void loadIcons();
 	void loadAvatars();
-	void loadCharacters();
-	void saveCharacters();
-	void sortCharacters();
+	void loadMonsters();
+	void saveMonsters();
+	void sortMonsters();
 	void updateActive();
-	void drawActive(sf::RenderWindow& window);
+	void(drawActive(sf::RenderWindow& window));
 
 };
-

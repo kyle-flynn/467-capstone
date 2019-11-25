@@ -1,0 +1,11 @@
+[
+    {
+        "description": "BasicDescription",
+        "name": "TestName",
+        "stat": 10.0,
+        "type": 2
+    },
+    {
+        "name": "NotTest"
+    }
+]

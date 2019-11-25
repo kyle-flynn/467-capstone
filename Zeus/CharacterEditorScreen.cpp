@@ -169,6 +169,11 @@ void CharacterEditorScreen::draw(sf::RenderWindow& window) {
 	window.draw(deleteChar);
 	window.draw(listUp);
 	window.draw(listDown);
+	activeType.setPosition(150.0f, activeName.getPosition().y + activeName.getSize().y + 25.0f);
+	activeHP.setPosition(150.0f, activeType.getPosition().y + activeType.getSize().y + 25.0f);
+	activeMana.setPosition(150.0f, activeHP.getPosition().y + activeHP.getSize().y + 25.0f);
+	activeStamina.setPosition(150.0f, activeMana.getPosition().y + activeMana.getSize().y + 25.0f);
+	activeDescription.setPosition(150.0f, activeStamina.getPosition().y + activeStamina.getSize().y + 25.0f);
 	window.draw(activeName);
 	window.draw(activeType);
 	window.draw(activeHP);
@@ -181,9 +186,9 @@ void CharacterEditorScreen::draw(sf::RenderWindow& window) {
 }
 
 void CharacterEditorScreen::handleEvent(sf::Event event) {
-	if (event.type == event.TextEntered &&
+	if (event.type == sf::Event::TextEntered &&
 		event.text.unicode == 27) {
-		ScreenManager::getInstance().setScreen(new MainMenuScreen());
+		GameDataManager::getInstance().addCharacters(characters);
 	}
 	update(event);
 }
@@ -203,6 +208,7 @@ void CharacterEditorScreen::removeCharacter() {
 		for (int i = 0; i < characters.size(); i++) {
 			if (characters.at(i) == active) {
 				active = nullptr;
+				delete characters[i];
 				characters.erase(characters.begin() + i);
 			}
 		}
@@ -245,14 +251,16 @@ void CharacterEditorScreen::loadAvatars() {
 }
 
 void CharacterEditorScreen::loadCharacters() {
-	/*for (Character c : GameDataManager::getInstance().getCharacters()) {
+	for (Character c : GameDataManager::getInstance().getCharacters()) {
 		CharacterOption* character = new CharacterOption(c);
+		character->c.icon = defaultIcon;
+		character->c.sprite = defaultAvatar;
 		characters.push_back(character);
-	}*/
+	}
 }
 
 void CharacterEditorScreen::saveCharacters() {
-	//GameDataManager::getInstance().saveCharacters(characters);
+	GameDataManager::getInstance().addCharacters(characters);
 }
 
 void CharacterEditorScreen::sortCharacters() {

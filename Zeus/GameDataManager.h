@@ -1,13 +1,17 @@
 #pragma once
 
 #include "EntityComponentSystem.h"
+#include "CharacterEditorScreen.h"
+#include "ItemEditorScreen.h"
 #include "Components.h"
 #include "Item.h"
 #include "ItemOption.h"
 //#include "Character.h"
 //#include "CharacterOption.h"
 #include "DialogueEditorScreen.h"
-#include "Dialogue.h"
+#include "MonsterEditorScreen.h"
+#include "MonsterOption.h"
+#include <nlohmann/json.hpp>
 
 #ifndef GAME_DATA_MANAGER_H
 #define GAME_DATA_MANAGER_H
@@ -18,11 +22,13 @@ public:
 	static GameDataManager& getInstance();
 	entt::registry& getRegistry();
 	std::vector<Item> getItems();
-	void saveItems(std::vector<ItemOption*> items);
-	//std::vector<Character> getCharacters();
-	//void saveCharacters(std::vector<CharacterOption*> characters);
+	void addItems(std::vector<ItemOption*> items);
+	std::vector<Character> getCharacters();
+	void addCharacters(std::vector<CharacterOption*> characters);
 	std::vector<Dialogue*> getDialogueTrees();
-	void saveDialogueTrees(std::vector<Dialogue*> trees);
+	void addDialogueTrees(std::vector<Dialogue*> trees);
+	std::vector<Monster> getMonsters();
+	void addMonsters(std::vector<MonsterOption*> monsters);
 
 private:
 
@@ -31,11 +37,17 @@ private:
 	void loadItems();
 	void loadCharacters();
 	void loadDialogueTrees();
+	void loadMonsters();
+	void saveItems();
+	void saveCharacters();
+	void saveDialogueTrees();
+	void saveMonsters();
 
 	entt::registry registry;
 	std::vector<Item> items;
-	//std::vector<Character> characters;
+	std::vector<Character> characters;
 	std::vector<Dialogue*> dialogueTrees;
+	std::vector<Monster> monsters;
 
 };
 
