@@ -82,40 +82,69 @@ int main() {
 	//mBus.sendMessage(log);
 
 	sf::Clock clock;
+	bool gameplayScreenActive = false;
+	GameplayScreen gp = GameplayScreen::GameplayScreen();
 
 	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
-				window.close();
+		int key = 0;
+		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(GameplayScreen)) {
+			gameplayScreenActive = true;
+			//gp = ScreenManager::getInstance().getScreen();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
+				key = 1;
+				gp.specialKeyPressed(key);
 			}
-			gui.handleEvent(event);
-			ScreenManager::getInstance().handleEvent(event);
-		}
-
-		float deltaTime = clock.restart().asSeconds();
-		ScreenManager::getInstance().update(deltaTime);
-		window.clear(sf::Color::Black);
-		ScreenManager::getInstance().draw(window);
-		/*
-		auto view = registry.view<DrawComponent, PositionComponent>();
-		for (auto entity : view) {
-			auto& drawComponent = view.get<DrawComponent>(entity);
-			auto& positionComponent = view.get<PositionComponent>(entity);
-			drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
-			window.draw(drawComponent.sprite);
-		}
-		*/
-		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(DialogueEditorScreen)) {
-			if (gui.get("DialogueEditorPanel") == nullptr) {
-				gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+				key = 2;
+				gp.specialKeyPressed(key);
 			}
+			//std::cout << "Gameplay screen active\n";
 		}
 		else {
-			gui.removeAllWidgets();
+			gameplayScreenActive = false;
 		}
-		gui.draw();
-		window.display();
+		
+		while (window.pollEvent(event)) {
+			if (gameplayScreenActive == false) {
+				switch (event.type) {
+				case sf::Event::Closed:
+					window.close();
+				}
+				gui.handleEvent(event);
+				ScreenManager::getInstance().handleEvent(event);
+			}
+			else {
+				GameplayScreen g1;
+				g1.eventLogic(event, window);
+			}
+
+		}
+		if (gameplayScreenActive == false) {
+			float deltaTime = clock.restart().asSeconds();
+			ScreenManager::getInstance().update(deltaTime);
+			window.clear(sf::Color::Black);
+			ScreenManager::getInstance().draw(window);
+			/*
+			auto view = registry.view<DrawComponent, PositionComponent>();
+			for (auto entity : view) {
+				auto& drawComponent = view.get<DrawComponent>(entity);
+				auto& positionComponent = view.get<PositionComponent>(entity);
+				drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
+				window.draw(drawComponent.sprite);
+			}
+			*/
+			if (typeid(ScreenManager::getInstance().getScreen()) == typeid(DialogueEditorScreen)) {
+				if (gui.get("DialogueEditorPanel") == nullptr) {
+					gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+				}
+			}
+			else {
+				gui.removeAllWidgets();
+			}
+			gui.draw();
+			window.display();
+		}
 	}
 
 	// Free up all of our variables

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Screen.h"
+#include <SFML/Graphics.hpp>
 //#include "World.h"
 // new way
 #include <iostream>
@@ -17,6 +18,8 @@
 class GameplayScreen : public Screen {
 public:
 	GameplayScreen();
+	void specialKeyPressed(int key);
+	void eventLogic(sf::Event event, sf::RenderWindow& window);
 	//void update(float deltaTime);
 	//void update(sf::Event event);
 	void draw(sf::RenderWindow& window);
@@ -29,7 +32,7 @@ private:
 	//sf::Vector2i mousePosition;
 
 	Title t1;
-	//Textbox text1;
+	Textbox text1;
 	//Button btn1;
 	//void drawActive(sf::RenderWindow& window);
 };

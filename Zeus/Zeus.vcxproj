@@ -173,6 +173,7 @@
     <ClCompile Include="TestSystem.cpp" />
     <ClCompile Include="TextParticleSystem.cpp" />
     <ClCompile Include="Title.cpp" />
+    <ClCompile Include="UserInputField.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
