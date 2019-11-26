@@ -77,7 +77,7 @@ int main() {
 
 	sf::Clock clock;
 	bool gameplayScreenActive = false;
-	int stageNum = 1;
+	//int stageNum = 1;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();
 
 
@@ -112,7 +112,7 @@ int main() {
 				ScreenManager::getInstance().handleEvent(event);
 			}
 			else {
-				gp.eventLogic(event, window);
+				gp.stage1Logic(event, window);
 			}
 		}
 

@@ -203,6 +203,9 @@
     <ClCompile Include="Button.cpp">
       <Filter>Source Files\seans sfml</Filter>
     </ClCompile>
+    <ClCompile Include="DynamicText.cpp">
+      <Filter>Source Files\seans sfml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">

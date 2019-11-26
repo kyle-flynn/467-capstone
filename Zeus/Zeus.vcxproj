@@ -147,6 +147,7 @@
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
     <ClCompile Include="DialogueEditorPanel.cpp" />
     <ClCompile Include="DialogueEditorScreen.cpp" />
+    <ClCompile Include="DynamicText.cpp" />
     <ClCompile Include="EditorText.cpp" />
     <ClCompile Include="EntitySystem.cpp" />
     <ClCompile Include="EntitySystem.h" />

@@ -18,11 +18,16 @@
 class GameplayScreen : public Screen {
 public:
 	GameplayScreen();
+
+	void changeWindow(int stageNum, sf::RenderWindow& window);
+
 	void specialKeyPressed(int key);
-	void eventLogic(sf::Event event, sf::RenderWindow& window);
+
+	void stage1Logic(sf::Event event, sf::RenderWindow& window);
+
 	void stage2Logic(int enteredNum);
 
-	void draw(sf::RenderWindow& window);
+	void draw(int stageNum, sf::RenderWindow& window);
 	
 
 	int* shptr;
@@ -30,11 +35,18 @@ public:
 	
 
 private:
-	//sf::Vector2i mousePosition;
+	int defaultStage = 1;
+	int* stageNum;
+
+	//sf::Vector2u s2Window;
+	//sf::Vector2u centerPoint;
+	//sf::Vector2i newCenter;
 
 	sf::Texture image1;
+	sf::Sprite sprite1;
 
 	Title t1, t2;
+	DynText d1;
 	Textbox text1;
 	Button btn1;
 

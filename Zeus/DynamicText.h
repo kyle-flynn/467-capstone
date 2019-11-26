@@ -2,48 +2,46 @@
 #include <sstream>
 #include <SFML/Graphics.hpp>
 
+#include "FontManager.h"
 
 class DynText {
 public:
-	DynText(int userNum, int charSize, sf::Vector2f boxSize, sf::Color textColor, sf::Color borderColor) {
-		textbox.setCharacterSize(charSize);
-		textbox.setFillColor(textColor);
+	DynText();
 
-		box.setSize(boxSize);
-		box.setOutlineColor(borderColor);
+	void setFont(sf::Font& fonts);
 
-		std::string numStr = std::to_string(userNum);
-		textbox.setString(numStr + "x" + numStr);
+	void setCharSize(int size);
 
-	}
+	void setTextColor(sf::Color color);
 
-	// Make sure font is passed by reference:
-	void setFont(sf::Font& fonts) {
-		textbox.setFont(fonts);
-	}
+	void setBackColor(sf::Color color);
 
-	void setBackColor(sf::Color color) {
-		box.setFillColor(color);
-	}
+	void setBorderColor(sf::Color color);
 
-	void setBorderSize(float size) {
-		box.setOutlineThickness(size);
-	}
+	void setBorderSize(float size);
 
-	void setPosition(sf::Vector2f point) {
-		textbox.setPosition(point);
-		box.setPosition(point);
-	}
+	void setTextNum(int userNum);
 
-	void drawTo(sf::RenderWindow& window) {
-		window.draw(box);
-		window.draw(textbox);
-	}
+	void setBoxSize(sf::Vector2f size);
 
+	void setPosition(sf::Vector2f point);
+
+	void drawTo(sf::RenderWindow& window);
 
 
 private:
 	sf::RectangleShape box;
 	sf::Text textbox;
 
+	//std::string displayText;
+	int userNum;
+	int charSize;
+	sf::Vector2f boxSize;
+	sf::Color textColor;
+	sf::Color borderColor;
+	sf::Color bgColor;
+	std::string newString;
+
+	int boxWidth;
+	int boxHeight;
 };
