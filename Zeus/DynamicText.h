@@ -22,6 +22,8 @@ public:
 
 	void setTextNum(int userNum);
 
+	void setTextNums(int row, int col);
+
 	void setBoxSize(sf::Vector2f size);
 
 	void setPosition(sf::Vector2f point);
@@ -33,7 +35,6 @@ private:
 	sf::RectangleShape box;
 	sf::Text textbox;
 
-	//std::string displayText;
 	int userNum;
 	int charSize;
 	sf::Vector2f boxSize;

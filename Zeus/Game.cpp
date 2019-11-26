@@ -24,6 +24,9 @@ const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
 static tgui::Gui gui;
 
+int defaultStg = 0;
+int* gpStageNum = &defaultStg;
+
 int main() {
 
 	FontManager::getInstance().loadFonts();
@@ -76,8 +79,6 @@ int main() {
 	//mBus.sendMessage(log);
 
 	sf::Clock clock;
-	bool gameplayScreenActive = false;
-	//int stageNum = 1;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();
 
 
@@ -85,25 +86,14 @@ int main() {
 		sf::Event event;
 		int key = 0;
 
-		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(GameplayScreen)) {
-			gameplayScreenActive = true;
-			
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return)) {
-				key = 1;
-				gp.specialKeyPressed(key);
+		if (*gpStageNum > 0 || typeid(ScreenManager::getInstance().getScreen()) == typeid(GameplayScreen)) {
+			if (*gpStageNum == 0) {
+				*gpStageNum = 1;
 			}
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-				key = 2;
-				gp.specialKeyPressed(key);
-			}
-			//std::cout << "Gameplay screen active\n";
-		}
-		else {
-			gameplayScreenActive = false;
 		}
 		
 		while (window.pollEvent(event)) {
-			if (gameplayScreenActive == false) {
+			if (*gpStageNum == 0) {
 				switch (event.type) {
 				case sf::Event::Closed:
 					window.close();
@@ -112,11 +102,11 @@ int main() {
 				ScreenManager::getInstance().handleEvent(event);
 			}
 			else {
-				gp.stage1Logic(event, window);
+				*gpStageNum = gp.eventLogic(event, window);
 			}
 		}
 
-		if (gameplayScreenActive == false) {
+		if (*gpStageNum == 0) {
 			float deltaTime = clock.restart().asSeconds();
 			ScreenManager::getInstance().update(deltaTime);
 			window.clear(sf::Color::Black);

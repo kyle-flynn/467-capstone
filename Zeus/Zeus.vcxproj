@@ -171,6 +171,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="Screen.cpp" />
     <ClCompile Include="ScreenManager.cpp" />
+    <ClCompile Include="sfmlObjects.cpp" />
     <ClCompile Include="SnowParticleSystem.cpp" />
     <ClCompile Include="TestSystem.cpp" />
     <ClCompile Include="TextParticleSystem.cpp" />
@@ -220,6 +221,7 @@
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Screen.h" />
     <ClInclude Include="ScreenManager.h" />
+    <ClInclude Include="sfmlObjects.h" />
     <ClInclude Include="SnowParticleSystem.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="TestSystem.h" />

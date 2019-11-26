@@ -9,7 +9,6 @@
 #define ENTER_KEY 13
 #define ESCAPE_KEY 27
 
-
 class Textbox {
 public:
 	Textbox();
@@ -19,6 +18,8 @@ public:
 	void setBackColor(sf::Color color);
 
 	void setBorderSize(float size);
+
+	void setBoxSize(sf::Vector2f size);
 
 	void setPosition(sf::Vector2f point);
 
@@ -49,10 +50,12 @@ private:
 	sf::Vector2f boxSize;
 	sf::Color textColor;
 	sf::Color borderColor;
+	sf::Color bgColor;
 	bool sel = true;
 
 	void deleteLastChar();
-
 	void inputLogic(int charTyped);
 
+	int boxWidth;
+	int boxHeight;
 };

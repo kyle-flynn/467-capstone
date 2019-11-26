@@ -3,7 +3,7 @@
 DynText::DynText() {
 	userNum = 0;
 	boxSize = { 100, 50 };
-	//displayText = "Enter a Number for Map Size";
+	
 	charSize = 25;
 	textColor = sf::Color::White;
 	borderColor = sf::Color::Black;
@@ -19,7 +19,7 @@ DynText::DynText() {
 	textbox.setFont(FontManager::getInstance().oldStandard);
 
 	std::string numStr = std::to_string(userNum);
-	textbox.setString(numStr + "x" + numStr);
+	textbox.setString("Map Size: " + numStr + "x" + numStr);
 	textbox.setCharacterSize(charSize);
 	textbox.setFillColor(textColor);
 }
@@ -50,7 +50,13 @@ void DynText::setBorderSize(float size) {
 
 void DynText::setTextNum(int userNum) {
 	std::string numStr = std::to_string(userNum);
-	textbox.setString(numStr + "x" + numStr);
+	textbox.setString("Map Size: " + numStr + "x" + numStr);
+}
+
+void DynText::setTextNums(int row, int col) {
+	std::string rowStr = std::to_string(row);
+	std::string colStr = std::to_string(col);
+	textbox.setString("For Tile:   [ " + rowStr + " , " + colStr + " ]");
 }
 
 void DynText::setBoxSize(sf::Vector2f size) {

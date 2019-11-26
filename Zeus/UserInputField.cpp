@@ -5,7 +5,11 @@ Textbox::Textbox() {
 	boxSize = {450, 30};
 	textColor = sf::Color::White;
 	borderColor = sf::Color::White;
-	//sel = true;
+	bgColor = sf::Color::Black;
+	isSelected = sel;
+
+	boxWidth = boxSize.x;
+	boxHeight = boxSize.y;
 
 	textbox.setFont(FontManager::getInstance().oldStandard);
 	textbox.setCharacterSize(charSize);
@@ -13,15 +17,13 @@ Textbox::Textbox() {
 
 	box.setSize(boxSize);
 	box.setOutlineColor(borderColor);
-
-	isSelected = sel;
+	box.setFillColor(bgColor);
 
 	// Check if the textbox is selected upon creation and display it accordingly:
 	if (isSelected)
 		textbox.setString("_");
 	else
 		textbox.setString("");
-
 }
 
 void Textbox::setFont(sf::Font& fonts) {
@@ -34,6 +36,12 @@ void Textbox::setBackColor(sf::Color color) {
 
 void Textbox::setBorderSize(float size) {
 	box.setOutlineThickness(size);
+}
+
+void Textbox::setBoxSize(sf::Vector2f size) {
+	box.setSize(size);
+	boxWidth = size.x;
+	boxHeight = size.y;
 }
 
 void Textbox::setPosition(sf::Vector2f point) {
@@ -65,8 +73,6 @@ void Textbox::setSelected(bool sel) {
 	}
 }
 
-
-
 void Textbox::drawTo(sf::RenderWindow& window) {
 	window.draw(box);
 	window.draw(textbox);
@@ -96,6 +102,8 @@ void Textbox::typedOn(sf::Event input) {
 		}
 	}
 }
+
+
 
 
 // Delete the last character of the text:

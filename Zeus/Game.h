@@ -10,8 +10,6 @@ public:
 	const static float WIDTH;
 	const static float HEIGHT;
 	static tgui::Gui gui;
-
-	//GameplayScreen* gp;
 };
 
 #endif
