@@ -5,10 +5,6 @@
 //#include "World.h"
 
 #include <iostream>
-//#include "UserInputField.h"
-//#include "Button.h"
-//#include "Title.h"
-//#include "DynamicText.h"
 #include "EditorText.h"
 
 #include "sfmlObjects.h"
@@ -19,8 +15,6 @@
 class GameplayScreen : public Screen {
 public:
 	GameplayScreen();
-
-	//void changeWindow(int stageNum, sf::RenderWindow& window);
 
 	int eventLogic(sf::Event event, sf::RenderWindow& window);
 

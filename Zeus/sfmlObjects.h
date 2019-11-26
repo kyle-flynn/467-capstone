@@ -15,12 +15,10 @@
 class SFML_Objects {
 public:
 	SFML_Objects();
-	
-	//void stage1Objects();
-
-	void stage2Objects();
 
 	void stage2Objects(int enteredNum);
+
+	void stage2ObjectsInLoop(int enteredNum);
 
 	void changeWindow(int stageNum, sf::RenderWindow& window);
 
@@ -30,17 +28,27 @@ public:
 
 	int s2EventLogic(sf::Event event, sf::RenderWindow& window);
 
+	int s3EventLogic(sf::Event event, sf::RenderWindow& window);
+
 	void readyToType(int stageNum);
 
 	void drawTo(int stageNum, sf::RenderWindow& window);
 
 
 private:
-	//int defaultStage = 1;
-	//int* stageNum;
-
 	int enteredNum = 0;
-	int* shptr;
+	int* shptr = &enteredNum;
+
+	int enteredNum2 = 0;
+	int* shptr2 = &enteredNum2;
+
+	int count = 0;
+	int* counter = &count;
+
+	int rVal;
+	int cVal;
+	int* rowVal = &rVal;
+	int* colVal = &cVal;
 
 	int** tileVals;
 

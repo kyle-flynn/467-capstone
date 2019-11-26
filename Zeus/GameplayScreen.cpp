@@ -9,7 +9,6 @@ GameplayScreen::GameplayScreen() {
 	Screen();
 
 	this->stageNum = &defaultStage;
-	//this->shptr = &enteredNum;
 
 	//this->world = new World(std::string("Resources/Tiles/tileset_grass.png"), tiles, 16, 16);
 }
@@ -25,7 +24,11 @@ int GameplayScreen::eventLogic(sf::Event event, sf::RenderWindow& window) {
 	case 2:
 		*stageNum = sfmlObj.s2EventLogic(event, window);
 		break;
+	case 3:
+		*stageNum = sfmlObj.s3EventLogic(event, window);
+		break;
 	}
+
 	return *stageNum;
 }
 
