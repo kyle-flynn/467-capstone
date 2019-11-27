@@ -6,6 +6,7 @@
 #include "CharacterEditorScreen.h"
 #include "ItemEditorScreen.h"
 #include "DIalogueEditorScreen.h"
+#include "GameplayScreen.h"
 #include "DemoScreen.h"
 #include "DialogueEditorPanel.h"
 #include "CombatScreen.h"
@@ -46,6 +47,10 @@ MainMenuScreen::MainMenuScreen() :
 	dialogueEditor.setColor(sf::Color::White);
 	dialogueEditor.setEditable(false);
 	dialogueEditor.setText("Dialogue Editor");
+	worldGeneration.setPosition(350.0f, 425.0f);
+	worldGeneration.setColor(sf::Color::White);
+	worldGeneration.setEditable(false);
+	worldGeneration.setText("World Generation");
 }
 
 void MainMenuScreen::update(float deltaTime) {
@@ -53,6 +58,7 @@ void MainMenuScreen::update(float deltaTime) {
 	monsterEditor.update(deltaTime, mousePosition);
 	itemEditor.update(deltaTime, mousePosition);
 	dialogueEditor.update(deltaTime, mousePosition);
+	worldGeneration.update(deltaTime, mousePosition);
 	this->lightningSystem.update(deltaTime);
 	this->titleTextSystem.update(deltaTime);
 
@@ -80,6 +86,12 @@ void MainMenuScreen::update(sf::Event event) {
 		dialogueEditor.getPosition().y,
 		dialogueEditor.getSize().x,
 		dialogueEditor.getSize().y + 7);
+	sf::Rect<float> wBounds(
+		worldGeneration.getPosition().x,
+		worldGeneration.getPosition().y,
+		worldGeneration.getSize().x,
+		worldGeneration.getSize().y + 7);
+
 	if (event.type == sf::Event::MouseButtonPressed &&
 		event.mouseButton.button == sf::Mouse::Button::Left) {
 		if (cBounds.contains(mousePosition.x, mousePosition.y)) {
@@ -92,6 +104,9 @@ void MainMenuScreen::update(sf::Event event) {
 			//Game::gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
 			ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
 		}
+		else if (wBounds.contains(mousePosition.x, mousePosition.y)) {
+			ScreenManager::getInstance().setScreen(new GameplayScreen());
+		}
 		else if (movementBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new DemoScreen());
 		}
@@ -103,12 +118,14 @@ void MainMenuScreen::update(sf::Event event) {
 			itemEditor.setColor(sf::Color::White);
 			monsterEditor.setColor(sf::Color::White);
 			dialogueEditor.setColor(sf::Color::White);
+			worldGeneration.setColor(sf::Color::White);
 		}
 		else {
 			characterEditor.setColor(sf::Color::Transparent);
 			itemEditor.setColor(sf::Color::Transparent);
 			monsterEditor.setColor(sf::Color::Transparent);
 			dialogueEditor.setColor(sf::Color::Transparent);
+			worldGeneration.setColor(sf::Color::Transparent);
 		}
 	}
 }
@@ -130,4 +147,5 @@ void MainMenuScreen::draw(sf::RenderWindow& window) {
 	window.draw(itemEditor);
 	window.draw(characterEditor);
 	window.draw(dialogueEditor);
+	window.draw(worldGeneration);
 }

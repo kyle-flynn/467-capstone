@@ -18,9 +18,14 @@
 
 #include <TGUI/TGUI.hpp>
 
+
+
 const float Game::WIDTH = 1280.0f;
 const float Game::HEIGHT = 720.0f;
 static tgui::Gui gui;
+
+int defaultStg = 0;
+int* gpStageNum = &defaultStg;
 
 int main() {
 
@@ -43,6 +48,8 @@ int main() {
 	LoggingSystem* logger = new LoggingSystem();
 
 	mBus.addSystem(logger);
+
+	window.setKeyRepeatEnabled(true);
 	/*
 	sf::Texture playerTexture;
 	sf::Sprite playerSprite;
@@ -73,40 +80,58 @@ int main() {
 	//mBus.sendMessage(log);
 
 	sf::Clock clock;
+	GameplayScreen gp = GameplayScreen::GameplayScreen();
+
 
 	while (window.isOpen()) {
 		sf::Event event;
-		while (window.pollEvent(event)) {
-			if (event.type == sf::Event::Closed) {
-				window.close();
+		int key = 0;
+
+		if (*gpStageNum > 0 || typeid(ScreenManager::getInstance().getScreen()) == typeid(GameplayScreen)) {
+			if (*gpStageNum == 0) {
+				*gpStageNum = 1;
 			}
-			gui.handleEvent(event);
-			ScreenManager::getInstance().handleEvent(event);
+		}
+		
+		while (window.pollEvent(event)) {
+			if (*gpStageNum == 0) {
+				switch (event.type) {
+				case sf::Event::Closed:
+					window.close();
+				}
+				gui.handleEvent(event);
+				ScreenManager::getInstance().handleEvent(event);
+			}
+			else {
+				*gpStageNum = gp.eventLogic(event, window);
+			}
 		}
 
-		float deltaTime = clock.restart().asSeconds();
-		ScreenManager::getInstance().update(deltaTime);
-		window.clear(sf::Color::Black);
-		ScreenManager::getInstance().draw(window);
-		/*
-		auto view = registry.view<DrawComponent, PositionComponent>();
-		for (auto entity : view) {
-			auto& drawComponent = view.get<DrawComponent>(entity);
-			auto& positionComponent = view.get<PositionComponent>(entity);
-			drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
-			window.draw(drawComponent.sprite);
-		}
-		*/
-		if (typeid(ScreenManager::getInstance().getScreen()) == typeid(DialogueEditorScreen)) {
-			if (gui.get("DialogueEditorPanel") == nullptr) {
-				gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+		if (*gpStageNum == 0) {
+			float deltaTime = clock.restart().asSeconds();
+			ScreenManager::getInstance().update(deltaTime);
+			window.clear(sf::Color::Black);
+			ScreenManager::getInstance().draw(window);
+			/*
+			auto view = registry.view<DrawComponent, PositionComponent>();
+			for (auto entity : view) {
+				auto& drawComponent = view.get<DrawComponent>(entity);
+				auto& positionComponent = view.get<PositionComponent>(entity);
+				drawComponent.sprite.setPosition(positionComponent.x, positionComponent.y);
+				window.draw(drawComponent.sprite);
 			}
+			*/
+			if (typeid(ScreenManager::getInstance().getScreen()) == typeid(DialogueEditorScreen)) {
+				if (gui.get("DialogueEditorPanel") == nullptr) {
+					gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
+				}
+			}
+			else {
+				gui.removeAllWidgets();
+			}
+			gui.draw();
+			window.display();
 		}
-		else {
-			gui.removeAllWidgets();
-		}
-		gui.draw();
-		window.display();
 	}
 
 	// Free up all of our variables
