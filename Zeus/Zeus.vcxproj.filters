@@ -209,6 +209,12 @@
     <ClCompile Include="sfmlObjects.cpp">
       <Filter>Source Files\seans sfml</Filter>
     </ClCompile>
+    <ClCompile Include="sfmlObjects2.cpp">
+      <Filter>Source Files\seans sfml</Filter>
+    </ClCompile>
+    <ClCompile Include="sfmlObjects3.cpp">
+      <Filter>Source Files\seans sfml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -356,6 +362,12 @@
       <Filter>Header Files\seans sfml</Filter>
     </ClInclude>
     <ClInclude Include="sfmlObjects.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="sfmlObjects2.h">
+      <Filter>Header Files\seans sfml</Filter>
+    </ClInclude>
+    <ClInclude Include="sfmlObjects3.h">
       <Filter>Header Files\seans sfml</Filter>
     </ClInclude>
   </ItemGroup>
