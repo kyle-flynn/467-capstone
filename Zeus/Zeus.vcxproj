@@ -140,6 +140,7 @@
     <ClCompile Include="CharacterOption.cpp" />
     <ClCompile Include="CombatManager.cpp" />
     <ClCompile Include="CombatScreen.cpp" />
+    <ClCompile Include="DemoScreen.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="DialogueEditorMessageNode.cpp" />
     <ClCompile Include="DialogueEditorOptionNode.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="NetworkManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerCombatDisplay.cpp" />
+    <ClCompile Include="PlayerMenu.cpp" />
     <ClCompile Include="QuestMenu.cpp" />
     <ClCompile Include="RainParticleSystem.cpp" />
     <ClCompile Include="Scene.cpp" />
@@ -187,6 +189,7 @@
     <ClInclude Include="CombatManager.h" />
     <ClInclude Include="CombatScreen.h" />
     <ClInclude Include="Components.h" />
+    <ClInclude Include="DemoScreen.h" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="DialogueEditorMessageNode.h" />
     <ClInclude Include="DialogueEditorOptionNode.h" />
@@ -218,6 +221,7 @@
     <ClInclude Include="Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerCombatDisplay.h" />
+    <ClInclude Include="PlayerMenu.h" />
     <ClInclude Include="QuestMenu.h" />
     <ClInclude Include="RainParticleSystem.h" />
     <ClInclude Include="Scene.h" />

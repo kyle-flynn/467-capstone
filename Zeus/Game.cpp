@@ -12,6 +12,7 @@
 #include "ItemEditorScreen.h"
 #include "CharacterEditorScreen.h"
 #include "MonsterEditorScreen.h"
+#include "DemoScreen.h"
 
 #include "MessageBus.h"
 #include "LoggingSystem.h"
@@ -62,7 +63,8 @@ int main() {
 	//ScreenManager::getInstance().setScreen(new GameplayScreen());
 	//ScreenManager::getInstance().setScreen(new CombatScreen());
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
-	ScreenManager::getInstance().setScreen(new MonsterEditorScreen());
+	//ScreenManager::getInstance().setScreen(new MonsterEditorScreen());
+	ScreenManager::getInstance().setScreen(new DemoScreen());
 
 	//LogData* logData = new LogData();
 	//logData->level = LogLevel::INFO;

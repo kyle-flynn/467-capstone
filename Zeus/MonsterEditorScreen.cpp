@@ -1,6 +1,7 @@
 #include "MonsterEditorScreen.h"
 
 #include <iostream>
+#include "PlayerMenu.h"
 
 MonsterEditorScreen::MonsterEditorScreen() {
 	Screen();
@@ -173,6 +174,7 @@ void MonsterEditorScreen::draw(sf::RenderWindow& window) {
 	window.draw(activeIcon);
 	window.draw(activeAvatar);
 	drawActive(window);
+
 }
 
 void MonsterEditorScreen::handleEvent(sf::Event event) {

@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 
 #include "EntityComponentSystem.h"
+#include "Character.h"
+#include "Monster.h"
 
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
@@ -50,6 +52,18 @@ struct CombatComponent {
 
 struct MovesetComponent {
 	std::vector<Move> moves;
+};
+
+struct PlayerComponent {
+	std::string playerName;
+};
+
+struct CharacterComponent {
+	Character character;
+};
+
+struct MonsterComponent {
+	Monster monster;
 };
 
 #endif

@@ -46,6 +46,6 @@ private:
 	void saveMonsters();
 	void sortMonsters();
 	void updateActive();
-	void(drawActive(sf::RenderWindow& window));
+	void drawActive(sf::RenderWindow& window);
 
 };

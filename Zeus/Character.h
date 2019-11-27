@@ -20,6 +20,8 @@ public:
 
 	Character();
 	Character(sf::String name);
+	float getAttack();
+	float getDefence();
 	friend bool operator==(Character c1, Character c2);
 
 };

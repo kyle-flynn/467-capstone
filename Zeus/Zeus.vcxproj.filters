@@ -209,6 +209,12 @@
     <ClCompile Include="QuestMenu.cpp">
       <Filter>Source Files\Graphics\PlayerUI</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerMenu.cpp">
+      <Filter>Source Files\Graphics\PlayerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="DemoScreen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MessageBus.h">
@@ -354,6 +360,12 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files\Graphics\PlayerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DemoScreen.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

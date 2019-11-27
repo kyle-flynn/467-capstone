@@ -3,14 +3,34 @@
 InventoryMenu::InventoryMenu() {
 	visible = false;
 	listIt = 0;
+	character = nullptr;
+
+	for (int i = 0; i < 6; i++) {
+		equipSlot icon;
+		icon.setSize(sf::Vector2f(50.0f, 50.0f));
+		icon.setOutlineColor(sf::Color::Black);
+		icon.setOutlineThickness(5.0f);
+		icon.setFillColor(sf::Color::Transparent);
+		icon.item == nullptr;
+		equipSlots.push_back(icon);
+	}
+	equipSlots.at(0).type = Character::equipSlot::Head;
+	equipSlots.at(1).type = Character::equipSlot::Chest;
+	equipSlots.at(2).type = Character::equipSlot::Legs;
+	equipSlots.at(3).type = Character::equipSlot::MainHand;
+	equipSlots.at(4).type = Character::equipSlot::OffHand;
+	equipSlots.at(5).type = Character::equipSlot::Back;
+
 	BGTexture.loadFromFile("Resources/images/questjournal/book/book.png");
 	BGSprite.setTexture(BGTexture);
-	//TODO SET BACKGROUND SCALE TO WHATEVER
+	BGSprite.setPosition(250, 10);
+	BGSprite.setScale((float)(850.0f / BGTexture.getSize().x), (float)(600.0f / BGTexture.getSize().y));
 }
 
-void InventoryMenu::setVisible(bool vis) {
+void InventoryMenu::setVisible(bool vis, Character* character) {
 	visible = vis;
-	if (vis) {
+	this->character = character;
+	if (vis && character != nullptr) {
 		loadItems();
 	}
 }
@@ -144,7 +164,9 @@ void InventoryMenu::sortItems(sf::String filter, Item::type typeFilter) {
 void InventoryMenu::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 	states.transform *= getTransform();
 	states.texture = NULL;
-	target.draw(BGSprite);
-	//TODO Draw inventory list
-	//TODO Draw equipped items
+	if (visible) {
+		target.draw(BGSprite);
+		//TODO Draw inventory list
+		//TODO Draw equipped items
+	}
 }
