@@ -1,0 +1,92 @@
+{
+  "characters": [
+	  {
+		"name": "Starman",
+		"type": -1,
+		"combat": {
+			"speed": 10
+		},
+		"render": {
+			"sprite_sheet": "Resources/Sprites/earthbound_enemies.png",
+			"tile_size_x": 46,
+			"tile_size_y": 69,
+			"tile_start_x": 629,
+			"tile_start_y": 640,
+			"scale": 3.0
+		},
+		"moveset": [
+			{
+				"name": "Starstorm",
+				"damage": 20,
+				"description": "Lots of stars."
+			}
+		],
+		"health": {
+			"max": 50,
+			"current": 50
+		}
+	  },
+	  {
+		"name": "Kyle",
+		"type": 1,
+		"combat": {
+			"speed": 5
+		},
+		"render": {
+			"sprite_sheet": "Resources/Sprites/spritesheet_link.png",
+			"tile_size_x": 24,
+			"tile_size_y": 27,
+			"tile_start_x": 0,
+			"tile_start_y": 70,
+			"scale": 1.0
+		},
+		"moveset": [
+			{
+				"name": "Bombs",
+				"damage": 10,
+				"description": "Bombs?"
+			},
+			{
+				"name": "Excuse me, Princess",
+				"damage": 25,
+				"description": "Well excuuuuuuuuuuuuse me, princess!"
+			},
+			{
+				"name": "Sword Attack",
+				"damage": 10,
+				"description": "Stabby stab stab."
+			}
+		],
+		"health": {
+			"max": 50,
+			"current": 50
+		}
+	  },
+	  {
+		"name": "Alex",
+		"type": 1,
+		"combat": {
+			"speed": 8
+		},
+		"render": {
+			"sprite_sheet": "Resources/Sprites/spritesheet_paper_mario.png",
+			"tile_size_x": 116,
+			"tile_size_y": 194,
+			"tile_start_x": 0,
+			"tile_start_y": 0,
+			"scale": 1.0
+		},
+		"moveset": [
+			{
+				"name": "Paper Cut",
+				"damage": 7,
+				"description": "Ouch!"
+			}
+		],
+		"health": {
+			"max": 37,
+			"current": 37
+		}
+	  }
+  ]
+}

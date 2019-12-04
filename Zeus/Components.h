@@ -2,12 +2,44 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "EntityComponentSystem.h"
+#include "Item.h"
+
 #ifndef GAME_COMPONENTS_H
 #define GAME_COMPONENTS_H
 
-struct DrawComponent {
-	sf::Texture texture;
-	sf::Sprite sprite;
+static const int TYPE_ITEM = 1;
+static const int TYPE_BATTLE = 2;
+static const int TYPE_PASS = 0;
+
+// Classes For Certain Components
+struct Move {
+	std::string name;
+	std::string description;
+	int damage;
+};
+
+struct Action {
+	int order;
+	int type;
+	bool pass;
+	Item item;
+	Move move;
+	entt::entity entity;
+};
+
+// Components
+struct BaseComponent {
+	std::string name;
+	int entityType;
+};
+
+struct RenderComponent {
+	sf::Texture* texture;
+	sf::Sprite* sprite;
+	sf::Vector2i tileSize;
+	sf::Vector2i tileStart;
+	float scale;
 };
 
 struct HealthComponent {
@@ -18,11 +50,18 @@ struct HealthComponent {
 struct PositionComponent {
 	float x;
 	float y;
+	float speed;
+	float destX;
+	float destY;
 };
 
-struct ParallaxComponent {
-	float offset;
-	float velocity;
+struct CombatComponent {
+	unsigned int combatId;
+	int speed;
+};
+
+struct MovesetComponent {
+	std::vector<Move> moves;
 };
 
 #endif
