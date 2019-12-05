@@ -124,8 +124,7 @@ void EditorText::setText(sf::String string) {
 
 void EditorText::setColor(sf::Color color) {
 	this->color = color;
-	defaultText.setFillColor(color);
-	editText.setFillColor(color);
+	text.setFillColor(color);
 }
 
 void EditorText::setEditable(bool edit) {

@@ -8,7 +8,8 @@ class Item {
 
 public:
 
-	enum class type {Weapon, Equippable, Consumable, Other};
+	enum class type { Weapon, Equippable, Consumable, Other };
+	enum class weaponType { Axe, Bow, Sword, Dagger, Staff };
 
 	sf::String name, description;
 	type itemType;
