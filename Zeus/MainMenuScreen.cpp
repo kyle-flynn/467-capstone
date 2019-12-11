@@ -111,9 +111,9 @@ void MainMenuScreen::update(sf::Event event) {
 		else if (iBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new ItemEditorScreen());
 		}
-		else if (qBounds.contains(mousePosition.x, mousePosition.y)) {
+		/*else if (qBounds.contains(mousePosition.x, mousePosition.y)) {
 			ScreenManager::getInstance().setScreen(new QuestEditorScreen());
-		}
+		}*/
 		else if (dBounds.contains(mousePosition.x, mousePosition.y)) {
 			//Game::gui.add(DialogueEditorPanel::getInstance().getPanel(), "DialogueEditorPanel");
 			ScreenManager::getInstance().setScreen(new DialogueEditorScreen());

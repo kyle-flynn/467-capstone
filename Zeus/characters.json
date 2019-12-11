@@ -30,5 +30,37 @@
         "name": "King",
         "playable": false,
         "stamina": 0.0
+    },
+    {
+        "description": "A person with no morals who views himself as a god amongst his peers. Deems everyone beneath him financially as inferior and will treat them as such so should they be unable to afford lifes neccesities, will charge a literal arm and a couple organs.",
+        "hp": 1.0,
+        "mana": 0.0,
+        "name": "Shopkeeper",
+        "playable": false,
+        "stamina": 0.0
+    },
+    {
+        "description": "Took an arrow to the knee once... Never forgot the trauma and ridicule.",
+        "hp": 10.0,
+        "mana": 0.0,
+        "name": "Guard",
+        "playable": false,
+        "stamina": 5.0
+    },
+    {
+        "description": "Industry standard NPC that teaches players the game without being given a choice. Impossible to skip or kill as developers thing players are unable to understand their \"complex\" game mechanics.",
+        "hp": 9001.0,
+        "mana": 9001.0,
+        "name": "Tutorial NPC",
+        "playable": false,
+        "stamina": 9001.0
+    },
+    {
+        "description": "A rather rotund fellow whos can often be found gorging himself on the food present in his banquet hall. Frequently keeps spare morsels in his \"flavor-savor\" for midnight snacking to prevent spending energy on calling an attendent. ",
+        "hp": 1.0,
+        "mana": 0.0,
+        "name": "King",
+        "playable": false,
+        "stamina": 0.0
     }
 ]
