@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 
-#include "Game.h"
+#include "GameTest.h"
 
 #include "FontManager.h"
 
@@ -20,14 +20,14 @@
 
 
 
-const float Game::WIDTH = 1280.0f;
-const float Game::HEIGHT = 720.0f;
+const float GameTest::WIDTH = 1280.0f;
+const float GameTest::HEIGHT = 720.0f;
 static tgui::Gui gui;
 
 int defaultStg = 0;
 int* gpStageNum = &defaultStg;
 
-int main() {
+int _main() {
 
 	FontManager::getInstance().loadFonts();
 	GameDataManager::getInstance();
@@ -81,8 +81,7 @@ int main() {
 
 	sf::Clock clock;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();
-
-	NetworkManager::getInstance().startServer(8080);
+	NetworkManager::getInstance().startClient("127.0.0.1", 8080);
 
 	while (window.isOpen()) {
 		sf::Event event;
