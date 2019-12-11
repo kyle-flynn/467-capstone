@@ -3,7 +3,7 @@
 #include "Game.h"
 
 #include "FontManager.h"
-
+#include "NetworkManager.h"
 #include "ScreenManager.h"
 #include "GameplayScreen.h"
 #include "MainMenuScreen.h"
@@ -78,6 +78,9 @@ int main() {
 	//logData->msg = std::string("Hello World!");
 	//LogMessage* log = new LogMessage(logData);
 	//mBus.sendMessage(log);
+
+	// Networking things
+	NetworkManager::getInstance().startServer(9000);
 
 	sf::Clock clock;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();

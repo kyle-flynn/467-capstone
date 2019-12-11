@@ -19,13 +19,14 @@ public:
 	static const int TYPE_SERVER = 1;
 	static const int TYPE_CLIENT = 2;
 
-	NetworkManager& getInstance();
+	static NetworkManager& getInstance();
 	void startServer(int port);
 	void startClient(const char* address, int port);
 	int getNetworkType();
 private:
 	// These variables are in case of the server scenario.
 	sf::TcpListener server;
+	sf::SocketSelector selector;
 	std::vector<std::unique_ptr<sf::TcpSocket>> clients;
 	// These variables are in case of the client scenario.
 	sf::TcpSocket client;
