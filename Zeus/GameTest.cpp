@@ -28,7 +28,7 @@ static tgui::Gui gui;
 int defaultStg = 0;
 int* gpStageNum = &defaultStg;
 
-int main() {
+int _main() {
 
 	FontManager::getInstance().loadFonts();
 	GameDataManager::getInstance();
@@ -36,7 +36,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(1280, 720), "ZEUS");
 	window.setFramerateLimit(60);
 	window.setActive();
-	
+
 	gui.setTarget(window);
 
 	//ScreenManager::getInstance().setScreen(new DialogueEditorScreen());
@@ -81,7 +81,7 @@ int main() {
 	//mBus.sendMessage(log);
 
 	// Networking things
-	NetworkManager::getInstance().startServer(8080);
+	NetworkManager::getInstance().startClient("127.0.0.1", 8080);
 
 	sf::Clock clock;
 	GameplayScreen gp = GameplayScreen::GameplayScreen();
@@ -96,7 +96,7 @@ int main() {
 				*gpStageNum = 1;
 			}
 		}
-		
+
 		while (window.pollEvent(event)) {
 			if (*gpStageNum == 0) {
 				switch (event.type) {
