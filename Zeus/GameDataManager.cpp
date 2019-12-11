@@ -17,6 +17,17 @@ std::vector<Item> GameDataManager::getItems() {
 	return this->items;
 }
 
+std::vector<Quest> GameDataManager::getQuests() {
+	return this->quests;
+}
+
+void GameDataManager::addQuests(std::vector<ItemOption*> questss) {
+	for (ItemOption* i : quests) {
+		this->quests.push_back(i->quest);
+	}
+	saveItems();
+}
+
 void GameDataManager::addItems(std::vector<ItemOption*> items) {
 	for (ItemOption* i : items) {
 		this->items.push_back(i->item);
@@ -58,10 +69,26 @@ void GameDataManager::addMonsters(std::vector<MonsterOption*> monsters) {
 }
 
 void GameDataManager::loadAssets() {
+	loadQuests();
 	loadItems();
 	loadCharacters();
 	loadDialogueTrees();
 	loadMonsters();
+}
+
+void GameDataManager::loadItems() {
+	std::ifstream ifs("quest.json");
+	nlohmann::json j;
+	Quest quest;
+	ifs >> j;
+	for (int i = 0; i < j.size(); i++) {
+		quest.name = j[i].at("name").get<std::string>();
+		quest.questType = (Quest::type)(j[i].at("type").get<int>());
+		quest.description = j[i].at("description").get<std::string>();
+		quest.reward = j[i].at("reward").get<std::string>();
+		quests.push_back(quest);
+	}
+	ifs.close();
 }
 
 void GameDataManager::loadItems() {
@@ -113,6 +140,21 @@ void GameDataManager::loadMonsters() {
 	}
 	ifs.close();
 }
+void GameDataManager::saveItems() {
+	nlohmann::json j = nlohmann::json::array();
+	std::ofstream o("quests.json");
+	int it = 0;
+	for (Item i : quests) {
+		j[it]["name"] = i.name;
+		j[it]["type"] = i.questType;
+		j[it]["reward"] = i.reward;
+		j[it]["description"] = i.description;
+		it++;
+	}
+	o << std::setw(4) << j << std::endl;
+	o.close();
+}
+
 
 void GameDataManager::saveItems() {
 	nlohmann::json j = nlohmann::json::array();

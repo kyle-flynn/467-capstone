@@ -36,6 +36,7 @@ private:
 	EditorText characterEditor = EditorText(sf::String("I")),
 		monsterEditor = EditorText(sf::String("I")),
 		itemEditor = EditorText(sf::String("I")),
+		questEditor = EditorText(sf::String("I")),
 		dialogueEditor = EditorText(sf::String("I")),
 		worldGeneration = EditorText(sf::String("I"));
 	sf::Vector2i mousePosition;
