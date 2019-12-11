@@ -5,7 +5,7 @@
 
 #include "CharacterEditorScreen.h"
 #include "ItemEditorScreen.h"
-#include "QuestEditorScreen.h"
+//#include "QuestEditorScreen.h"
 #include "DIalogueEditorScreen.h"
 #include "GameplayScreen.h"
 #include "DemoScreen.h"

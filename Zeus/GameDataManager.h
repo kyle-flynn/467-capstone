@@ -3,12 +3,12 @@
 #include "EntityComponentSystem.h"
 #include "CharacterEditorScreen.h"
 #include "ItemEditorScreen.h"
-#include "QuestEditorScreen.h"
+//#include "QuestEditorScreen.h"
 #include "Components.h"
 #include "Item.h"
 #include "ItemOption.h"
-#include "Quest.h"
-#include "QuestOption.h"
+//#include "Quest.h"
+//#include "QuestOption.h"
 //#include "Character.h"
 //#include "CharacterOption.h"
 #include "DialogueEditorScreen.h"
@@ -24,8 +24,8 @@ public:
 
 	static GameDataManager& getInstance();
 	entt::registry& getRegistry();
-	std::vector<Item> getQuests();
-	void addQuests(std::vector<ItemOption*> quests);
+	//std::vector<Item> getQuests();
+	//void addQuests(std::vector<ItemOption*> quests);
 	std::vector<Item> getItems();
 	void addItems(std::vector<ItemOption*> items);
 	std::vector<Character> getCharacters();
@@ -39,20 +39,20 @@ private:
 
 	GameDataManager();
 	void loadAssets();
-	void loadQuests();
+	//void loadQuests();
 	void loadItems();
 	void loadCharacters();
 	void loadDialogueTrees();
 	void loadMonsters();
 	void saveItems();
-	void saveQuests();
+	//void saveQuests();
 	void saveCharacters();
 	void saveDialogueTrees();
 	void saveMonsters();
 
 	entt::registry registry;
 	std::vector<Item> items;
-	std::vector<Item> quests;
+	//std::vector<Item> quests;
 	std::vector<Character> characters;
 	std::vector<Dialogue*> dialogueTrees;
 	std::vector<Monster> monsters;

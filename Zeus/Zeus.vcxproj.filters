@@ -199,6 +199,7 @@
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>Source Files\Logic</Filter>
+    </ClCompile>
     <ClCompile Include="DemoScreen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -362,6 +363,7 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>Header Files\Logic</Filter>
+    </ClInclude>
     <ClInclude Include="DemoScreen.h">
       <Filter>Header Files</Filter>
     </ClInclude>
